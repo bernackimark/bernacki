@@ -1,10 +1,9 @@
-allow_embedding: false
-package_name: Material_Design_2
-db_schema: {}
-name: Material Design 2
-startup_form: Form1
-runtime_options: {version: 2, client_version: '3', server_version: python3-sandbox}
-dependencies:
-- app_id: numpy
-  version: {dev: false}
+dependencies: []
 services: []
+package_name: Bernacki
+allow_embedding: false
+name: Bernacki
+runtime_options: {version: 2, client_version: '3', server_version: python3-sandbox}
+startup_form: Form1
+db_schema: {}
+renamed: true
