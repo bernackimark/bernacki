@@ -4,6 +4,7 @@ package_name: Bernacki
 allow_embedding: false
 name: Bernacki
 runtime_options: {version: 2, client_version: '3', server_version: python3-sandbox}
-startup_form: Form1
+metadata: {}
+startup_form: Base
 db_schema: {}
 renamed: true
