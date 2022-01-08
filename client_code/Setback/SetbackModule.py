@@ -376,17 +376,19 @@ this_game.reset_trick_leader()
 # -- send the hand to the Bot Algorithm and get back the suggested bid
 # rb, rc = bot_v_bot_game(3000, p2.hand, aim="return_a_bid", led_card='')
 # suggested_bid = the_suggested_bid(rb)
-this_round.bot_bid = 2
+suggested_bid = 2
 
 
 
 
 if this_round.dealer == 2:
   this_round.turn = 1
+  print("Dealer is bot")
 else:
   this_round.turn = 2
+  print("Dealer is human")
 
-print(f"Dealer is {this_round.dealer}")
+
 
 
 # ------- BIDDING ---------

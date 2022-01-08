@@ -137,21 +137,21 @@ components:
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
     foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
-  name: bid_panel
-  layout_properties: {grid_position: 'RCJWFH,NIKDTQ'}
-  components: []
-  event_bindings: {}
-- type: FlowPanel
-  properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
-    foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
   name: played_cards_panel
-  layout_properties: {grid_position: 'TJVBUJ,LCHRPG', row_background: 'theme:Gray
-      300'}
+  layout_properties: {grid_position: 'XXSMJR,KUFMGN', row_background: 'theme:Gray
+      300', full_width_row: true}
   components:
   - type: Label
     properties: {}
     name: played_cards_label
     layout_properties: {}
+- type: FlowPanel
+  properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
+    foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
+  name: bid_panel
+  layout_properties: {grid_position: 'CPRDVV,GUJKZQ'}
+  components: []
+  event_bindings: {}
 - type: FlowPanel
   properties: {}
   name: card_panel

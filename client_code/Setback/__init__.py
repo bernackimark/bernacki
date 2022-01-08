@@ -38,12 +38,16 @@ class Setback(SetbackTemplate):
       self.hand[i].set_event_handler('click', self.click)
       self.card_panel.add_component(self.hand[i])
     
+    self.bid_panel.visible = False
+    
     # show bid buttons
     if s.this_round.dealer == 2:  # bot is the dealer
+      self.bid_panel.visible = True
       self.show_bid_buttons(-1)  # show bid buttons, then await human bid, call bot bid there
     else:  # human is dealer
       s.this_round.bot_bid = s.Bot.bid(-1, s.suggested_bid)  # call the bot bid now
       self.bot_bid_label.text = s.this_round.bot_bid
+      self.bid_panel.visible = True
       self.show_bid_buttons(s.this_round.bot_bid)
 
   def click(self, **event_args):
@@ -81,22 +85,16 @@ class Setback(SetbackTemplate):
         else:
           print("Not a valid selection")
       
-  def show_bid_panel(self):
-    self.bid_panel.visible = True
-
-  def hide_bid_panel(self):
-    self.bid_panel.visible = False
-      
   def show_bid_buttons(self, bot_bid):
-      bot_bid = 0
-      print(bot_bid)
+      bot_bid = s.this_round.bot_bid
+      print(f"Bot bid is {bot_bid}")
       self.bid_buttons = {}
       bid_options_dict = {-1: [0, 2, 3, 4], 0: [2, 3, 4], 2: [0, 3, 4], 3: [0, 4], 4: [0]}
       i = 0
       for key, value in bid_options_dict.items():
           if bot_bid == key:
               for value_item in value:
-                  self.bid_buttons[i] = Button(width=140)
+                  self.bid_buttons[i] = Button(width=80, role='secondary-color')
                   if value_item == 0:
                     self.bid_buttons[i].text = "Pass"
                   else:
@@ -109,7 +107,7 @@ class Setback(SetbackTemplate):
                   i += 1
 
   def bid_click(self, **event_args):
-    print(event_args['sender'].tag.bid)
+    print(f"Human bid is {event_args['sender'].tag.bid}")
     s.this_round.human_bid = event_args['sender'].tag.bid
     if s.this_round.bot_bid == -1:  # if the bot bid wasn't already done, do that now 
       s.this_round.bot_bid = s.Bot.bid(s.this_round.human_bid, s.suggested_bid)
@@ -128,7 +126,7 @@ class Setback(SetbackTemplate):
         s.this_round.update_leader_follower(2, 1)
         s.this_round.turn = 2
     print(f"Human bid is {s.this_round.human_bid}. Bot bid is {s.this_round.bot_bid}.")
-    self.hide_bid_panel()
+    self.bid_panel.visible = False
   
 
 
