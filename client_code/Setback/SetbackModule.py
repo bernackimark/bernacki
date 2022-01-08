@@ -160,12 +160,6 @@ class Dealer:
         else:
           this_round.dealer = 2
 
-    def assign_deal(self, dealer_b_position):
-        if dealer_b_position == p1.seat:
-            this_round.dealer = 1
-        else:
-            this_round.dealer = 2
-
     @staticmethod
     def deal(number_of_cards):
         for i in range(number_of_cards):  # deal out X cards from the bottom of the deck
@@ -224,11 +218,11 @@ class Human(Player):
         pass
 
     def play_card(self, clicked_card):
-        if this_round.led_card == '':
+        if len(this_round.leader_card) == 0:
           self.hand.remove(clicked_card)
           return True
         else:
-          card_is_legit = human_available_cards(self.hand, clicked_card, this_game.trump, this_round.led_card)
+          card_is_legit = human_available_cards(self.hand, clicked_card, this_round.trump, this_round.leader_card)
           if card_is_legit:
             self.hand.remove(clicked_card)
           return card_is_legit
@@ -364,15 +358,15 @@ def the_suggested_card(results):
     return suggested_card
 
   
-  
+# Create New Game
 p1 = Human(1, "Mark", 1, False, False, False, [], [], 0)
 p2 = Bot(2, "Ackerman", 2, False, False, True, [], [], 0)
 this_game = Game(0, 7, -1, 0)  # game id, play up to, desired hands, hand id
 this_round = Round(0, 1, -1, '', -1, -1, -1, [], []) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card
-Dealer.assign_starting_dealer_position()
 
 # SHUFFLE & DEAL
 deck = Dealer.shuffle()
+Dealer.assign_starting_dealer_position()
 Dealer.deal(6)
 this_game.reset_trick_leader()
 
@@ -388,6 +382,8 @@ if this_round.dealer == 2:
 else:
   this_round.turn = 2
 
+print(f"Dealer is {this_round.dealer}")
+
 
 # ------- BIDDING ---------
 # trying to handle this in the UI code tab
@@ -395,28 +391,28 @@ else:
 
 
 
-# ------- START PLAY -----
-this_game.reset_trick_count()
-this_game.increment_trick_number()
-this_game.trump = ''
+# # ------- START PLAY -----
+# this_game.reset_trick_count()
+# this_game.increment_trick_number()
+# this_game.trump = ''
 
 
-leader = this_game.trick_eval(this_round.leader_card, this_round.follower_card)
-this_game.update_leader_follower(1, 2) if leader == 1 else this_game.update_leader_follower(2, 1)
-p1.pile_cards(leader_card, follower_card) if leader == 1 else p2.pile_cards(leader_card, follower_card)
-this_game.increment_trick_number()
+# leader = this_game.trick_eval(this_round.leader_card, this_round.follower_card)
+# this_game.update_leader_follower(1, 2) if leader == 1 else this_game.update_leader_follower(2, 1)
+# p1.pile_cards(leader_card, follower_card) if leader == 1 else p2.pile_cards(leader_card, follower_card)
+# this_game.increment_trick_number()
 
-# -- clear the board, get the bid points won, clear the piles, move dealer button, add/subtract player point totals
-# clear the board
-# CREATE A NEW ROUND!
-p1_bid_points, p2_bid_points = this_game.get_bid_points(p1.pile, p2.pile)
-Dealer.clear_the_piles()
-dealer_button_position = Dealer.move_the_deal(dealer_button_position)
-round_text_1, round_text_2 = this_game.scoring_process(p1_bid_points, p2_bid_points, bid)
-# Game.pg_display_round_summary_text(round_text_1, round_text_2)
-# Game.pg_display_score()
+# # -- clear the board, get the bid points won, clear the piles, move dealer button, add/subtract player point totals
+# # clear the board
+# # CREATE A NEW ROUND!
+# p1_bid_points, p2_bid_points = this_game.get_bid_points(p1.pile, p2.pile)
+# Dealer.clear_the_piles()
+# dealer_button_position = Dealer.move_the_deal(dealer_button_position)
+# round_text_1, round_text_2 = this_game.scoring_process(p1_bid_points, p2_bid_points, bid)
+# # Game.pg_display_round_summary_text(round_text_1, round_text_2)
+# # Game.pg_display_score()
 
-# --- did someone win the game ---
-game_end, the_winner = this_game.did_someone_win(this_game.play_up_to)
-if game_end:
-    pass
+# # --- did someone win the game ---
+# game_end, the_winner = this_game.did_someone_win(this_game.play_up_to)
+# if game_end:
+#     pass

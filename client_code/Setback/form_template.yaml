@@ -134,13 +134,6 @@ components:
   properties: {}
   name: bot_bid_label
   layout_properties: {grid_position: 'AMEPGT,IYHJOS'}
-- type: Label
-  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
-    text: '', font_size: null, font: '', spacing_above: small, icon_align: left, spacing_below: small,
-    italic: false, background: '', bold: false, underline: false, icon: ''}
-  name: legit_label
-  layout_properties: {grid_position: 'ZLCTPP,HLWBVF', row_background: 'theme:Gray
-      300'}
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
     foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
@@ -181,6 +174,12 @@ components:
     event_bindings: {click: bid4_click}
   event_bindings: {}
 - type: FlowPanel
+  properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
+    foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
+  name: played_cards_panel
+  layout_properties: {grid_position: 'TJVBUJ,LCHRPG', row_background: 'theme:Gray
+      300'}
+- type: FlowPanel
   properties: {role: null, spacing: none, align: justify, tooltip: '', border: '',
     foreground: '', visible: true, spacing_above: small, spacing_below: small, background: ''}
   name: hand_panel
@@ -188,7 +187,7 @@ components:
   components:
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card1, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card1, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card1
@@ -196,7 +195,7 @@ components:
     event_bindings: {click: card1_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card2, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card2, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card2
@@ -204,7 +203,7 @@ components:
     event_bindings: {click: card2_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card3, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card3, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card3
@@ -212,7 +211,7 @@ components:
     event_bindings: {click: card3_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card4, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card4, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card4
@@ -220,7 +219,7 @@ components:
     event_bindings: {click: card4_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card5, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card5, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card5
@@ -228,7 +227,7 @@ components:
     event_bindings: {click: card5_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: card6, font_size: 220, font: '', spacing_above: small,
+      foreground: '', visible: true, text: card6, font_size: 180, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: card6
