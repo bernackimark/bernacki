@@ -29,14 +29,11 @@ deck_unshuffled = [[1, 1, '2', 'hearts', '2h', '🂲'], [2, 2, '3', 'hearts', '3
 
 
 class Game:
-    def __init__(self, play_up_to, desired_hands, hand_id, trick_number, leader, follower, trump):
+    def __init__(self, game_id, play_up_to, desired_hands, hand_id):
+        self.game_id = game_id
         self.play_up_to = play_up_to
         self.desired_hands = desired_hands  # only needed in bot v bot simulations
         self.hand_id = hand_id  # only used right now in bot v bot simulations
-        self.trick_number = trick_number
-        self.leader = leader
-        self.follower = follower
-        self.trump = trump
 
     def reset_trick_count(self):
         self.trick_number = 0
@@ -53,10 +50,6 @@ class Game:
             return self.follower
         else:
             return self.leader
-
-    def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
-        self.leader = incoming_leader_value
-        self.follower = incoming_follower_value
 
     def get_bid_points(self, pile1, pile2):
         p1_bid_p, p2_bid_p, p1_game, p2_game = 0, 0, 0, 0
@@ -136,38 +129,47 @@ class Game:
             return False, ""
 
           
+class Round:
+    def __init__(self, round_id, trick_id, dealer, trump, turn, leader, follower, leader_card, follower_card):
+        self.round_id = round_id
+        self.trick_id = trick_id
+        self.dealer = dealer
+        self.trump = trump
+        self.turn = turn
+        self.leader = leader
+        self.follower = follower
+        self.leader_card = leader_card
+        self.follower_card = follower_card
+
+    def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
+        self.leader = incoming_leader_value
+        self.follower = incoming_follower_value
+          
 class Dealer:
-    @staticmethod
-    def assign_starting_dealer_position():
-        a = random.randint(1, 2)
-        return a
-
-    @staticmethod
-    def assign_deal(dealer_b_position):
-        if dealer_b_position == p1.seat:
-            dealer_b_position = 1
-            p1.dealer = True
-            p2.dealer = False
-        else:
-            dealer_b_position = 2
-            p1.dealer = False
-            p2.dealer = True
-        return dealer_b_position
-
-    @staticmethod
-    def pg_draw_dealer_button(dealer_b_position):
-        pass
-
     @staticmethod
     def shuffle():
         d = deck_unshuffled.copy()
         random.shuffle(d)
         return d
+      
+    @staticmethod
+    def assign_starting_dealer_position():
+        a = random.randint(1, 2)
+        if a == 1:
+          this_round.dealer = 1
+        else:
+          this_round.dealer = 2
+
+    def assign_deal(self, dealer_b_position):
+        if dealer_b_position == p1.seat:
+            this_round.dealer = 1
+        else:
+            this_round.dealer = 2
 
     @staticmethod
-    def deal(number_of_cards, dealer_b_position):
+    def deal(number_of_cards):
         for i in range(number_of_cards):  # deal out X cards from the bottom of the deck
-            if dealer_b_position == p1.seat:
+            if this_round.dealer == 1:
                 p2.hand.append(deck[-1])
                 deck.pop()
                 p1.hand.append(deck[-1])
@@ -216,21 +218,20 @@ class Player:
 class Human(Player):
     @staticmethod
     def bid(current_bid):
-        bid_buttons = pg_bid_boxes(current_bid)
-        b = bid_click_input(bid_buttons)
-        return b
+        # bid_buttons = pg_bid_boxes(current_bid)
+        # b = bid_click_input(bid_buttons)
+        #return b
+        pass
 
-    def play_leader_card(self):
-        played_card = pg_card_click_input(self.hand, this_game.trump, led_card='')
-        self.hand.remove(played_card)
-        # pg_display_hand(self.hand, this_game.trick_number)
-        return played_card
-
-    def play_follower_card(self, led_card):
-        played_card = pg_card_click_input(self.hand, this_game.trump, led_card)
-        self.hand.remove(played_card)
-        # pg_display_hand(self.hand, this_game.trick_number)
-        return played_card
+    def play_card(self, clicked_card):
+        if this_round.led_card == '':
+          self.hand.remove(clicked_card)
+          return True
+        else:
+          card_is_legit = human_available_cards(self.hand, clicked_card, this_game.trump, this_round.led_card)
+          if card_is_legit:
+            self.hand.remove(clicked_card)
+          return card_is_legit
 
 
 class Bot(Player):
@@ -266,19 +267,156 @@ class Bot(Player):
         self.hand.remove(the_played_card)
         return the_played_card
 
-      
+
+def human_available_cards(hand, clicked_card, trump, led_card):
+  available_cards = []
+  led_suit = led_card[3]
+  if not any(led_suit in x for x in hand):
+    return True
+  else:
+    for i in range(len(hand)):
+      if hand[i][3] == led_card[3] or hand[i][3] == trump:
+        available_cards.append(hand[i])
+    if clicked_card in available_cards:
+      return True
+    else:
+      return False
+  
+def bot_find_available_cards(playerhand, leader_card, trump):
+    available_cards = []
+    led_suit = leader_card[3]
+    # if the player doesn't have any of the lead card's suit, all cards are available
+    if not any(led_suit in x for x in playerhand):
+        return playerhand
+    # when we get into this following statement, sometimes, when we bring back 3 or 4 available cards,
+    # available_cards.append(playerhand[i]) will run thousands of times.  i tested it by adding a counter to the next
+    # row.
+    else:
+        for i in range(len(playerhand)):
+            if playerhand[i][3] == leader_card[3] or playerhand[i][3] == trump:
+                available_cards.append(playerhand[i])
+        return available_cards
+
+def the_suggested_bid(results):
+    # level, % need to make a 2, % need to make a 3, % need to make a 4
+    agg_matrix = [[1, 80, 85, 90], [2, 70, 75, 80], [3, 60, 70, 75]]
+    # this should be an attribute of the Bot !!!!!
+    agg_level = 2
+
+    # convert the raw counts into percentages for each bid (2, 3, 4)
+    # a numpy array elements must all be the same data type.  integers is the best visual representation
+    a1 = [[0 for _ in range(3)] for _ in range(len(results))]
+    for i in range(len(results)):
+        a1[i][0] = round(results[i][4] / results[i][1] * 100, 0)  # two bid made %
+        a1[i][1] = round(results[i][5] / results[i][1] * 100, 0)  # three bid made %
+        a1[i][2] = round(results[i][6] / results[i][1] * 100, 0)  # four bid made %
+
+    a2 = [[0, 0, 0], [0, 0, 0]]
+    # find the maximum make % for each bid
+    a2[1][0] = np.amax(a1, axis=0)[0]
+    a2[1][1] = np.amax(a1, axis=0)[1]
+    a2[1][2] = np.amax(a1, axis=0)[2]
+
+    # for the given aggression level, find the minimum % needed for each bid
+    for i in range(len(agg_matrix)):
+        if agg_matrix[i][0] == agg_level:
+            a2[0][0] = agg_matrix[i][1]
+            a2[0][1] = agg_matrix[i][2]
+            a2[0][2] = agg_matrix[i][3]
+
+    # if there is a make % >= what is needed for the aggression level, return that bid. highest bid gets preference.
+    if a2[1][2] >= a2[0][2]:
+        s_bid = 4
+    elif a2[1][1] >= a2[0][1]:
+        s_bid = 3
+    elif a2[1][0] >= a2[0][0]:
+        s_bid = 2
+    else:
+        s_bid = 0
+
+    return s_bid
+
+def the_suggested_card(results):
+    a1 = [0, 0]
+    for i in range(len(results)):
+        row_to_insert = [0, 0]
+        a1 = np.vstack([a1, row_to_insert])
+    # delete the dummy temp first row
+    a1 = np.delete(a1, 0, 0)
+
+    for i in range(len(results)):
+        a1[i][0] = results[i][0]
+        # this is the net of good bot and other bot's points, it emphasizes the more optimal played card
+        # we always want the best net
+        a1[i][1] = round((results[i][2] - results[i][3]) / results[i][1], 3) * 100
+
+    for i in range(len(results)):
+        if a1[i][1] == np.amax(a1, axis=0)[1]:
+            suggested_card_id = a1[i][0]
+
+    # print(a1)
+
+    # from the card ID, get the entire card
+    for i in range(len(deck_unshuffled)):
+        if suggested_card_id == deck_unshuffled[i][0]:
+            suggested_card = deck_unshuffled[i]
+
+    return suggested_card
+
+  
+  
 p1 = Human(1, "Mark", 1, False, False, False, [], [], 0)
 p2 = Bot(2, "Ackerman", 2, False, False, True, [], [], 0)
-this_game = Game(7, -1, 0, 0, 0, 0, '')  # play up to, desired hands, hand id, t number, t leader, t follower, trump
-game_over = False
-dealer_button_position = Dealer.assign_starting_dealer_position()
+this_game = Game(0, 7, -1, 0)  # game id, play up to, desired hands, hand id
+this_round = Round(0, 1, -1, '', -1, -1, -1, [], []) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card
+Dealer.assign_starting_dealer_position()
 
-while not game_over:
-    # SHUFFLE & DEAL
-    deck = Dealer.shuffle()
+# SHUFFLE & DEAL
+deck = Dealer.shuffle()
+Dealer.deal(6)
+this_game.reset_trick_leader()
 
-    dealer_button_position = Dealer.assign_deal(dealer_button_position)
-    Dealer.pg_draw_dealer_button(dealer_button_position)
-    Dealer.deal(6, dealer_button_position)
-    # pg_display_hand(p1.hand, trick_number=0)
-    this_game.reset_trick_leader()
+# -- send the hand to the Bot Algorithm and get back the suggested bid
+# rb, rc = bot_v_bot_game(3000, p2.hand, aim="return_a_bid", led_card='')
+# suggested_bid = the_suggested_bid(rb)
+suggested_bid = 0
+
+
+
+if this_round.dealer == 2:
+  this_round.turn = 1
+else:
+  this_round.turn = 2
+
+
+# ------- BIDDING ---------
+# trying to handle this in the UI code tab
+
+
+
+
+# ------- START PLAY -----
+this_game.reset_trick_count()
+this_game.increment_trick_number()
+this_game.trump = ''
+
+
+leader = this_game.trick_eval(this_round.leader_card, this_round.follower_card)
+this_game.update_leader_follower(1, 2) if leader == 1 else this_game.update_leader_follower(2, 1)
+p1.pile_cards(leader_card, follower_card) if leader == 1 else p2.pile_cards(leader_card, follower_card)
+this_game.increment_trick_number()
+
+# -- clear the board, get the bid points won, clear the piles, move dealer button, add/subtract player point totals
+# clear the board
+# CREATE A NEW ROUND!
+p1_bid_points, p2_bid_points = this_game.get_bid_points(p1.pile, p2.pile)
+Dealer.clear_the_piles()
+dealer_button_position = Dealer.move_the_deal(dealer_button_position)
+round_text_1, round_text_2 = this_game.scoring_process(p1_bid_points, p2_bid_points, bid)
+# Game.pg_display_round_summary_text(round_text_1, round_text_2)
+# Game.pg_display_score()
+
+# --- did someone win the game ---
+game_end, the_winner = this_game.did_someone_win(this_game.play_up_to)
+if game_end:
+    pass
