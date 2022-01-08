@@ -22,128 +22,113 @@ class Setback(SetbackTemplate):
     self.scores_content_panel.visible = True
     s.this_game.play_up_to = self.play_up_to.selected_value
     
-    self.card1.text = s.p1.hand[0][5]
-    self.card2.text = s.p1.hand[1][5]
-    self.card3.text = s.p1.hand[2][5]
-    self.card4.text = s.p1.hand[3][5]
-    self.card5.text = s.p1.hand[4][5]
-    self.card6.text = s.p1.hand[5][5]
-    
     print(s.p1.hand[0][4], s.p1.hand[1][4], s.p1.hand[2][4], s.p1.hand[3][4], s.p1.hand[4][4], s.p1.hand[5][4])
     print(s.p2.hand[0][4], s.p2.hand[1][4], s.p2.hand[2][4], s.p2.hand[3][4], s.p2.hand[4][4], s.p2.hand[5][4])
     
-    # an alternate way to create a UI component from the code
+    # create a UI component from the code
     self.hand = {}
-    gp = GridPanel()
     for i in range(len(s.p1.hand)):
-      self.hand[i] = Button(text=s.p1.hand[i][5], font_size=200)
-      gp.add_component(self.hand[i], row='A', col_xs=3, width_xs=1)
-    self.add_component(gp)
+      self.hand[i] = Button(text=s.p1.hand[i][5], font_size=180, width=140)
+      self.hand[i].tag.card_id = s.p1.hand[i][0]
+      self.hand[i].tag.rank_id = s.p1.hand[i][1]
+      self.hand[i].tag.rank = s.p1.hand[i][2]
+      self.hand[i].tag.suit = s.p1.hand[i][3]
+      self.hand[i].tag.rank_suit = s.p1.hand[i][4]
+      self.hand[i].tag.card_image = s.p1.hand[i][5]
+      self.hand[i].set_event_handler('click', self.click)
+      self.card_panel.add_component(self.hand[i])
     
     # show bid buttons
     if s.this_round.dealer == 2:  # bot is the dealer
-      self.show_bid_buttons(-1)
+      self.show_bid_buttons(-1)  # show bid buttons, then await human bid, call bot bid there
     else:  # human is dealer
-      bot_bid = s.Bot.bid(-1, s.suggested_bid)
-      self.bot_bid_label.text = bot_bid
-      self.show_bid_buttons(bot_bid)
+      s.this_round.bot_bid = s.Bot.bid(-1, s.suggested_bid)  # call the bot bid now
+      self.bot_bid_label.text = s.this_round.bot_bid
+      self.show_bid_buttons(s.this_round.bot_bid)
 
+  def click(self, **event_args):
+    print(event_args['sender'].tag.card_id)
+    for i in range(len(s.p1.hand)):
+      if event_args['sender'].tag.card_id == s.p1.hand[i][0]:
+        clicked_card = s.p1.hand[i]
+        print(clicked_card)
+    if s.this_round.turn == 1:
+      card_is_legit, p1_played_card = s.p1.play_card(clicked_card)
+      if card_is_legit:
+        print(p1_played_card[4])
+        self.played_cards_label.text += p1_played_card[4]
+        if s.this_round.trick_id == 1:
+              s.this_round.trump = s.Player.declare_trump(p1_played_card)
+              print(f"Trump is {s.this_round.trump}.")
+        p2_played_card = s.p2.play_card_random(s.this_round.trump, p1_played_card) 
+        print(p2_played_card[4])
+        self.played_cards_label.text += p2_played_card[4]
+      else:
+        print("Not a valid selection")
+    else:
+      p2_played_card = s.p2.play_card_random(s.this_round.trump, '')
+      print(p2_played_card[4])
+      self.played_cards_label.text += p2_played_card[4]
+      if s.this_round.trick_id == 1:
+        s.this_round.trump = s.Player.declare_trump(p2_played_card)
+        print(f"Trump is {s.this_round.trump}.")        
+      s.this_round.turn = 1
+      if s.this_round.turn == 1:
+        card_is_legit, p1_played_card = s.p1.play_card(clicked_card)
+        if card_is_legit:
+          print(p1_played_card[4])
+          self.played_cards_label.text += p1_played_card[4]
+        else:
+          print("Not a valid selection")
+      
   def show_bid_panel(self):
     self.bid_panel.visible = True
 
   def hide_bid_panel(self):
     self.bid_panel.visible = False
-  
+      
   def show_bid_buttons(self, bot_bid):
-    if s.suggested_bid == 0:
-      self.bid0.visible = False
-    if s.suggested_bid == 2:
-      self.bid2.visible == False
-    if s.suggested_bid == 3:
-      self.bid2.visible = False
-      self.bid3.visible = False
-    if s.suggested_bid == 4:
-      self.bid2.visible = False
-      self.bid3.visible = False
-      self.bid4.visible = False
+      bot_bid = 0
+      print(bot_bid)
+      self.bid_buttons = {}
+      bid_options_dict = {-1: [0, 2, 3, 4], 0: [2, 3, 4], 2: [0, 3, 4], 3: [0, 4], 4: [0]}
+      i = 0
+      for key, value in bid_options_dict.items():
+          if bot_bid == key:
+              for value_item in value:
+                  self.bid_buttons[i] = Button(width=140)
+                  if value_item == 0:
+                    self.bid_buttons[i].text = "Pass"
+                  else:
+                    self.bid_buttons[i].text = "Bid " + str(value_item)
+                  self.bid_buttons[i].tag.bid = value_item
+                  # this row was the problem, can't call it "click", because that's already used
+                  # having trouble calling it anything else
+                  self.bid_buttons[i].set_event_handler('click', self.bid_click)
+                  self.bid_panel.add_component(self.bid_buttons[i])
+                  i += 1
 
-  def bid0_click(self, **event_args):
-    human_bid = 0
-    bot_bid = s.Bot.bid(human_bid, s.suggested_bid)
-    self.bot_bid_label.text = bot_bid
-    self.bidding_eval(human_bid, bot_bid)
-
-  def bid2_click(self, **event_args):
-    human_bid = 2
-    bot_bid = s.Bot.bid(human_bid, s.suggested_bid)
-    self.bot_bid_label.text = bot_bid
-    self.bidding_eval(human_bid, bot_bid)
-
-  def bid3_click(self, **event_args):
-    human_bid = 3
-    bot_bid = s.Bot.bid(human_bid, s.suggested_bid)
-    self.bot_bid_label.text = bot_bid
-    self.bidding_eval(human_bid, bot_bid)
-
-  def bid4_click(self, **event_args):
-    human_bid = 4
-    bot_bid = s.Bot.bid(human_bid, s.suggested_bid)
-    self.bot_bid_label.text = bot_bid
-    self.bidding_eval(human_bid, bot_bid)
-  
-  def bidding_eval(self, human_bid, bot_bid):
-    if human_bid > -1 and bot_bid > -1:
-      bid = max(human_bid, bot_bid)
-    if bid == human_bid:
+  def bid_click(self, **event_args):
+    print(event_args['sender'].tag.bid)
+    s.this_round.human_bid = event_args['sender'].tag.bid
+    if s.this_round.bot_bid == -1:  # if the bot bid wasn't already done, do that now 
+      s.this_round.bot_bid = s.Bot.bid(s.this_round.human_bid, s.suggested_bid)
+      self.bot_bid_label.text = s.this_round.bot_bid
+    self.bidding_eval()                
+                
+  def bidding_eval(self):
+    if s.this_round.human_bid > -1 and s.this_round.bot_bid > -1:
+      bid = max(s.this_round.human_bid, s.this_round.bot_bid)
+    if bid == s.this_round.human_bid:
         s.p1.bidder, s.p2.bidder = True, False
         s.this_round.update_leader_follower(1, 2)
+        s.this_round.turn = 1
     else:
         s.p1.bidder, s.p2.bidder = False, True
         s.this_round.update_leader_follower(2, 1)
-    print(f"Human bid is {human_bid}. Bot bid is {bot_bid}.")
+        s.this_round.turn = 2
+    print(f"Human bid is {s.this_round.human_bid}. Bot bid is {s.this_round.bot_bid}.")
     self.hide_bid_panel()
-
-  def card1_click(self, **event_args):
-    # will need to figure out how to handle if we are leading or following
-    if s.this_round.turn == 1:
-      if s.p1.play_card(s.p1.hand[0]):
-        self.played_cards_panel.add_component(self.hand[0])
-        if s.this_round.trick_id == 1:
-              s.this_round.trump = s.Player.declare_trump(s.p1.hand[0][5])
-        bot_played_card = s.p2.play_card_random(s.this_round.trump, s.p1.hand[0][5]) 
-        self.played_cards_panel.add_component(Label(text=bot_played_card[5]))
-      else:
-        print("Not a valid selection")
-    else:
-      bot_played_card = s.p2.play_card_random(s.this_round.trump, '')
-      if s.this_round.trick_id == 1:
-        s.this_round.trump = s.Player.declare_trump(bot_played_card)
-      s.this_round.turn = 1
-      if s.this_round.turn == 1:
-        if s.p1.play_card(s.p1.hand[0]):
-          self.played_cards_panel.add_component(self.hand[0])
-        else:
-          print("Not a valid selection")
-    
-  def card2_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
-
-  def card3_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
-
-  def card4_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
-
-  def card5_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
-
-  def card6_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
   
 
 

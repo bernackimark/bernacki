@@ -130,7 +130,7 @@ class Game:
 
           
 class Round:
-    def __init__(self, round_id, trick_id, dealer, trump, turn, leader, follower, leader_card, follower_card):
+    def __init__(self, round_id, trick_id, dealer, trump, turn, leader, follower, leader_card, follower_card, human_bid, bot_bid):
         self.round_id = round_id
         self.trick_id = trick_id
         self.dealer = dealer
@@ -140,6 +140,8 @@ class Round:
         self.follower = follower
         self.leader_card = leader_card
         self.follower_card = follower_card
+        self.human_bid = human_bid
+        self.bot_bid = bot_bid
 
     def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
         self.leader = incoming_leader_value
@@ -220,12 +222,13 @@ class Human(Player):
     def play_card(self, clicked_card):
         if len(this_round.leader_card) == 0:
           self.hand.remove(clicked_card)
-          return True
+          return True, clicked_card
         else:
           card_is_legit = human_available_cards(self.hand, clicked_card, this_round.trump, this_round.leader_card)
           if card_is_legit:
             self.hand.remove(clicked_card)
-          return card_is_legit
+            return True, clicked_card
+          return False, ''
 
 
 class Bot(Player):
@@ -362,7 +365,7 @@ def the_suggested_card(results):
 p1 = Human(1, "Mark", 1, False, False, False, [], [], 0)
 p2 = Bot(2, "Ackerman", 2, False, False, True, [], [], 0)
 this_game = Game(0, 7, -1, 0)  # game id, play up to, desired hands, hand id
-this_round = Round(0, 1, -1, '', -1, -1, -1, [], []) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card
+this_round = Round(0, 1, -1, '', -1, -1, -1, [], [], -1, -1) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card, human bid, b bid
 
 # SHUFFLE & DEAL
 deck = Dealer.shuffle()
@@ -373,7 +376,8 @@ this_game.reset_trick_leader()
 # -- send the hand to the Bot Algorithm and get back the suggested bid
 # rb, rc = bot_v_bot_game(3000, p2.hand, aim="return_a_bid", led_card='')
 # suggested_bid = the_suggested_bid(rb)
-suggested_bid = 0
+this_round.bot_bid = 2
+
 
 
 
