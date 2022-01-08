@@ -1,16 +1,165 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{}'}
+  properties: {role: null, tooltip: '', border: '', foreground: 'theme:Secondary 500',
+    visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"JYNLIV":35}',
+    spacing_below: small, background: ''}
+  event_bindings: {}
+  data_bindings: []
 components:
 - type: ColumnPanel
-  properties: {col_widths: '{}'}
-  name: content_panel
-  layout_properties: {grid_position: 'THVGWX,IBHHYE'}
+  properties: {col_widths: '{"BTCLJN":10,"OLUKHX":5,"NEBUJH":5,"ECYDXJ":10,"TDSISK":10,"WRDFFO":20}'}
+  name: content_panel_new_game
+  layout_properties: {grid_position: 'THVGWX,JYNLIV'}
+  components:
+  - type: Label
+    properties: {role: subheading, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Play Up To, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'LDVDVC,BTCLJN'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: ['']
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: false
+    name: play_up_to
+    layout_properties: {grid_position: 'LDVDVC,OLUKHX'}
+    data_bindings: []
+    event_bindings: {show: play_up_to_show}
+  - type: Label
+    properties: {}
+    name: label_3
+    layout_properties: {grid_position: 'LDVDVC,NEBUJH'}
+  - type: Label
+    properties: {role: subheading, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Opponent, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_2
+    layout_properties: {grid_position: 'LDVDVC,ECYDXJ'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: [Ackerman]
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: false
+    name: drop_down_2
+    layout_properties: {grid_position: 'LDVDVC,TDSISK'}
+  - type: Button
+    properties: {role: secondary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Launch new game, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: 'fa:plus'}
+    name: create_new_game
+    layout_properties: {grid_position: 'LDVDVC,WRDFFO'}
+    event_bindings: {click: create_new_game_click}
+  event_bindings: {}
+- type: FlowPanel
+  properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
+    foreground: '', visible: false, spacing_above: small, spacing_below: small, background: ''}
+  name: scores_content_panel
+  layout_properties: {grid_position: 'DMPNIA,IQCDCR'}
   components:
   - type: RichText
     properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
-      foreground: '', visible: true, font_size: null, content: Setback, font: '',
-      spacing_above: small, spacing_below: small, data: null, background: '', format: markdown}
+      foreground: '', visible: true, font_size: null, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
     name: rich_text_1
-    layout_properties: {grid_position: 'GORQWS,ASDGXL'}
+    layout_properties: {grid_position: 'WQWSGR,UHNSVY', width: null, expand: true}
+  - type: RichText
+    properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 24, content: Player Name, font: '',
+      spacing_above: small, spacing_below: small, data: null, background: '', format: markdown}
+    name: player_name_label
+    layout_properties: {grid_position: 'WQWSGR,NZVBIP'}
+  - type: RichText
+    properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 24, content: '0', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: player_score_label
+    layout_properties: {grid_position: 'WQWSGR,XRODPC'}
+  - type: RichText
+    properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 24, content: Ackerman, font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: bot_name_label
+    layout_properties: {grid_position: 'WQWSGR,SIAWYD'}
+    event_bindings: {}
+  - type: RichText
+    properties: {role: null, align: left, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 24, content: '0', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: bot_score_label
+    layout_properties: {grid_position: 'WQWSGR,QLLLGX'}
+- type: FlowPanel
+  properties: {}
+  name: flow_panel_1
+  layout_properties: {grid_position: 'NAFOYM,SQTAGF'}
+  components:
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card1
+    layout_properties: {grid_position: 'RKJRNS,ZVIHBV'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card2
+    layout_properties: {grid_position: 'RKJRNS,FJGGTK'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card3
+    layout_properties: {grid_position: 'RKJRNS,TMQQNF'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card4
+    layout_properties: {grid_position: 'RKJRNS,HHUBLC'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card5
+    layout_properties: {grid_position: 'RKJRNS,VUADNL'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 240, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: card6
+    layout_properties: {grid_position: 'RKJRNS,VRTYXX'}
 is_package: true

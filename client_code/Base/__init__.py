@@ -18,8 +18,4 @@ class Base(BaseTemplate):
   def my_games_click(self, **event_args):
     """This method is called when the button is clicked"""
     self.content_panel.clear()
-    self.content_panel.add_component(Setback())
-
-
-
-
+    self.content_panel.add_component(Home())
