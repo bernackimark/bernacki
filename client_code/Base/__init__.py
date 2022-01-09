@@ -7,6 +7,7 @@ class Base(BaseTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.content_panel.add_component(Home())
+    self.games.width = 125
     #self.form_show() # this shouldn't be needed, but Help Forum suggests it
     
     # Any code you write here will run when the form opens.

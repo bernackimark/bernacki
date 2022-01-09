@@ -21,6 +21,8 @@ class Setback(SetbackTemplate):
   def create_new_game_click(self, **event_args):
     self.content_panel_new_game.visible = False
     self.scores_content_panel.visible = True
+    self.played_cards_panel.visible = True
+    self.card_panel.visible = True
     s.this_game.play_up_to = self.play_up_to.selected_value
     print(s.p1.hand[0][4], s.p1.hand[1][4], s.p1.hand[2][4], s.p1.hand[3][4], s.p1.hand[4][4], s.p1.hand[5][4])
     print(s.p2.hand[0][4], s.p2.hand[1][4], s.p2.hand[2][4], s.p2.hand[3][4], s.p2.hand[4][4], s.p2.hand[5][4])
