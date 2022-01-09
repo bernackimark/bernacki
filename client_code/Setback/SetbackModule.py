@@ -37,10 +37,6 @@ class Game:
 
     def reset_trick_count(self):
         self.trick_number = 0
-
-    def reset_trick_leader(self):
-        self.leader = 0
-        self.follower = 0   
         
     @staticmethod
     def scoring_process(p1_bid_p, p2_bid_p, bid):
@@ -102,7 +98,7 @@ class Round:
         self.bid = bid
     
     def __repr__(self):
-      return f"Round ID {self.round_id} Trick ID {self.trick_id} Dealer {self.dealer} Trump {self.trump} Leader {self.leader} Follower {self.follower} Leader Card {self.leader_card[4]} Follower Card {self.follower_card[4]} Human Bid {self.human_bid} Bot Bid {self.bot_bid}"
+      return f"Round ID {self.round_id} Trick ID {self.trick_id} Dealer {self.dealer} Trump {self.trump} Leader {self.leader} Follower {self.follower} Leader Card {self.leader_card} Follower Card {self.follower_card} Human Bid {self.human_bid} Bot Bid {self.bot_bid} Bid {self.bid}"
 
     def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
         self.leader = incoming_leader_value
@@ -184,11 +180,11 @@ class Dealer:
         # print(p2.hand)
 
     @staticmethod
-    def move_the_deal(dealer_b_position):
-        if dealer_b_position == 1:
-            return 2
+    def move_the_deal():
+        if this_round.dealer == 1:
+            this_round.dealer = 2
         else:
-            return 1
+            this_round.dealer = 1
 
     @staticmethod
     def clear_the_piles():
@@ -372,65 +368,32 @@ def the_suggested_card(results):
 
     return suggested_card
 
+def reset_p1():
+  p1.dealer, p1.bidder, p1.pile, p1.hand, p1.points = False, False, [], [], 0
+
+def reset_p2():
+  p2.dealer, p2.bidder, p2.pile, p2.hand, p2.points = False, False, [], [], 0
+
+# don't we want a new game instead of a game reset???!!!  
+def reset_game():
+  this_game.game_id, this_game.play_up_to, this_game.desired_hands, this_gamehand_id = 0, 7, -1, 0
+
+def reset_round(): # resetting the round doesn't -- and shouldn't -- reset the dealer button
+  this_round.round_id, this_round.trick_id, this_round.trump, this_round.leader, this_round.follower, this_round.leader_card, this_round.follower_card, this_round.human_bid, this_round.bot_bid, this_round.bid = 0, 1, '', -1, -1, [], [], -1, -1, -1
+  
+  
+  
+# need these to be at the main-level to start the game  
 p1 = Human(1, "Mark", 1, False, False, False, [], [], 0)
 p2 = Bot(2, "Ackerman", 2, False, False, True, [], [], 0)
 this_game = Game(0, 7, -1, 0)  # game id, play up to, desired hands, hand id
 this_round = Round(0, 1, -1, '', -1, -1, [], [], -1, -1, -1) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card, human bid, b bid, bid
           
-# SHUFFLE & DEAL
-deck = Dealer.shuffle()
-Dealer.assign_starting_dealer_position()
-Dealer.deal(6)
-this_game.reset_trick_leader()
 
 # -- send the hand to the Bot Algorithm and get back the suggested bid
 # rb, rc = bot_v_bot_game(3000, p2.hand, aim="return_a_bid", led_card='')
 # suggested_bid = the_suggested_bid(rb)
-suggested_bid = 2
 
 
 
 
-if this_round.dealer == 2:
-  this_round.leader= 1
-  print("Dealer is bot")
-else:
-  this_round.leader = 2
-  print("Dealer is human")
-
-
-
-
-# ------- BIDDING ---------
-# trying to handle this in the UI code tab
-
-
-
-
-# # ------- START PLAY -----
-# this_game.reset_trick_count()
-# this_game.increment_trick_number()
-# this_game.trump = ''
-
-
-
-
-# leader = this_game.trick_eval(this_round.leader_card, this_round.follower_card)
-# this_game.update_leader_follower(1, 2) if leader == 1 else this_game.update_leader_follower(2, 1)
-# p1.pile_cards(leader_card, follower_card) if leader == 1 else p2.pile_cards(leader_card, follower_card)
-# this_game.increment_trick_number()
-
-# # -- clear the board, get the bid points won, clear the piles, move dealer button, add/subtract player point totals
-# # clear the board
-# # CREATE A NEW ROUND!
-# p1_bid_points, p2_bid_points = this_game.get_bid_points(p1.pile, p2.pile)
-# Dealer.clear_the_piles()
-# dealer_button_position = Dealer.move_the_deal(dealer_button_position)
-# round_text_1, round_text_2 = this_game.scoring_process(p1_bid_points, p2_bid_points, bid)
-# # Game.pg_display_round_summary_text(round_text_1, round_text_2)
-# # Game.pg_display_score()
-
-# # --- did someone win the game ---
-# game_end, the_winner = this_game.did_someone_win(this_game.play_up_to)
-# if game_end:
-#     pass

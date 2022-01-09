@@ -20,13 +20,26 @@ class Setback(SetbackTemplate):
 
   def create_new_game_click(self, **event_args):
     self.content_panel_new_game.visible = False
-    self.scores_content_panel.visible = True
-    self.played_cards_panel.visible = True
-    self.card_panel.visible = True
+    self.scores_content_panel.visible, self.played_cards_panel.visible = True, True
+    self.card_panel.visible, self.bid_panel.visible = True, False
     s.this_game.play_up_to = self.play_up_to.selected_value
+    self.playing_up_to_label.content = "Playing to " + str(s.this_game.play_up_to)
+    s.Dealer.assign_starting_dealer_position()
+    self.start_round()
+    
+  def start_round(self):
+    s.reset_round()
+    self.bid_panel.clear()
+    # SHUFFLE & DEAL
+    s.deck = s.Dealer.shuffle()
+    s.Dealer.deal(6)
+    
+    s.suggested_bid = 2
+    
+    print("Dealer is bot") if s.this_round.dealer == 2 else print("Dealer is human")
     print(s.p1.hand[0][4], s.p1.hand[1][4], s.p1.hand[2][4], s.p1.hand[3][4], s.p1.hand[4][4], s.p1.hand[5][4])
     print(s.p2.hand[0][4], s.p2.hand[1][4], s.p2.hand[2][4], s.p2.hand[3][4], s.p2.hand[4][4], s.p2.hand[5][4])
-    self.bid_panel.visible = False
+    
     self.display_hand()
 
     # show bid buttons
@@ -37,12 +50,13 @@ class Setback(SetbackTemplate):
       s.this_round.bot_bid = s.Bot.bid(-1, s.suggested_bid)  # call the bot bid now
       self.bid_panel.visible = True
       self.show_bid_buttons(s.this_round.bot_bid)
+      
 
   def display_hand(self, **event_args):
     # create a UI component from the code
     self.hand = {}
     for i in range(len(s.p1.hand)):
-      self.hand[i] = Button(text=s.p1.hand[i][5], font_size=180, width=140)
+      self.hand[i] = Button(text=s.p1.hand[i][5], font_size=180, width=140, foreground="#777")
       self.hand[i].tag.card_id = s.p1.hand[i][0]
       self.hand[i].tag.rank_id = s.p1.hand[i][1]
       self.hand[i].tag.rank = s.p1.hand[i][2]
@@ -96,20 +110,20 @@ class Setback(SetbackTemplate):
         print("End of Round!")
         p1_bid_points, p2_bid_points = s.this_round.get_bid_points(s.p1.pile, s.p2.pile)
         s.Dealer.clear_the_piles()
-        s.Dealer.move_the_deal(s.this_round.dealer)
+        s.Dealer.move_the_deal()
+        print(f"Bid was {s.this_round.bid}. Human bid points: {p1_bid_points}. Bot bid points: {p2_bid_points}.")
         line = s.this_game.scoring_process(p1_bid_points, p2_bid_points, s.this_round.bid)
-        self.played_cards_label.text += line
         self.update_score()
         game_over, the_winner, line = s.this_game.did_someone_win()
-        if game_over:
-          self.played_cards_label.text += line
-          
+        if game_over:      
+          s.reset_p1(), s.reset_p2(), s.reset_game(), s.reset_round()
+          self.player_score_label.content, self.bot_score_label.content = 0, 0
+          self.bid_panel.clear()
           self.played_cards_panel.visible = False
           self.scores_content_panel.visible = False
           self.content_panel_new_game.visible = True
-          # how can i create a new game in the Module code?
-          # placing creation of p1, p2, this_game, this_round made those objects unreachable
-          # s.create_new_game()
+        else:
+          self.start_round()
           
         
     
@@ -128,9 +142,9 @@ class Setback(SetbackTemplate):
               for value_item in value:
                   self.bid_buttons[i] = Button(width=80, role='secondary-color')
                   if value_item == 0:
-                    self.bid_buttons[i].text = "Pass"
+                    self.bid_buttons[i].text = "  Pass  "
                   else:
-                    self.bid_buttons[i].text = "Bid " + str(value_item)
+                    self.bid_buttons[i].text = "  Bid " + str(value_item) + "  "
                   self.bid_buttons[i].tag.bid = value_item
                   # this row was the problem, can't call it "click", because that's already used
                   # having trouble calling it anything else
