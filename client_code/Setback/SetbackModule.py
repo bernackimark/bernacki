@@ -38,19 +38,88 @@ class Game:
     def reset_trick_count(self):
         self.trick_number = 0
 
-    def increment_trick_number(self):
-        self.trick_number += 1
-        return self.trick_number
+    def reset_trick_leader(self):
+        self.leader = 0
+        self.follower = 0   
+        
+    @staticmethod
+    def scoring_process(p1_bid_p, p2_bid_p, bid):
+        # give out the granny points
+        if p1.bidder:
+            p2.points += p2_bid_p
+            line_2 = str(p2.name) + " got " + str(p2_bid_p) + " granny points"
+        else:
+            p1.points += p1_bid_p
+            line_2 = str(p1.name) + " got " + str(p1_bid_p) + " granny points"
+        # add/subtract the bidder's points
+        if p1.bidder and p1_bid_p >= bid:
+            p1.points += p1_bid_p
+            line_1 = str(p1.name) + " bid " + str(bid) + " and got " + str(p1_bid_p)
+        elif p1.bidder and p1_bid_p < bid:
+            p1.points -= bid
+            line_1 = str(p1.name) + " got set " + str(bid)
+        elif p2.bidder and p2_bid_p >= bid:
+            p2.points += p2_bid_p
+            line_1 = str(p2.name) + " bid " + str(bid) + " and got " + str(p2_bid_p)
+        else:
+            p2.points -= bid
+            line_1 = str(p2.name) + " got set " + str(bid)
+        line = line_1 + " " + line_2
+        return line
+    
+    @staticmethod
+    def pg_display_score():
+      pass
+    
+    @staticmethod
+    def pg_display_round_summary_text():
+      pass
+    
+    @staticmethod
+    def did_someone_win():
+        if p1.points >= this_game.play_up_to and p1.points > p2.points:
+          line = p1.name + " has won!!!"
+          return True, p1.name, line
+        elif p2.points >= this_game.play_up_to and p2.points > p1.points:
+          line = p2.name + " has won!!!"
+          return True, p2.name, line
+        else:
+          return False, "", ""
 
-    def trick_eval(self, the_leader, the_follower):
+          
+class Round:
+    def __init__(self, round_id, trick_id, dealer, trump, leader, follower, leader_card, follower_card, human_bid, bot_bid, bid):
+        self.round_id = round_id
+        self.trick_id = trick_id
+        self.dealer = dealer
+        self.trump = trump
+        self.leader = leader
+        self.follower = follower
+        self.leader_card = leader_card
+        self.follower_card = follower_card
+        self.human_bid = human_bid
+        self.bot_bid = bot_bid
+        self.bid = bid
+    
+    def __repr__(self):
+      return f"Round ID {self.round_id} Trick ID {self.trick_id} Dealer {self.dealer} Trump {self.trump} Leader {self.leader} Follower {self.follower} Leader Card {self.leader_card[4]} Follower Card {self.follower_card[4]} Human Bid {self.human_bid} Bot Bid {self.bot_bid}"
+
+    def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
+        self.leader = incoming_leader_value
+        self.follower = incoming_follower_value
+    
+    def increment_trick_id(self):
+        self.trick_id += 1
+    
+    def trick_eval(self):
         #  a follower can only win a trick two ways: trumping in or following suit w a higher rank
-        if the_leader[3] != self.trump and the_follower[3] == self.trump:
+        if this_round.leader_card[3] != self.trump and this_round.follower_card[3] == self.trump:
             return self.follower
-        elif the_leader[3] == the_follower[3] and the_follower[1] > the_leader[1]:
+        elif this_round.leader_card[3] == this_round.follower_card[3] and this_round.follower_card[1] > this_round.leader_card[1]:
             return self.follower
         else:
             return self.leader
-
+    
     def get_bid_points(self, pile1, pile2):
         p1_bid_p, p2_bid_p, p1_game, p2_game = 0, 0, 0, 0
         # keeping high, low, jack, game separated out, in case i ever want to display who won each
@@ -82,70 +151,6 @@ class Game:
         else:
             pass
         return p1_bid_p, p2_bid_p
-
-    def reset_trick_leader(self):
-        self.leader = 0
-        self.follower = 0   
-        
-    @staticmethod
-    def scoring_process(p1_bid_p, p2_bid_p, b):
-        # give out the granny points
-        if p1.bidder:
-            p2.points += p2_bid_p
-            line_2 = str(p2.name) + " got " + str(p2_bid_p) + " granny points"
-        else:
-            p1.points += p1_bid_p
-            line_2 = str(p1.name) + " got " + str(p1_bid_p) + " granny points"
-        # add/subtract the bidder's points
-        if p1.bidder and p1_bid_p >= b:
-            p1.points += p1_bid_p
-            line_1 = str(p1.name) + " bid " + str(b) + " and got " + str(p1_bid_p)
-        elif p1.bidder and p1_bid_p < b:
-            p1.points -= b
-            line_1 = str(p1.name) + " got set " + str(b)
-        elif p2.bidder and p2_bid_p >= b:
-            p2.points += p2_bid_p
-            line_1 = str(p2.name) + " bid " + str(b) + " and got " + str(p2_bid_p)
-        else:
-            p2.points -= b
-            line_1 = str(p2.name) + " got set " + str(b)
-        return line_1, line_2
-    
-    @staticmethod
-    def pg_display_score():
-      pass
-    
-    @staticmethod
-    def pg_display_round_summary_text():
-      pass
-    
-    @staticmethod
-    def did_someone_win(play_up_to):
-        if p1.points >= play_up_to and p1.points > p2.points:
-            return True, p1.name
-        elif p2.points >= play_up_to and p2.points > p1.points:
-            return True, p2.name
-        else:
-            return False, ""
-
-          
-class Round:
-    def __init__(self, round_id, trick_id, dealer, trump, turn, leader, follower, leader_card, follower_card, human_bid, bot_bid):
-        self.round_id = round_id
-        self.trick_id = trick_id
-        self.dealer = dealer
-        self.trump = trump
-        self.turn = turn
-        self.leader = leader
-        self.follower = follower
-        self.leader_card = leader_card
-        self.follower_card = follower_card
-        self.human_bid = human_bid
-        self.bot_bid = bot_bid
-
-    def update_leader_follower(self, incoming_leader_value, incoming_follower_value):
-        self.leader = incoming_leader_value
-        self.follower = incoming_follower_value
           
 class Dealer:
     @staticmethod
@@ -222,11 +227,13 @@ class Human(Player):
     def play_card(self, clicked_card):
         if len(this_round.leader_card) == 0:
           self.hand.remove(clicked_card)
+          this_round.leader_card = clicked_card
           return True, clicked_card
         else:
           card_is_legit = human_available_cards(self.hand, clicked_card, this_round.trump, this_round.leader_card)
           if card_is_legit:
             self.hand.remove(clicked_card)
+            this_round.follower_card = clicked_card
             return True, clicked_card
           return False, ''
 
@@ -252,6 +259,7 @@ class Bot(Player):
         played_card = the_suggested_card(r_c)
         # p2.pg_bot_played_card(played_card)
         self.hand.remove(played_card)
+        
         return played_card
 
     def play_card_random(self, trump, led_card):
@@ -262,6 +270,10 @@ class Bot(Player):
         random_card_index = random.randint(0, len(available_cards) - 1)
         the_played_card = available_cards[random_card_index]
         self.hand.remove(the_played_card)
+        if led_card == '':
+          this_round.leader_card = the_played_card
+        else:
+          this_round.follower_card = the_played_card
         return the_played_card
 
 
@@ -360,13 +372,11 @@ def the_suggested_card(results):
 
     return suggested_card
 
-  
-# Create New Game
 p1 = Human(1, "Mark", 1, False, False, False, [], [], 0)
 p2 = Bot(2, "Ackerman", 2, False, False, True, [], [], 0)
 this_game = Game(0, 7, -1, 0)  # game id, play up to, desired hands, hand id
-this_round = Round(0, 1, -1, '', -1, -1, -1, [], [], -1, -1) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card, human bid, b bid
-
+this_round = Round(0, 1, -1, '', -1, -1, [], [], -1, -1, -1) # round ID, trick ID, dealer, trump, turn, l, f, l card, f card, human bid, b bid, bid
+          
 # SHUFFLE & DEAL
 deck = Dealer.shuffle()
 Dealer.assign_starting_dealer_position()
@@ -382,10 +392,10 @@ suggested_bid = 2
 
 
 if this_round.dealer == 2:
-  this_round.turn = 1
+  this_round.leader= 1
   print("Dealer is bot")
 else:
-  this_round.turn = 2
+  this_round.leader = 2
   print("Dealer is human")
 
 
@@ -401,6 +411,8 @@ else:
 # this_game.reset_trick_count()
 # this_game.increment_trick_number()
 # this_game.trump = ''
+
+
 
 
 # leader = this_game.trick_eval(this_round.leader_card, this_round.follower_card)
