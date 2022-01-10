@@ -1,0 +1,99 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{"ZCBINP":18,"KMMYNL":12,"HVVBKV":10,"HGFWEL":10}'}
+  event_bindings: {}
+  data_bindings: []
+components:
+- type: Image
+  properties: {role: null, vertical_align: center, height: 197, tooltip: '', border: '',
+    foreground: '', visible: true, display_mode: shrink_to_fit, spacing_above: small,
+    source: '', spacing_below: small, background: '', horizontal_align: center}
+  name: bot_icon
+  layout_properties: {grid_position: 'QFDIVF,ZCBINP'}
+  event_bindings: {}
+  data_bindings:
+  - {property: source, code: 'self.item[''image'']'}
+- type: ColumnPanel
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: name_levels_container
+  layout_properties: {grid_position: 'QFDIVF,KMMYNL'}
+  components:
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 30, content: '', font: '', spacing_above: none,
+      spacing_below: none, data: null, background: '', format: markdown}
+    name: bot_name
+    layout_properties: {grid_position: 'ESJZAY,FQYZKU'}
+    event_bindings: {}
+    data_bindings:
+    - {property: content, code: 'self.item[''name'']'}
+  - type: Image
+    properties: {role: null, vertical_align: center, height: 49, tooltip: '', border: '',
+      foreground: '', visible: true, display_mode: shrink_to_fit, spacing_above: small,
+      source: '', spacing_below: small, background: '', horizontal_align: center}
+    name: intelligence_image
+    layout_properties: {grid_position: 'NPYCAY,PJOXJZ'}
+    event_bindings: {}
+    data_bindings:
+    - {property: source, code: 'self.item[''int_image'']'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 18, content: Intelligence, font: '',
+      spacing_above: medium, spacing_below: none, data: null, background: '', format: markdown}
+    name: rich_text_2
+    layout_properties: {grid_position: 'NPYCAY,KUUIAP'}
+  - type: Image
+    properties: {role: null, vertical_align: center, height: 45, tooltip: '', border: '',
+      foreground: '', visible: true, display_mode: shrink_to_fit, spacing_above: small,
+      source: '', spacing_below: small, background: '', horizontal_align: center}
+    name: aggression_image
+    layout_properties: {grid_position: 'GCPDSQ,NIGHOS'}
+    event_bindings: {}
+    data_bindings:
+    - {property: source, code: 'self.item[''agg_image'']'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 18, content: Aggression, font: '',
+      spacing_above: medium, spacing_below: none, data: null, background: '', format: markdown}
+    name: rich_text_3
+    layout_properties: {grid_position: 'GCPDSQ,RCRBAI'}
+  event_bindings: {}
+- type: Spacer
+  properties: {height: 44}
+  name: spacer_2
+  layout_properties: {grid_position: 'QFDIVF,HVVBKV XCKDZW,XXQVTY'}
+  event_bindings: {}
+- type: RichText
+  properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+    foreground: '', visible: true, font_size: 18, content: Record Against, font: '',
+    spacing_above: none, spacing_below: none, data: null, background: '', format: markdown}
+  name: record_against_container
+  layout_properties: {grid_position: 'QFDIVF,HVVBKV WTVZIX,CARVYW'}
+  components:
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: 30, content: 100-35, font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: rich_text_4
+    layout_properties: {}
+    event_bindings: {}
+  event_bindings: {}
+- type: Spacer
+  properties: {height: 62}
+  name: button_column_spacer
+  layout_properties: {grid_position: 'QFDIVF,HGFWEL XWPFIR,OLVUPF'}
+  event_bindings: {}
+- type: Button
+  properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+    foreground: '', visible: true, text: '     play     ', font_size: null, font: '',
+    spacing_above: small, icon_align: left, spacing_below: small, italic: false, background: '',
+    bold: false, underline: false, icon: ''}
+  name: play_button
+  layout_properties: {grid_position: 'QFDIVF,HGFWEL QCFTMZ,OWAHFB'}
+  event_bindings: {click: primary_color_2_click}
+  data_bindings:
+  - {property: enabled, code: 'self.item[''enabled'']'}
+is_package: true
+item_type: {table_id: 192770}
