@@ -2,6 +2,9 @@ from ._anvil_designer import SetbackBotChallengeCardTemplate
 from anvil import *
 import anvil.tables as tables
 import anvil.tables.query as q
+from ..Home import Home
+from ..Setback import Setback
+from ..Setback.SetbackBotChallenge import SetbackBotChallenge
 from anvil.tables import app_tables
 
 class SetbackBotChallengeCard(SetbackBotChallengeCardTemplate):
@@ -16,3 +19,9 @@ class SetbackBotChallengeCard(SetbackBotChallengeCardTemplate):
     # Any code you write here will run when the form opens.
     if self.play_button.enabled == False:
       self.play_button.tooltip = 'To unlock this opponent, defeat the prior ten times'
+    
+  def play_button_click(self, **event_args):
+    self.parent.visible = False
+    self.add_component(Setback())
+    
+

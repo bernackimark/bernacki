@@ -5,32 +5,23 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 from . import SetbackModule as s
 
+from datetime import datetime
 import time
 
 class Setback(SetbackTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
     # Any code you write here will run when the form opens.
-    
-
-  def play_up_to_show(self, **event_args):
-    self.play_up_to.items = []
-    for x in [("2", 2), ("3", 3), ("7", 7), ("11", 11), ("15", 15), ("21", 21)]:
-      self.play_up_to.items.append(x)
-    self.play_up_to.items = self.play_up_to.items
-
-  def create_new_game_click(self, **event_args):
-    self.content_panel_new_game.visible = False
-    self.scores_content_panel.visible, self.played_cards_panel.visible = True, True
-    self.card_panel.visible, self.bid_panel.visible = True, False
-    s.this_game.play_up_to = self.play_up_to.selected_value
-    self.playing_up_to_label.content = "Playing to " + str(s.this_game.play_up_to)
-    s.Dealer.assign_starting_dealer_position()
+    self.create_game()
+  
+  def create_game(self):
+    # can the bot intances go here or would that shield them as variables?
+    print("Did you get here?")
     self.start_round()
-    
+  
   def start_round(self):
+    s.Dealer.assign_starting_dealer_position()
     s.reset_round()
     self.bid_panel.clear()
     # SHUFFLE & DEAL
@@ -110,29 +101,37 @@ class Setback(SetbackTemplate):
         s.this_round.leader_card = p2_played_card  
       
       if s.this_round.trick_id > 6:
-        print("End of Round!")
-        p1_bid_points, p2_bid_points = s.this_round.get_bid_points(s.p1.pile, s.p2.pile)
-        s.Dealer.clear_the_piles()
-        s.Dealer.move_the_deal()
-        print(f"Bid was {s.this_round.bid}. Human bid points: {p1_bid_points}. Bot bid points: {p2_bid_points}.")
-        line = s.this_game.scoring_process(p1_bid_points, p2_bid_points, s.this_round.bid)
-        self.update_score()
-        game_over, the_winner, line = s.this_game.did_someone_win()
-        if game_over:      
-          s.reset_p1(), s.reset_p2(), s.reset_game(), s.reset_round()
-          self.player_score_label.content, self.bot_score_label.content = 0, 0
-          self.bid_panel.clear()
-          self.played_cards_panel.visible = False
-          self.scores_content_panel.visible = False
-          self.content_panel_new_game.visible = True
-        else:
-          self.start_round()
-          
-        
+        self.end_of_round()
+  
+  def kick_button_click(self, **event_args):
+    self.card_panel.clear()
+    for i in range(len(s.p1.hand)):
+      s.p2.pile.append(s.p1.hand[i])
+    for i in range(len(s.p2.hand)):
+      s.p2.pile.append(s.p2.hand[i])
+    s.this_round.leader_card, s.this_round.follower_card = [], []
+    self.end_of_round()
+  
+  def end_of_round(self):
+    print("End of Round!")
+    print(s.p1.pile, s.p2.pile)
+    p1_bid_points, p2_bid_points = s.this_round.get_bid_points(s.p1.pile, s.p2.pile)
+    self.kick_button.visible = False
+    s.Dealer.clear_the_piles()
+    s.Dealer.move_the_deal()
+    print(f"Bid was {s.this_round.bid}. Human bid points: {p1_bid_points}. Bot bid points: {p2_bid_points}.")
+    line = s.this_game.scoring_process(p1_bid_points, p2_bid_points, s.this_round.bid)
+    self.update_score()
+    game_over, the_winner, line = s.this_game.did_someone_win()
+    if game_over:      
+      s.reset_p1(), s.reset_p2(), s.reset_game(), s.reset_round()
+      self.bid_panel.clear()
+      self.played_cards_panel.visible = False
+    else:
+      self.start_round()
     
   def update_score(self):
-    self.player_score_label.content = s.p1.points
-    self.bot_score_label.content = s.p2.points
+    pass
       
   def show_bid_buttons(self, bot_bid):
       bot_bid = s.this_round.bot_bid
@@ -160,7 +159,7 @@ class Setback(SetbackTemplate):
     s.this_round.human_bid = event_args['sender'].tag.bid
     if s.this_round.bot_bid == -1:  # if the bot bid wasn't already done, do that now 
       s.this_round.bot_bid = s.Bot.bid(s.this_round.human_bid, s.suggested_bid)
-    self.bidding_eval()                
+    self.bidding_eval() 
                 
   def bidding_eval(self):
     if s.this_round.human_bid > -1 and s.this_round.bot_bid > -1:
@@ -182,6 +181,10 @@ class Setback(SetbackTemplate):
         print(f"Trump is {s.this_round.trump}.")
         
     self.bid_panel.visible = False
+    self.kick_button.visible = True
+
+
+
   
 
 

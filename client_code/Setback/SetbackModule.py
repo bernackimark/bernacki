@@ -266,8 +266,7 @@ class Bot(Player):
             available_cards = bot_find_available_cards(self.hand, led_card, trump)
         else:
             available_cards = self.hand
-        random_card_index = random.randint(0, len(available_cards) - 1)
-        the_played_card = available_cards[random_card_index]
+        the_played_card = random.choice(available_cards)
         self.hand.remove(the_played_card)
         if led_card == '':
           this_round.leader_card = the_played_card

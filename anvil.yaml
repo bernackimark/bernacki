@@ -13,7 +13,7 @@ startup_form: Cribbage
 db_schema:
   bots:
     title: bots
-    client: none
+    client: search
     server: search
     columns:
     - name: id
