@@ -13,30 +13,30 @@
   color: #888;
   font-size: 18px;
   outline: 1px dotted;
-  padding: 16px;
+  padding: 4px;
   text-align: center;
 }
 
 /* Put things on a 4px grid (none of this 7px nonsense) */
-.has-text .anvil-component-icon.left-icon { margin-right: 8px; }
-.has-text .anvil-component-icon.right-icon { margin-left: 8px; }
+.has-text .anvil-component-icon.left-icon { margin-right: 4px; }
+.has-text .anvil-component-icon.right-icon { margin-left: 4px; }
 
 a>.anvil-component-icon.left_edge-icon,
 a>.anvil-component-icon.right_edge-icon,
 .anvil-label>.anvil-component-icon.left_edge-icon,
 .anvil-label>.anvil-component-icon.right_edge-icon {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 .anvil-label>.label-text, a>.link-text {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 .file-loader>label {
-    padding: 8px;
+    padding: 2px;
 }
 .checkbox label, .radio label {
-    padding-top: 8px; padding-right: 8px; padding-bottom: 8px;
+    padding-top: 4px; padding-right: 4px; padding-bottom: 4px;
 }
 .anvil-spacing-above-none { margin-top: 0px; }
 .anvil-spacing-above-small { margin-top: 4px; }
@@ -65,8 +65,8 @@ a>.anvil-component-icon.right_edge-icon,
 
 .flow-panel.flow-spacing-tiny > .flow-panel-gutter { margin: 0 -2px; }
 .flow-panel.flow-spacing-tiny > .flow-panel-gutter > .flow-panel-item { 
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .flow-panel.flow-spacing-small > .flow-panel-gutter { margin: 0 -4px; }
@@ -97,7 +97,7 @@ a>.anvil-component-icon.right_edge-icon,
 body {
   font-family: Roboto, Noto, Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.4286;
+  line-height: 0.8;
   background-color: #fafafa;
 }
 
@@ -122,12 +122,12 @@ a:hover, a:active {
 
 .anvil-role-subheading {
   font-size: 16px;
-  line-height: 24dp;
+  line-height: 12dp;
 }
 
 .anvil-role-headline {
   font-size: 24px;
-  line-height: 32px;
+  line-height: 16px;
 }
 
 .anvil-role-input-prompt {
@@ -145,7 +145,6 @@ a:hover, a:active {
 }
 .anvil-role-text > .label-text, .anvil-role-text .link-text {
   padding-top: 0;
-  padding-bottom: 0;
 }
 
 /* Page structure: App bar with optional left nav */
@@ -187,7 +186,7 @@ a:hover, a:active {
 
 @media(min-width:991px) {
   .content > * > .anvil-container {
-    padding: 16px 24px;
+    padding: 8px 12px;
   }
 }
 
@@ -551,7 +550,7 @@ body>div[data-notify="container"].alert-warning>span[data-notify="title"]{
   font-size: 14px;
   font-weight: 500;
   padding: 8px 16px;
-  min-height: calc(16px + 1.42857143em);
+  min-height: calc(16px + 1.45em);
   text-transform: uppercase;
 
   border: 0;

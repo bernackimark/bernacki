@@ -12,8 +12,14 @@ class Setback(SetbackTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    print("Did you get here?")
     # Any code you write here will run when the form opens.
     self.create_game()
+    
+    self.bot_score.spacing_below = -10
+    self.bot_score.spacing_above = -10
+    self.human_score.spacing_above = -10
+    self.human_score.spacing_below = -10
   
   def create_game(self):
     # can the bot intances go here or would that shield them as variables?
@@ -50,7 +56,7 @@ class Setback(SetbackTemplate):
     # create a UI component from the code
     self.hand = {}
     for i in range(len(s.p1.hand)):
-      self.hand[i] = Button(text=s.p1.hand[i][5], font_size=180, width=140, foreground="#777")
+      self.hand[i] = Link(text=s.p1.hand[i][5], font_size=180, width=140, foreground="DDD")
       self.hand[i].tag.card_id = s.p1.hand[i][0]
       self.hand[i].tag.rank_id = s.p1.hand[i][1]
       self.hand[i].tag.rank = s.p1.hand[i][2]
@@ -68,7 +74,7 @@ class Setback(SetbackTemplate):
     if card_is_legit:
       self.card_panel.clear()
       self.display_hand()
-      self.p1_played_card_button.text = p1_played_card[5]
+      self.p1_played_card_link.text = p1_played_card[5]
       print(clicked_card[4])
       if s.this_round.trick_id == 1:
             s.this_round.trump = s.Player.declare_trump(clicked_card)
@@ -77,7 +83,7 @@ class Setback(SetbackTemplate):
         s.this_round.trick_eval()
       else:
         p2_played_card = s.p2.play_card_random(s.this_round.trump, s.this_round.leader_card)
-        self.p2_played_card_button.text = p2_played_card[5]
+        self.p2_played_card_link.text = p2_played_card[5]
         print(p2_played_card[4])
       leader = s.this_round.trick_eval()
       if leader == 1:
@@ -88,7 +94,7 @@ class Setback(SetbackTemplate):
         s.this_round.update_leader_follower(2, 1)
       # delay before clearing the cards from the center
       time.sleep(1.5)
-      self.p1_played_card_button.text, self.p2_played_card_button.text = '', ''
+      self.p1_played_card_link.text, self.p2_played_card_link.text = '', ''
       
       print(f"This round: {s.this_round}")
       s.this_round.increment_trick_id()
@@ -96,7 +102,7 @@ class Setback(SetbackTemplate):
       
       if s.this_round.leader == 2 and s.this_round.trick_id < 7:
         p2_played_card = s.p2.play_card_random(s.this_round.trump, '')
-        self.p2_played_card_button.text = p2_played_card[5]
+        self.p2_played_card_link.text = p2_played_card[5]
         print(p2_played_card[4])
         s.this_round.leader_card = p2_played_card  
       
@@ -175,7 +181,7 @@ class Setback(SetbackTemplate):
         s.this_round.leader = 2
         print(f"Human bid is {s.this_round.human_bid}. Bot bid is {s.this_round.bot_bid}.")
         p2_played_card = s.p2.play_card_random('','')
-        self.p2_played_card_button.text = p2_played_card[5]
+        self.p2_played_card_link.text = p2_played_card[5]
         print(p2_played_card[4])
         s.this_round.trump = s.Player.declare_trump(p2_played_card)
         print(f"Trump is {s.this_round.trump}.")
