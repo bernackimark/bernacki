@@ -25,21 +25,37 @@ components:
     name: setback_image
     layout_properties: {grid_position: 'DRWLXZ,WOMGCH NEAMCP,WLCLXD'}
     data_bindings: []
+  - type: Label
+    properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: true, background: '', bold: false, underline: false,
+      icon: ''}
+    name: questions_lmt_label
+    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,DBBPHI GCXQUQ,EKOXDR'}
+    data_bindings:
+    - {property: text, code: 'self.item[''lmt'']'}
   - type: Button
     properties: {role: secondary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: Launch Questions, font_size: null, font: '',
       spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}
     name: launch_questions
-    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,DBBPHI'}
+    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,DBBPHI IVJVDE,VBYEEF'}
     event_bindings: {click: launch_questions_click}
+  - type: Label
+    properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: true, background: '', bold: false, underline: false,
+      icon: ''}
+    name: setback_lmt_label
+    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,XUOWSN LTKEBG,IUKZFH'}
   - type: Button
     properties: {role: secondary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: Launch Setback, font_size: null, font: '',
       spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}
     name: launch_setback
-    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,XUOWSN'}
+    layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,XUOWSN KXHVFU,DNKJYC'}
     event_bindings: {click: launch_setback_click}
   - type: Image
     properties: {role: null, vertical_align: center, height: '200', tooltip: '', border: '',
@@ -48,6 +64,13 @@ components:
       spacing_below: small, background: '', horizontal_align: center}
     name: cribbage_image
     layout_properties: {grid_position: 'DRWLXZ,JVLZQF DBTTGV,KYVFJC'}
+  - type: Label
+    properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: true, background: '', bold: false, underline: false,
+      icon: ''}
+    name: cribbage_lmt_label
+    layout_properties: {grid_position: 'DRWLXZ,JVLZQF JUUGRH,KTFYKU'}
   - type: Button
     properties: {role: secondary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: Launch Cribbage, font_size: null, font: '',

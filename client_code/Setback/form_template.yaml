@@ -126,7 +126,7 @@ components:
       name: p2_played_card_link
       layout_properties: {grid_position: 'JHUTTB,HQSBDF'}
     - type: Spacer
-      properties: {height: 153}
+      properties: {height: 190}
       name: spacer_1
       layout_properties: {width: 28}
     - type: Link

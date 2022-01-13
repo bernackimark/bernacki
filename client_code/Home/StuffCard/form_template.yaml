@@ -10,10 +10,10 @@ components:
   components:
   - type: Image
     properties: {height: 118}
-    name: stuff_image
+    name: the_image
     layout_properties: {grid_position: 'XRLCLO,RSPUTT'}
     data_bindings:
-    - {property: source, code: 'self.item[''image'']'}
+    - {property: source, code: 'self.item[''stuff_image'']'}
   - type: Label
     properties: {role: headline, align: center, tooltip: '', border: '', foreground: '',
       visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
@@ -29,7 +29,8 @@ components:
       spacing_below: small, data: null, background: '', format: markdown}
     name: stuff_lmt_label
     layout_properties: {grid_position: 'XRLCLO,JUCWEB GYNOMV,JOCNBU'}
-    data_bindings: []
+    data_bindings:
+    - {property: content, code: 'self.item[''lmt'']'}
   - type: Button
     properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: Launch, font_size: null, font: '', spacing_above: small,

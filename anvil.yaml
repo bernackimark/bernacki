@@ -70,7 +70,7 @@ db_schema:
     - name: name
       admin_ui: {width: 200}
       type: string
-    - name: image
+    - name: bot_image
       admin_ui: {width: 200}
       type: media
     - name: int_level
@@ -134,7 +134,10 @@ db_schema:
     - name: description
       admin_ui: {width: 200}
       type: string
-    - name: image
+    - name: stuff_image
       admin_ui: {width: 318}
       type: media
+    - name: lmt
+      admin_ui: {width: 200}
+      type: date
 renamed: true

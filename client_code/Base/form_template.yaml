@@ -16,19 +16,19 @@ components:
       spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
       italic: false, background: '', bold: false, underline: false, icon: 'fa:gamepad'}
     name: my_stuff
-    layout_properties: {grid_position: 'WEABDD,RQNWOF', full_width_row: false}
+    layout_properties: {grid_position: 'WEABDD,RQNWOF', full_width_row: true}
     event_bindings: {click: my_stuff_click}
   - type: Spacer
     properties: {height: 32}
     name: spacer_1
-    layout_properties: {grid_position: 'WEABDD,HUXKDC', full_width_row: false}
+    layout_properties: {grid_position: 'WEABDD,HUXKDC', full_width_row: true}
   - type: Link
     properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Sign In, font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
       spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
       italic: false, background: '', bold: false, underline: false, icon: 'fa:user'}
     name: sign_in
-    layout_properties: {grid_position: 'WEABDD,FBCDBX', full_width_row: false}
+    layout_properties: {grid_position: 'WEABDD,FBCDBX', full_width_row: true}
     event_bindings: {click: sign_in_click}
 - type: Link
   properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',

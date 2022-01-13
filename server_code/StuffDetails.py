@@ -11,4 +11,8 @@ import anvil.server
 def get_stuff_details():
   return app_tables.stuff.client_readable()
 
+@anvil.server.callable
+def get_stuff_lmt(id_name):
+  return app_tables.stuff.get(id_name=id_name)['lmt']
+
 
