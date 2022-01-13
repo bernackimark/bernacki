@@ -1,5 +1,9 @@
 from ._anvil_designer import SetbackBotChallengeCardTemplate
 from anvil import *
+import anvil.server
+import anvil.google.auth, anvil.google.drive
+from anvil.google.drive import app_files
+import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from ..Home import Home
@@ -22,6 +26,6 @@ class SetbackBotChallengeCard(SetbackBotChallengeCardTemplate):
     
   def play_button_click(self, **event_args):
     self.parent.visible = False
-    self.add_component(Setback())
+    get_open_form().add_component(Setback())
     
 

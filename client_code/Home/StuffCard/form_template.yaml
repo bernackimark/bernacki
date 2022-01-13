@@ -1,0 +1,44 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+  data_bindings: []
+components:
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{"RSPUTT":11,"JUCWEB":14,"JASERF":8}'}
+  name: card_1
+  layout_properties: {grid_position: 'QCUBPX,MJDBDK'}
+  components:
+  - type: Image
+    properties: {height: 118}
+    name: stuff_image
+    layout_properties: {grid_position: 'XRLCLO,RSPUTT'}
+    data_bindings:
+    - {property: source, code: 'self.item[''image'']'}
+  - type: Label
+    properties: {role: headline, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: stuff_description_label
+    layout_properties: {grid_position: 'XRLCLO,JUCWEB TKUPEW,OJUXZA'}
+    data_bindings:
+    - {property: text, code: 'self.item[''description'']'}
+  - type: RichText
+    properties: {role: null, align: center, tooltip: '', enable_slots: true, border: '',
+      foreground: '', visible: true, font_size: null, content: '', font: '', spacing_above: small,
+      spacing_below: small, data: null, background: '', format: markdown}
+    name: stuff_lmt_label
+    layout_properties: {grid_position: 'XRLCLO,JUCWEB GYNOMV,JOCNBU'}
+    data_bindings: []
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Launch, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: stuff_launch_button
+    layout_properties: {grid_position: 'XRLCLO,JUCWEB QWXOJY,UKRCPC'}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'XRLCLO,JASERF'}
+is_package: true

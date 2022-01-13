@@ -1,5 +1,9 @@
 from ._anvil_designer import SetbackTemplate
 from anvil import *
+import anvil.server
+import anvil.google.auth, anvil.google.drive
+from anvil.google.drive import app_files
+import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
@@ -23,7 +27,8 @@ class Setback(SetbackTemplate):
   
   def create_game(self):
     # can the bot intances go here or would that shield them as variables?
-    print("Did you get here?")
+    s.this_game.play_up_to = 11
+    self.playing_to.content = "Playing to " + str(s.this_game.play_up_to)
     self.start_round()
   
   def start_round(self):
@@ -188,6 +193,7 @@ class Setback(SetbackTemplate):
         
     self.bid_panel.visible = False
     self.kick_button.visible = True
+    self.kick_button.width, self.kick_spacer.width = 80, 80
 
 
 
