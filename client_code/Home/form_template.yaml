@@ -36,12 +36,12 @@ components:
     - {property: text, code: 'self.item[''lmt'']'}
   - type: Button
     properties: {role: secondary-color, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: Launch Questions, font_size: null, font: '',
+      foreground: '', visible: true, text: Launch Queso, font_size: null, font: '',
       spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}
-    name: launch_questions
+    name: launch_queso
     layout_properties: {grid_position: 'DRWLXZ,WOMGCH XASUSN,DBBPHI IVJVDE,VBYEEF'}
-    event_bindings: {click: launch_questions_click}
+    event_bindings: {}
   - type: Label
     properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
       visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,

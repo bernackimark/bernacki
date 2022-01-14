@@ -33,10 +33,6 @@ class Home(HomeTemplate):
     self.stuff_repeating_panel.visible = False
     self.content_panel.add_component(SetbackBotChallenge())
 
-  def launch_questions_click(self, **event_args):
-    pass
-
-
   
 
 
