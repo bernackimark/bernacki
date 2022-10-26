@@ -2,6 +2,7 @@ is_package: true
 container:
   type: HtmlTemplate
   properties: {html: '@theme:standard-page.html'}
+  event_bindings: {}
 components:
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
@@ -42,3 +43,17 @@ components:
   properties: {}
   name: content_panel
   layout_properties: {slot: default}
+- type: ColumnPanel
+  properties: {col_widths: '{}'}
+  name: links_sidebar_cp
+  layout_properties: {slot: left-nav}
+  event_bindings: {}
+  components:
+  - type: Link
+    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: To-Do, font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
+      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
+      italic: false, background: '', bold: false, underline: false, icon: 'fa:pencil'}
+    name: todo_link
+    layout_properties: {grid_position: 'YXGMZK,SXUAQY'}
+    event_bindings: {click: todo_link_click}

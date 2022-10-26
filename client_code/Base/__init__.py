@@ -10,12 +10,14 @@ from anvil.tables import app_tables
 from ..Home import Home
 from ..Setback import Setback
 from ..Setback.SetbackBotChallenge import SetbackBotChallenge
+from ..ToDo import ToDo
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.my_stuff.width, self.sign_in.width = 130, 115
+    self.links_sidebar_cp.width = 100
     self.show_my_stuff_link()
     self.change_sign_in_text()
     # self.content_panel.add_component(Home())
@@ -33,7 +35,11 @@ class Base(BaseTemplate):
 
   def show_my_stuff_link(self):
     self.my_stuff.visible = anvil.users.get_user() != None
-  
+
+  def todo_link_click(self, **event_args):
+    self.content_panel.clear()
+    self.content_panel.add_component(ToDo())    
+    
   def sign_in_click(self, **event_args):
     user = anvil.users.get_user()
     if user:
@@ -53,7 +59,8 @@ class Base(BaseTemplate):
       self.sign_in.width = len(user['email']) * 20
     else:
       self.sign_in.text = "Sign In"
-    
+  
+
 
 
 
