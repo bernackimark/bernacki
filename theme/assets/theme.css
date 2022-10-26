@@ -793,8 +793,8 @@ textarea.anvil-component[disabled] {
 }
 
 .anvil-role-todo-gp {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: -16px;
+  padding-right: -16px;
 }
 
 /* Shadow values taken from 
