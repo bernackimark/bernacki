@@ -792,6 +792,11 @@ textarea.anvil-component[disabled] {
   font-size: 16px;
 }
 
+.anvil-role-todo-gp {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 /* Shadow values taken from 
 https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-material-design-elevations
 */
