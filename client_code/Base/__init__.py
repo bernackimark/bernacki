@@ -21,6 +21,8 @@ class Base(BaseTemplate):
     self.show_my_stuff_link()
     self.change_sign_in_text()
     # self.content_panel.add_component(Home())
+    
+    user = anvil.users.get_user()
   
   def go_to_base(self):
     self.content_panel.clear()
