@@ -27,9 +27,11 @@ class RowTemplate1(RowTemplate1Template):
     new_todo_group = self.edit_todo_group_dd.selected_value
     old_todo_name = self.item['todo_name']
     old_todo_group = self.item['todo_group']
-    anvil.server.call('update_todo', new_todo_name, new_todo_group, old_todo_name, old_todo_group, self.item['user_email'])
-    self.todo_name_lbl.text = new_todo_name
-    self.todo_group_lbl.text = new_todo_group
+    updated_row_dict = anvil.server.call('update_todo', new_todo_name, new_todo_group, old_todo_name, old_todo_group, self.item['user_email'])
+    self.todo_name_lbl.text = updated_row_dict['todo_name']
+    self.todo_group_lbl.text = updated_row_dict['todo_group']
+    if updated_row_dict['todo_group_color'] != None:
+      self.background = updated_row_dict['todo_group_color']
     self.write_drp.visible, self.read_drp.visible = False, True
 
 

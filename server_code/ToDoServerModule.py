@@ -31,13 +31,19 @@ def add_todo_group(todo_group, todo_group_color, user_email):
 def update_todo(new_todo_name, new_todo_group, old_todo_name, old_todo_group, user_email):
   row = app_tables.todos.get(todo_name=old_todo_name, todo_group=old_todo_group, user_email=user_email)
   row.update(todo_name=new_todo_name, todo_group=new_todo_group)
-  sync_color_w_group(user_email)
+  if new_todo_group != old_todo_group:
+    new_todo_group_color = sync_color_w_group(user_email)
+    return {'todo_name': new_todo_name, 'todo_group': new_todo_group, 'todo_group_color': new_todo_group_color}
+  else:
+    return {'todo_name': new_todo_name, 'todo_group': new_todo_group, 'todo_group_color': None}
+  
   
 def sync_color_w_group(user_email):
   existing_user_group_color_pairs = {(r['todo_group'], r['todo_group_color']) for r in app_tables.todos.search(user_email=user_email) if r['todo_group_color'] != None}
   for gcp in existing_user_group_color_pairs:
     for r in app_tables.todos.search(user_email=user_email, todo_group=gcp[0], todo_group_color=None):
       r.update(todo_group_color=gcp[1])
+  return gcp[1]
       
 def delete_bare_todo_name(todo_group, user_email):
   row = app_tables.todos.get(todo_group=todo_group, user_email=user_email, todo_name=None)
