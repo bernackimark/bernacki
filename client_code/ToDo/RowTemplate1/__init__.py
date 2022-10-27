@@ -34,4 +34,9 @@ class RowTemplate1(RowTemplate1Template):
       self.background = updated_row_dict['todo_group_color']
     self.write_drp.visible, self.read_drp.visible = False, True
 
+  def delete_todo_btn_click(self, **event_args):
+    anvil.server.call('delete_todo', self.item)
+    self.remove_from_parent()
+
+
 

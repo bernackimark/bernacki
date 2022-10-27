@@ -123,9 +123,10 @@ components:
   properties:
     role: null
     columns:
-    - {id: TENEDR, title: '', data_key: column_, width: 92, expand: false}
-    - {id: GDOAXH, title: Todo Name, data_key: todo_name, width: 348, expand: false}
-    - {id: VNYDAB, title: Todo Group, data_key: todo_group, width: 194, expand: false}
+    - {id: UNTZPI, title: '', data_key: column_1, width: 63, expand: false}
+    - {id: TENEDR, title: '', data_key: column_, width: 62, expand: false}
+    - {id: GDOAXH, title: Todo Name, data_key: todo_name, width: 496, expand: false}
+    - {id: VNYDAB, title: Todo Group, data_key: todo_group, width: 233, expand: false}
     - {id: PBVETU, title: Date Added, data_key: date_added}
     auto_header: true
     tooltip: ''
@@ -133,18 +134,18 @@ components:
     foreground: ''
     rows_per_page: 20
     visible: true
-    wrap_on: never
+    wrap_on: mobile
     show_page_controls: true
     spacing_above: small
     spacing_below: small
     background: ''
   name: todo_dg
-  layout_properties: {grid_position: 'MOHYPH,ZXDOIL'}
+  layout_properties: {grid_position: 'MOHYPH,ZXDOIL', full_width_row: true}
   components:
   - type: RepeatingPanel
     properties: {spacing_above: none, spacing_below: none, item_template: ToDo.RowTemplate1}
     name: todo_rp
     layout_properties: {}
     event_bindings: {hide: BRPDFRow_MC}
-  event_bindings: {hide: BRPDFRow_MC}
+  event_bindings: {}
 is_package: true

@@ -49,6 +49,14 @@ components:
     name: edit_todo_btn
     layout_properties: {column: TENEDR}
     event_bindings: {click: edit_todo_btn_click}
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: '', font_size: 14, font: '', spacing_above: small,
+      icon_align: top, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: 'fa:calendar-minus-o'}
+    name: delete_todo_btn
+    layout_properties: {column: UNTZPI}
+    event_bindings: {click: delete_todo_btn_click}
 - type: DataRowPanel
   properties: {role: null, align: left, tooltip: '', border: '', foreground: '', auto_display_data: true,
     visible: true, item: null, font_size: null, font: '', spacing_above: none, spacing_below: none,

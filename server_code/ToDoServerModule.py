@@ -36,7 +36,11 @@ def update_todo(new_todo_name, new_todo_group, old_todo_name, old_todo_group, us
     return {'todo_name': new_todo_name, 'todo_group': new_todo_group, 'todo_group_color': new_todo_group_color}
   else:
     return {'todo_name': new_todo_name, 'todo_group': new_todo_group, 'todo_group_color': None}
-  
+
+@anvil.server.callable
+def delete_todo(item):
+  row = app_tables.todos.get(**item)
+  row.delete()
   
 def sync_color_w_group(user_email):
   existing_user_group_color_pairs = {(r['todo_group'], r['todo_group_color']) for r in app_tables.todos.search(user_email=user_email) if r['todo_group_color'] != None}
