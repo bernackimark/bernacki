@@ -1,6 +1,0 @@
-container:
-  type: DataRowPanel
-  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
-components: []
-is_package: true
-item_type: {table_id: 317294}

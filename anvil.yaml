@@ -155,13 +155,13 @@ db_schema:
     - name: todo_group
       admin_ui: {width: 200}
       type: string
+    - name: todo_group_color
+      admin_ui: {width: 200}
+      type: string
     - name: date_added
       admin_ui: {width: 200}
       type: date
     - name: user_email
-      admin_ui: {width: 200}
-      type: string
-    - name: todo_group_color
       admin_ui: {width: 200}
       type: string
 renamed: true

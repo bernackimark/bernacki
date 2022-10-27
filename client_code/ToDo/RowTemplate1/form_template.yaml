@@ -1,0 +1,94 @@
+container:
+  type: DataRowPanel
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', auto_display_data: false,
+    visible: true, font_size: null, font: '', spacing_above: none, spacing_below: none,
+    italic: false, background: '', bold: false, underline: false}
+components:
+- type: DataRowPanel
+  properties: {}
+  name: read_drp
+  layout_properties: {column: null}
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
+  components:
+  - type: Label
+    properties: {}
+    name: todo_name_lbl
+    layout_properties: {column: GDOAXH}
+    event_bindings: {hide: BRPDFRow_MC}
+    data_bindings:
+    - {property: text, code: 'self.item[''todo_name'']'}
+  - type: Label
+    properties: {}
+    name: todo_group_lbl
+    layout_properties: {column: VNYDAB}
+    event_bindings: {hide: BRPDFRow_MC}
+    data_bindings:
+    - {property: text, code: 'self.item[''todo_group'']'}
+  - type: Label
+    properties: {}
+    name: date_added_lbl
+    layout_properties: {column: PBVETU}
+    event_bindings: {hide: BRPDFRow_MC}
+    data_bindings:
+    - {property: text, code: 'self.item[''date_added'']'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: none,
+      icon_align: left, spacing_below: none, italic: false, background: '', bold: false,
+      underline: false, icon: 'fa:pencil-square-o'}
+    name: edit_todo_btn
+    layout_properties: {column: TENEDR}
+    event_bindings: {click: edit_todo_btn_click}
+- type: DataRowPanel
+  properties: {role: null, align: left, tooltip: '', border: '', foreground: '', auto_display_data: true,
+    visible: true, item: null, font_size: null, font: '', spacing_above: none, spacing_below: none,
+    italic: false, background: '', bold: false, underline: false}
+  name: write_drp
+  layout_properties: {column: null}
+  event_bindings: {}
+  components:
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: none,
+      icon_align: left, spacing_below: none, italic: false, background: '', bold: false,
+      underline: false, icon: 'fa:floppy-o'}
+    name: save_todo_btn
+    layout_properties: {column: TENEDR}
+    event_bindings: {click: save_todo_btn_click}
+  - type: TextBox
+    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: 14,
+      font: '', spacing_above: none, type: text, spacing_below: none, italic: false,
+      background: '', bold: false, underline: false}
+    name: edit_todo_name_tb
+    layout_properties: {column: GDOAXH}
+    event_bindings: {pressed_enter: BRPDFRow_MC}
+    data_bindings:
+    - {property: text, code: 'self.item[''todo_name'']', writeback: false}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: 14
+      font: ''
+      spacing_above: none
+      spacing_below: none
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: false
+    name: edit_todo_group_dd
+    layout_properties: {column: VNYDAB}
+    event_bindings: {change: BRPDFRow_MC}
+    data_bindings:
+    - {property: selected_value, code: 'self.item[''todo_group'']', writeback: false}
+is_package: true

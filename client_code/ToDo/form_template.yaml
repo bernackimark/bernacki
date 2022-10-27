@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC, hide: BRPDFRow_MC}
   properties: {col_widths: '{"ARPNQA":15,"DKULYP":45}'}
 components:
 - type: Button
@@ -17,7 +17,7 @@ components:
   layout_properties: {grid_position: 'ZVFYDV,DKULYP'}
   event_bindings: {hide: BRPDFRow_MC}
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{"UEAZJI":15,"XZIPZV":25,"QXHGOT":10,"TWJKIM":10,"BOOVOP":15,"XMSXNI":45,"KJTCKV":15,"SZUIJG":25,"UJNADH":20}'}
+  properties: {role: card, col_widths: '{"UEAZJI":15,"XZIPZV":25,"QXHGOT":10,"TWJKIM":10,"BOOVOP":15,"XMSXNI":45}'}
   name: add_todo_card
   layout_properties: {grid_position: 'RIXZWR,LDMTKM'}
   event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
@@ -64,23 +64,8 @@ components:
     name: add_todo_btn
     layout_properties: {grid_position: 'XSLVUK,TWJKIM'}
     event_bindings: {click: add_todo_btn_click}
-  - type: Spacer
-    properties: {height: 32}
-    name: spacer_4
-    layout_properties: {grid_position: 'ESPPVV,KJTCKV'}
-    event_bindings: {hide: BRPDFRow_MC}
-  - type: TextBox
-    properties: {}
-    name: add_todo_group_from_todo_tb
-    layout_properties: {grid_position: 'ESPPVV,SZUIJG'}
-    event_bindings: {pressed_enter: BRPDFRow_MC}
-  - type: Spacer
-    properties: {height: 32}
-    name: spacer_5
-    layout_properties: {grid_position: 'ESPPVV,UJNADH'}
-    event_bindings: {hide: BRPDFRow_MC}
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{"QXHGOT":9,"TWJKIM":10,"BOOVOP":15,"XMSXNI":45,"GENEWC":36,"WTVNOQ":15,"ETQQCK":45}'}
+  properties: {role: card, col_widths: '{"QXHGOT":9,"TWJKIM":10,"BOOVOP":15,"XMSXNI":45,"GENEWC":36,"SIYRMZ":15,"SSBRLJ":45}'}
   name: add_todo_group_card
   layout_properties:
     col_widths: {}
@@ -98,74 +83,20 @@ components:
     properties: {}
     name: add_todo_group_tb
     layout_properties: {grid_position: 'XYQXCS,XMSXNI'}
-    event_bindings: {pressed_enter: BRPDFRow_MC}
-  - type: Spacer
-    properties: {height: 32}
-    name: spacer_3
-    layout_properties: {grid_position: 'MGKXGK,WTVNOQ KLTSJZ,GDNYUK'}
-    event_bindings: {hide: BRPDFRow_MC}
+    event_bindings: {}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: To-do Group Color, font_size: null, font: '', spacing_above: none,
+      visible: true, text: To-do Group Color, font_size: null, font: '', spacing_above: large,
       icon_align: left, spacing_below: none, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_3
-    layout_properties: {grid_position: 'MGKXGK,WTVNOQ ZURSWR,BRRKEO'}
+    layout_properties: {grid_position: 'KLTSJZ,SIYRMZ'}
+    event_bindings: {}
+  - type: GridPanel
+    properties: {}
+    name: group_color_gp
+    layout_properties: {grid_position: 'KLTSJZ,SSBRLJ'}
     event_bindings: {hide: BRPDFRow_MC}
-  - type: ColumnPanel
-    properties: {col_widths: '{}'}
-    name: group_color_cp
-    layout_properties: {grid_position: 'MGKXGK,ETQQCK'}
-    event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
-    components:
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_1_btn
-      layout_properties: {grid_position: 'DJTSIZ,NDIQJD'}
-      event_bindings: {click: BRPDFRow_MC}
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_2_btn
-      layout_properties: {grid_position: 'DJTSIZ,XHNZFD'}
-      event_bindings: {click: BRPDFRow_MC}
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_3_btn
-      layout_properties: {grid_position: 'DJTSIZ,AVKKWU'}
-      event_bindings: {click: BRPDFRow_MC}
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_4_btn
-      layout_properties: {grid_position: 'WCZDZJ,QHJWWC'}
-      event_bindings: {click: BRPDFRow_MC}
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_5_btn
-      layout_properties: {grid_position: 'WCZDZJ,MSJDSM'}
-      event_bindings: {click: BRPDFRow_MC}
-    - type: Button
-      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: color_6_btn
-      layout_properties: {grid_position: 'WCZDZJ,NJUJET'}
-      event_bindings: {click: BRPDFRow_MC}
   - type: Spacer
     properties: {height: 32}
     name: spacer_2
@@ -176,25 +107,26 @@ components:
       foreground: '', visible: true, text: cancel, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
-    name: button_1_copy
+    name: new_todo_group_cancel_btn
     layout_properties: {grid_position: 'XSLVUK,QXHGOT'}
-    event_bindings: {click: BRPDFRow_MC}
+    event_bindings: {click: new_todo_group_cancel_btn_click}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: OK, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
-    name: add_todo_btn_copy
+    name: new_todo_group_btn
     layout_properties: {grid_position: 'XSLVUK,TWJKIM'}
-    event_bindings: {click: BRPDFRow_MC}
+    event_bindings: {click: new_todo_group_btn_click}
   event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
 - type: DataGrid
   properties:
     role: null
     columns:
-    - {id: PCFTIV, title: Name, data_key: todo_name, width: 343, expand: false}
-    - {id: ARWGZR, title: Group, data_key: todo_group, width: 305, expand: false}
-    - {id: KTPXPE, title: Date Added, data_key: date_added}
+    - {id: TENEDR, title: '', data_key: column_, width: 92, expand: false}
+    - {id: GDOAXH, title: Todo Name, data_key: todo_name, width: 348, expand: false}
+    - {id: VNYDAB, title: Todo Group, data_key: todo_group, width: 194, expand: false}
+    - {id: PBVETU, title: Date Added, data_key: date_added}
     auto_header: true
     tooltip: ''
     border: ''
@@ -207,13 +139,12 @@ components:
     spacing_below: small
     background: ''
   name: todo_dg
-  layout_properties: {grid_position: 'NZGPWX,QFBTJH', full_width_row: false}
+  layout_properties: {grid_position: 'MOHYPH,ZXDOIL'}
   components:
   - type: RepeatingPanel
-    properties: {spacing_above: none, spacing_below: none, item_template: ToDo.ToDoRow}
+    properties: {spacing_above: none, spacing_below: none, item_template: ToDo.RowTemplate1}
     name: todo_rp
     layout_properties: {}
     event_bindings: {hide: BRPDFRow_MC}
-    data_bindings: []
   event_bindings: {hide: BRPDFRow_MC}
 is_package: true
