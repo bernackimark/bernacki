@@ -121,6 +121,9 @@ db_schema:
     - name: stuff
       admin_ui: {width: 200}
       type: simpleObject
+    - name: n_password_failures
+      admin_ui: {width: 200}
+      type: number
   stuff:
     title: stuff
     client: search
@@ -141,21 +144,21 @@ db_schema:
     - name: lmt
       admin_ui: {width: 200}
       type: date
-  todo:
-    title: todo
-    client: full
+  todos:
+    title: todos
+    client: none
     server: full
     columns:
-    - name: name
+    - name: todo_name
       admin_ui: {width: 200}
       type: string
-    - name: group
+    - name: todo_group
       admin_ui: {width: 200}
       type: string
     - name: date_added
       admin_ui: {width: 200}
       type: date
-    - name: user
+    - name: user_email
       admin_ui: {width: 200}
       type: string
 renamed: true
