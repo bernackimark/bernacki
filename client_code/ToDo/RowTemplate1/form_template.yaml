@@ -12,24 +12,33 @@ components:
   event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
   components:
   - type: Label
-    properties: {}
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: medium, icon_align: left,
+      spacing_below: none, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
     name: todo_name_lbl
     layout_properties: {column: GDOAXH}
-    event_bindings: {hide: BRPDFRow_MC}
+    event_bindings: {}
     data_bindings:
     - {property: text, code: 'self.item[''todo_name'']'}
   - type: Label
-    properties: {}
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: medium, icon_align: left,
+      spacing_below: none, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
     name: todo_group_lbl
     layout_properties: {column: VNYDAB}
-    event_bindings: {hide: BRPDFRow_MC}
+    event_bindings: {}
     data_bindings:
     - {property: text, code: 'self.item[''todo_group'']'}
   - type: Label
-    properties: {}
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: medium, icon_align: left,
+      spacing_below: none, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
     name: date_added_lbl
     layout_properties: {column: PBVETU}
-    event_bindings: {hide: BRPDFRow_MC}
+    event_bindings: {}
     data_bindings:
     - {property: text, code: 'self.item[''date_added'']'}
   - type: Button
@@ -46,7 +55,7 @@ components:
     italic: false, background: '', bold: false, underline: false}
   name: write_drp
   layout_properties: {column: null}
-  event_bindings: {}
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
   components:
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,

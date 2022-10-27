@@ -22,12 +22,28 @@ class ToDo(ToDoTemplate):
     self.selected_group_color = ''
 
     self.add_todo_card.visible, self.add_todo_group_card.visible = False, False
-    self.todo_group_dd.placeholder = ''
+    self.todo_group_dd.placeholder = ' '
     
     list_of_todo_dicts = tdm.get_todo_rows(self.user_email)
     self.todo_rp.items = list_of_todo_dicts
-    self.populate_todo_groups(list_of_todo_dicts)
+    
+    todo_groups = self.get_todo_groups()
+    self.populate_todo_group_dd(todo_groups)
+    
     self.populate_group_colors()
+    
+    if len(list_of_todo_dicts) == 0:
+      self.todo_dg.visible = False
+    
+  def get_todo_groups(self):
+    return anvil.server.call('get_user_todo_groups', self.user_email)
+  
+  def populate_todo_group_dd(self, todo_groups):
+    todo_groups = sorted(todo_groups)
+    todo_groups.insert(0, ' ')
+    todo_groups.insert(1, tdm.ADD_NEW_GROUP_TEXT)
+    self.todo_group_dd.selected_value = ' '
+    self.todo_group_dd.items = todo_groups
     
   def populate_group_colors(self):
     group_colors = {}
@@ -61,7 +77,7 @@ class ToDo(ToDoTemplate):
     self.add_todo_card.visible = False
 
   def add_todo_btn_click(self, **event_args) -> dict:
-    if self.add_todo_name_tb in ['',None]:
+    if self.add_todo_name_tb in ['', ' ', None]:
       alert("Please enter a To-do name.")
       return
     # get the UI values and add record to the database
@@ -71,28 +87,24 @@ class ToDo(ToDoTemplate):
     # hide & clear the card
     self.add_todo_card.visible = False
     self.add_todo_name_tb.text = None
-    self.todo_group_dd.selected_value = self.todo_group_dd.placeholder
+
     # get the rows again from the db
     list_of_todo_dicts = tdm.get_todo_rows(self.user_email)
     # refresh the repeating panel
     self.refresh_todos()
-    # with those rows, populate the todo groups
-    self.populate_todo_groups(list_of_todo_dicts)
+
+    todo_groups = self.get_todo_groups()
+    self.populate_todo_group_dd(todo_groups)    
+    
+    # this could have been the user's first row, show the table
+    self.todo_dg.visible = True
     return list_of_todo_dicts
 
   def todo_group_dd_change(self, **event_args):
-    if self.todo_group_dd.selected_value == tdm.ADD_NEW_GROUP_FROM_NEW_TODO_VALUE:
+    if self.todo_group_dd.selected_value == tdm.ADD_NEW_GROUP_TEXT:
       self.add_todo_group_card.visible = True
     else:
       self.add_todo_group_card.visible = False
-
-  def populate_todo_groups(self, list_of_todo_dicts):
-    user_todo_groups = set()
-    user_todo_groups.add(tdm.ADD_NEW_GROUP_FROM_NEW_TODO_VALUE)
-    list_of_groups = [r['todo_group'] for r in list_of_todo_dicts]
-    for g in list_of_groups:
-      user_todo_groups.add(g)
-    self.todo_group_dd.items = sorted(user_todo_groups)
 
   def refresh_todos(self):
     self.todo_rp.items = tdm.get_todo_rows(self.user_email)
@@ -102,7 +114,7 @@ class ToDo(ToDoTemplate):
     self.add_todo_group_card.visible = False
 
   def new_todo_group_btn_click(self, **event_args):
-    if self.add_todo_group_tb in ['',None]:
+    if self.add_todo_group_tb in ['', ' ', None]:
       alert("Please enter a To-do Group name.")
       return
     # get the UI values and add record to the database
@@ -113,10 +125,10 @@ class ToDo(ToDoTemplate):
     self.add_todo_group_tb.text = None
     # get the rows again from the db
     list_of_todo_dicts = tdm.get_todo_rows(self.user_email)
-    # refresh the repeating panel
-    self.refresh_todos()
-    # with those rows, populate the todo groups
-    self.populate_todo_groups(list_of_todo_dicts)
+
+    todo_groups = self.get_todo_groups()
+    self.populate_todo_group_dd(todo_groups)
+    
     # set the add todo group dropdown selected_value back to null
     self.todo_group_dd.selected_value = self.todo_group_dd.placeholder
     return list_of_todo_dicts    
