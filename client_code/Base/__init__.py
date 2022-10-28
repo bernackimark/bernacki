@@ -17,7 +17,6 @@ class Base(BaseTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.my_stuff.width, self.sign_in.width = 130, 115
-    self.links_sidebar_cp.width = 100
     self.show_my_stuff_link()
     self.change_sign_in_text()
     # self.content_panel.add_component(Home())

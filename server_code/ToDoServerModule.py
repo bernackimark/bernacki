@@ -19,9 +19,12 @@ def get_user_todo_groups(user_email):
 
 @anvil.server.callable
 def add_todo(todo_name, todo_group, user_email):
+  if app_tables.todos.get(todo_name=todo_name, todo_group=todo_group, user_email=user_email):
+    return False
   app_tables.todos.add_row(todo_name=todo_name, todo_group=todo_group, user_email=user_email, date_added=date.today())
   sync_color_w_group(user_email)
   delete_bare_todo_name(todo_group, user_email)
+  return True
   
 @anvil.server.callable
 def add_todo_group(todo_group, todo_group_color, user_email):

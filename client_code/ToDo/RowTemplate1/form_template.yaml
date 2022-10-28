@@ -1,6 +1,6 @@
 container:
   type: DataRowPanel
-  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
+  event_bindings: {}
   properties: {role: null, align: left, tooltip: '', border: '', foreground: '', auto_display_data: false,
     visible: true, font_size: null, font: '', spacing_above: none, spacing_below: none,
     italic: false, background: '', bold: false, underline: false}
@@ -43,8 +43,8 @@ components:
     - {property: text, code: 'self.item[''date_added'']'}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: '', font_size: 14, font: '', spacing_above: none,
-      icon_align: top, spacing_below: none, italic: false, background: '', bold: false,
+      foreground: '', visible: true, text: '', font_size: 24, font: '', spacing_above: none,
+      icon_align: left_edge, spacing_below: none, italic: false, background: '', bold: false,
       underline: false, icon: 'fa:pencil-square-o'}
     name: edit_todo_btn
     layout_properties: {column: TENEDR}
@@ -67,8 +67,8 @@ components:
   components:
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: '', font_size: 14, font: '', spacing_above: none,
-      icon_align: top, spacing_below: none, italic: false, background: '', bold: false,
+      foreground: '', visible: true, text: '', font_size: 24, font: '', spacing_above: none,
+      icon_align: left_edge, spacing_below: none, italic: false, background: '', bold: false,
       underline: false, icon: 'fa:floppy-o'}
     name: save_todo_btn
     layout_properties: {column: TENEDR}

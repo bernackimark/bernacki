@@ -797,6 +797,10 @@ textarea.anvil-component[disabled] {
   padding-right: -16px;
 }
 
+.anvil-data-row-panel>.data-row-col {
+    padding: 0px 4px; /*top padding, side padding (adjust as needed)*/
+}
+
 /* Shadow values taken from 
 https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-material-design-elevations
 */

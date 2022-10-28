@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  event_bindings: {refreshing_data_bindings: BRPDFRow_MC, hide: BRPDFRow_MC}
+  event_bindings: {}
   properties: {col_widths: '{"ARPNQA":15,"DKULYP":45}'}
 components:
 - type: Button
@@ -123,18 +123,18 @@ components:
   properties:
     role: null
     columns:
-    - {id: UNTZPI, title: '', data_key: column_1, width: 63, expand: false}
-    - {id: TENEDR, title: '', data_key: column_, width: 62, expand: false}
-    - {id: GDOAXH, title: Todo Name, data_key: todo_name, width: 496, expand: false}
-    - {id: VNYDAB, title: Todo Group, data_key: todo_group, width: 233, expand: false}
-    - {id: PBVETU, title: Date Added, data_key: date_added}
+    - {id: UNTZPI, title: '', data_key: column_1, width: 66, expand: false}
+    - {id: TENEDR, title: '', data_key: column_, width: 41, expand: false}
+    - {id: GDOAXH, title: Todo, data_key: todo_name, width: '90', expand: true}
+    - {id: VNYDAB, title: Group, data_key: todo_group, width: '90', expand: true}
+    - {id: PBVETU, title: Added, data_key: date_added, width: 86, expand: false}
     auto_header: true
     tooltip: ''
     border: ''
     foreground: ''
     rows_per_page: 20
     visible: true
-    wrap_on: mobile
+    wrap_on: never
     show_page_controls: true
     spacing_above: small
     spacing_below: small

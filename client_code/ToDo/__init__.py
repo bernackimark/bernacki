@@ -15,10 +15,8 @@ class ToDo(ToDoTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    #user_email = anvil.users.get_user()['email']
-    # HARDCODE !!!
-    user_email = 'bernackimark@gmail.com'
-    self.user_email = user_email
+    self.user_email = anvil.users.get_user()['email']
+    # user_email = 'bernackimark@gmail.com'  # for testing
     self.selected_group_color = ''
 
     self.add_todo_card.visible, self.add_todo_group_card.visible = False, False
@@ -83,7 +81,10 @@ class ToDo(ToDoTemplate):
     # get the UI values and add record to the database
     todo_name = self.add_todo_name_tb.text
     todo_group = self.todo_group_dd.selected_value
-    anvil.server.call('add_todo', todo_name, todo_group, self.user_email)
+    success = anvil.server.call('add_todo', todo_name, todo_group, self.user_email)
+    if not success:
+      alert("You've already added that task.")
+      return
     # hide & clear the card
     self.add_todo_card.visible = False
     self.add_todo_name_tb.text = None
