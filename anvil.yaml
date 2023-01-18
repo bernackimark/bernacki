@@ -4,9 +4,9 @@ services:
   client_config: {}
   server_config: {auto_create_missing_columns: false}
 - source: /runtime/services/anvil/users.yml
-  client_config: {require_secure_passwords: true, use_token: true, use_email: true,
-    allow_remember_me: true, allow_signup: true, enable_automatically: true, confirm_email: true,
-    remember_me_days: 30, use_google: true}
+  client_config: {email_from_address: bernackimark@gmail.com, require_secure_passwords: true,
+    use_token: true, use_email: true, allow_remember_me: true, allow_signup: true,
+    enable_automatically: true, confirm_email: true, remember_me_days: 30, use_google: true}
   server_config:
     user_table: users
     email_content:
@@ -146,7 +146,7 @@ db_schema:
       type: date
   todos:
     title: todos
-    client: full
+    client: none
     server: full
     columns:
     - name: todo_name

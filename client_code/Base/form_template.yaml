@@ -2,11 +2,11 @@ is_package: true
 container:
   type: HtmlTemplate
   properties: {html: '@theme:standard-page.html'}
-  event_bindings: {}
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC, hide: BRPDFRow_MC}
 components:
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"RQNWOF":25,"HUXKDC":10,"FBCDBX":25}',
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"RQNWOF":25,"HUXKDC":6,"FBCDBX":29}',
     spacing_below: small, background: ''}
   name: column_panel_1
   layout_properties: {slot: nav-right}
@@ -31,6 +31,7 @@ components:
     name: sign_in
     layout_properties: {grid_position: 'WEABDD,FBCDBX', full_width_row: true}
     event_bindings: {click: sign_in_click}
+  event_bindings: {hide: BRPDFRow_MC}
 - type: Link
   properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',
     visible: true, text: Bernacki, font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
@@ -43,17 +44,3 @@ components:
   properties: {}
   name: content_panel
   layout_properties: {slot: default}
-- type: ColumnPanel
-  properties: {col_widths: '{}'}
-  name: links_sidebar_cp
-  layout_properties: {slot: left-nav}
-  event_bindings: {}
-  components:
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: To-Do, font_size: null, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:pencil'}
-    name: todo_link
-    layout_properties: {grid_position: 'YXGMZK,SXUAQY'}
-    event_bindings: {click: todo_link_click}

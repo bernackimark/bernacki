@@ -3,7 +3,7 @@ container:
   properties: {role: null, tooltip: '', border: '', foreground: 'theme:Secondary 500',
     visible: true, wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"JYNLIV":35}',
     spacing_below: small, background: ''}
-  event_bindings: {}
+  event_bindings: {refreshing_data_bindings: BRPDFRow_MC}
   data_bindings: []
 components:
 - type: ColumnPanel
@@ -110,7 +110,16 @@ components:
       format: markdown}
     name: career_record
     layout_properties: {grid_position: 'VEMZSQ,QVHRXE', full_width_row: true, row_background: ''}
-    event_bindings: {}
+    event_bindings: {hide: BRPDFRow_MC}
+    components:
+    - type: Label
+      properties: {role: null, align: right, tooltip: '', border: '', foreground: '',
+        visible: true, text: '', font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+        underline: false, icon: ''}
+      name: info_lbl
+      layout_properties: {}
+      event_bindings: {hide: BRPDFRow_MC}
   - type: FlowPanel
     properties: {role: null, spacing: medium, align: center, tooltip: '', border: '',
       foreground: '', visible: true, spacing_above: medium, spacing_below: medium,
