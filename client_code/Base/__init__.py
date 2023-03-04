@@ -11,6 +11,7 @@ from ..Home import Home
 from ..Setback import Setback
 from ..Setback.SetbackBotChallenge import SetbackBotChallenge
 from ..ToDo import ToDo
+from ..TestForm import TestForm
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
