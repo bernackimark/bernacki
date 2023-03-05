@@ -1,0 +1,24 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{"MOOGWS":35,"WOVSST":15,"IRHQXF":10}'}
+components:
+- type: Label
+  properties: {}
+  name: info_lbl
+  layout_properties: {grid_position: 'AEFQJY,MOOGWS'}
+- type: TextBox
+  properties: {}
+  name: info_tb
+  layout_properties: {grid_position: 'AEFQJY,WOVSST'}
+- type: Button
+  properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+    foreground: '', visible: true, text: enter, font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: ''}
+  name: info_btn
+  layout_properties: {grid_position: 'AEFQJY,IRHQXF'}
+- type: ColumnPanel
+  properties: {role: card}
+  name: item_set_card
+  layout_properties: {grid_position: 'STUNPW,HYUYGE'}
+is_package: true
