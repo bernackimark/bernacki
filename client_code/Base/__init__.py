@@ -10,6 +10,7 @@ from anvil.tables import app_tables
 from ..Home import Home
 from ..Setback import Setback
 from ..Setback.SetbackBotChallenge import SetbackBotChallenge
+from ..Mastermind import Mastermind
 from ..ToDo import ToDo
 from ..TestForm import TestForm
 
@@ -61,6 +62,11 @@ class Base(BaseTemplate):
       self.sign_in.width = len(user['email']) * 20
     else:
       self.sign_in.text = "Sign In"
+
+  def mastermind_link_click(self, **event_args):
+    self.content_panel.clear()
+    self.content_panel.add_component(Mastermind())
+
   
 
 

@@ -6,48 +6,39 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+# anvil notes: outcome was an enum but no support, no return type pipe operator allowed
+
 import random
 from datetime import datetime
-from enum import Enum, auto
-
-
-class Outcome(Enum):
-    win = auto()
-    loss = auto()
-    no_result = auto()
 
 
 class UI:
+    prompt_datatype_answers = [
+        {'prompt': 'How many possible colors would you like to choose from (4 to 6)?', 'datatype': 'int', 'answers': [4, 5, 6]},
+        {'prompt': 'How long of a sequence would you like (between 1 and 10)?', 'datatype': 'int', 'answers': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+        {'prompt': 'How many guesses would you like to allow yourself (between 1 and 20)?', 'datatype': 'int', 'answers': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}
+    ]
+
     @staticmethod
-    def get_user_color_set_cnt() -> int:
+    def get_user_input(prompt_datatype_answer: dict):  # return type is int | str ... no anvil support for this
+        print(prompt_datatype_answer['prompt'])
         cnt = 0
-        while not 4 <= cnt <= 6:
-            cnt = int(input(f'How many possible colors would you like to choose from (4 to 6)? '))
+        while cnt not in prompt_datatype_answer['answers']:
+            if prompt_datatype_answer['datatype'] == 'int':
+                cnt = int(input())
+            else:
+                cnt = input()
         return cnt
 
     @staticmethod
-    def get_user_answer_len() -> int:
-        cnt = 0
-        while not 1 <= cnt <= 10:
-            cnt = int(input(f'How long of a sequence would you like (between 1 and 10)? '))
-        return cnt
-
-    @staticmethod
-    def get_user_max_cnt() -> int:
-        cnt = 0
-        while not 1 <= cnt <= 100:
-            cnt = int(input(f'How many guesses would you like to allow yourself (between 1 and 100)? '))
-        return cnt
+    def get_user_guess() -> list:
+        print(f'Please guess {game.answer_len} colors. ')
+        return [input() for _ in range(game.answer_len)]
 
     @staticmethod
     def display_answer() -> None:
         answer = [c.color for c in game.generated_answer]
         print(f'The answer is {answer}')
-
-    @staticmethod
-    def get_user_guess() -> list:
-        print(f'Please guess {game.answer_len} colors. ')
-        return [input() for i in range(game.answer_len)]
 
     @staticmethod
     def display_color_set() -> None:
@@ -71,8 +62,8 @@ class Color:
 class ColorBank:
     def __init__(self, color_set_cnt: int):
         all_colors = ['r', 'y', 'g', 'c', 'b', 'p']
-        self.game_color_objects = [Color(c, f'/assets/mastermind/mm_{c}.png') for idx, c in enumerate(all_colors) if idx + 1 <= color_set_cnt]
-
+        self.game_color_objects = [Color(c, f'_/theme/mastermind/mm_{c}.png') for idx, c in enumerate(all_colors) if idx + 1 <= color_set_cnt]
+  
     @property
     def game_color_list(self):
         return [c.color for c in self.game_color_objects]
@@ -95,8 +86,7 @@ class Game:
         self.max_guess_cnt = max_guess_cnt
         self.guess_cnt = 0
         self.round_list = []
-        self.outcome = ''
-        # self.result_dict = dict()
+        self.outcome = 'no_result'
 
     @property
     def answer_str(self):
@@ -111,12 +101,12 @@ class Game:
     def increment_guess_cnt(self):
         self.guess_cnt += 1
 
-    def update_outcome(self, outcome: Outcome):
-        self.outcome = outcome.name
+    def update_outcome(self, outcome: str):
+        self.outcome = outcome
 
     @property
     def result_dict(self):
-        return {'email': self.user_email, 'app': '',
+        return {'email': self.user_email, 'app': self.app_name,
                 'start_time': self.start_time, 'end_time': datetime.utcnow(),
                 'color_set_cnt': self.color_set_cnt, 'answer': self.answer_str, 'answer_len': self.answer_len,
                 'max_guess_cnt': self.max_guess_cnt, 'actual_guess_cnt': self.guess_cnt,
@@ -149,35 +139,34 @@ class Round:
                 self.correct_pos_cnt += 1
         self.incorrect_pos_cnt = total_correct_cnt - self.correct_pos_cnt
 
-user = anvil.users.get_user()
-email = user['email'] if user else 'bernackimark@gmail.com'
 
-while True:
-    color_set_cnt = UI.get_user_color_set_cnt()
-    answer_len = UI.get_user_answer_len()
-    max_guess_cnt = UI.get_user_max_cnt()
+def create_new_game(email, color_set_cnt, answer_len, max_guess_cnt):
+    global color_bank
     color_bank = ColorBank(color_set_cnt)
+    print(f'Color Bank is: {color_bank.game_color_list}')
+    global game
     game = Game(email=email, max_guess_cnt=max_guess_cnt, color_set_cnt=color_set_cnt, answer_len=answer_len)
     game.generate_answer()
     # UI.display_answer()
     UI.display_color_set()
+    
 
-    while True:
-        game.increment_guess_cnt()
-        round = Round()
-        guess = UI.get_user_guess()
-        round.guess = guess
-        round.compare_answer_and_guess()
-        game.update_round_list(round.guess_result)
-        UI.display_guess_result()
-        if round.correct_pos_cnt == game.answer_len:
-            game.update_outcome(Outcome.win)
-            UI.display_game_result()
-            break
-        if round.guess_cnt == game.max_guess_cnt:
-            game.update_outcome(Outcome.loss)
-            UI.display_game_result()
-            break
+    # while True:
+    #     game.increment_guess_cnt()
+    #     round = Round()
+    #     # guess = UI.get_user_guess()  # anvil_remove
+    #     round.guess = guess
+    #     round.compare_answer_and_guess()
+    #     game.update_round_list(round.guess_result)
+    #     UI.display_guess_result()
+    #     if round.correct_pos_cnt == game.answer_len:
+    #         game.update_outcome('win')
+    #         UI.display_game_result()
+    #         break
+    #     if round.guess_cnt == game.max_guess_cnt:
+    #         game.update_outcome('loss')
+    #         UI.display_game_result()
+    #         break
 
 
 # after knowing all of the letters, regardless of position:
@@ -195,9 +184,3 @@ while True:
 #           0 x3, 1 x3, 2 x2, 3 x0, 4 x1
 
 # come up with a bot to solve this
-
-
-
-
-
-
