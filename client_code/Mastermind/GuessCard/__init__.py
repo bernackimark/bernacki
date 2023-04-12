@@ -1,5 +1,6 @@
 from ._anvil_designer import GuessCardTemplate
 from anvil import *
+import anvil.server
 
 class GuessCard(GuessCardTemplate, guess_num, correct_pos_cnt, incorrect_pos_cnt, colors=None):
   def __init__(self, **properties):

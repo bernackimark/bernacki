@@ -15,6 +15,7 @@ components:
     properties: {}
     name: prompt_1_dd
     layout_properties: {grid_position: 'GKKYGZ,CQBLJU'}
+    event_bindings: {change: prompt_1_dd_change}
   - type: Label
     properties: {}
     name: prompt_2_lbl

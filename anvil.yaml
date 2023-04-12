@@ -63,35 +63,108 @@ runtime_options:
 metadata: {}
 startup_form: Cribbage
 db_schema:
-  bots:
-    title: bots
+  bu_tasks:
+    client: none
+    server: full
+    columns:
+    - name: task_id
+      admin_ui: {order: 0, width: 200}
+      type: number
+    - name: task_name
+      admin_ui: {order: 1, width: 200}
+      type: string
+    title: bu_tasks
+  bu_item_owner:
+    client: none
+    server: full
+    columns:
+    - name: item_id
+      admin_ui: {order: 0, width: 200}
+      type: number
+    - name: item_name
+      admin_ui: {order: 1, width: 200}
+      type: string
+    - name: owner_name
+      admin_ui: {order: 2, width: 200}
+      type: string
+    - name: ownership_begin_dt
+      admin_ui: {order: 3, width: 200}
+      type: datetime
+    - name: ownership_end_dt
+      admin_ui: {order: 4, width: 200}
+      type: datetime
+    - name: is_current
+      admin_ui: {order: 5, width: 200}
+      type: bool
+    title: bu_item_owner
+  bu_items:
+    client: none
+    server: full
+    columns:
+    - name: item_id
+      admin_ui: {order: 0, width: 200}
+      type: number
+    - name: item_name
+      admin_ui: {order: 1, width: 200}
+      type: string
+    title: bu_items
+  bu_statuses:
+    client: none
+    server: full
+    columns:
+    - name: status_desc
+      admin_ui: {order: 0, width: 200}
+      type: string
+    - name: status_type
+      admin_ui: {order: 1, width: 200}
+      type: string
+    - name: is_default
+      admin_ui: {order: 2, width: 200}
+      type: bool
+    title: bu_statuses
+  stuff:
+    title: stuff
     client: search
     server: search
     columns:
     - name: id
       admin_ui: {width: 200}
       type: number
-    - name: name
+    - name: id_name
       admin_ui: {width: 200}
       type: string
-    - name: bot_image
+    - name: description
       admin_ui: {width: 200}
+      type: string
+    - name: stuff_image
+      admin_ui: {width: 318}
       type: media
-    - name: int_level
+    - name: lmt
       admin_ui: {width: 200}
+      type: date
+  bu_item_status:
+    client: none
+    server: full
+    columns:
+    - name: item_id
+      admin_ui: {order: 0, width: 200}
       type: number
-    - name: int_image
-      admin_ui: {width: 200}
-      type: media
-    - name: agg_level
-      admin_ui: {width: 200}
-      type: number
-    - name: agg_image
-      admin_ui: {width: 200}
-      type: media
-    - name: enabled
-      admin_ui: {width: 200}
+    - name: status_desc
+      admin_ui: {order: 1, width: 200}
+      type: string
+    - name: status_type
+      admin_ui: {order: 2, width: 200}
+      type: string
+    - name: status_begin_dt
+      admin_ui: {order: 3, width: 200}
+      type: datetime
+    - name: status_end_dt
+      admin_ui: {order: 4, width: 200}
+      type: datetime
+    - name: is_current
+      admin_ui: {order: 5, width: 200}
       type: bool
+    title: bu_item_status
   users:
     title: Users
     client: none
@@ -133,26 +206,35 @@ db_schema:
     - name: last_name
       admin_ui: {order: 11, width: 200}
       type: string
-  stuff:
-    title: stuff
+  bots:
+    title: bots
     client: search
     server: search
     columns:
     - name: id
       admin_ui: {width: 200}
       type: number
-    - name: id_name
+    - name: name
       admin_ui: {width: 200}
       type: string
-    - name: description
+    - name: bot_image
       admin_ui: {width: 200}
-      type: string
-    - name: stuff_image
-      admin_ui: {width: 318}
       type: media
-    - name: lmt
+    - name: int_level
       admin_ui: {width: 200}
-      type: date
+      type: number
+    - name: int_image
+      admin_ui: {width: 200}
+      type: media
+    - name: agg_level
+      admin_ui: {width: 200}
+      type: number
+    - name: agg_image
+      admin_ui: {width: 200}
+      type: media
+    - name: enabled
+      admin_ui: {width: 200}
+      type: bool
   todos:
     title: todos
     client: none
@@ -173,4 +255,15 @@ db_schema:
     - name: user_email
       admin_ui: {width: 200}
       type: string
+  bu_owners:
+    client: none
+    server: full
+    columns:
+    - name: name
+      admin_ui: {order: 0, width: 200}
+      type: string
+    - name: is_active
+      admin_ui: {order: 1, width: 200}
+      type: bool
+    title: bu_owners
 renamed: true

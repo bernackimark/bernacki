@@ -69,3 +69,4 @@ class Mastermind(MastermindTemplate):
 
     def remove_guess_object(self, idx):
         self.color_objects.pop(idx)
+
