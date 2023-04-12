@@ -49,7 +49,9 @@ def is_valid_for_status(l: list[dict]) -> StatusMessage:
   for d in l:
     print(d)
     if d['item_id'] not in all_open_item_ids:
+      
       # NEED TO RE-DO THIS.  IF THE ITEM_ID IS LEGIT BUT IT'S ALREADY CLOSED, IT SHOULD JUST BE SKIPPED
+      
       return StatusMessage(False, f"{d['item_id']} is not a currently open item.")
     if d['new_value'] not in all_closed_statuses:
       return StatusMessage(False, f"{d['new_value']} is a not a valid closed status.")
