@@ -12,6 +12,7 @@ from ..Setback import Setback
 from ..Setback.SetbackBotChallenge import SetbackBotChallenge
 from ..Mastermind import Mastermind
 from ..BulkUpdater import BulkUpdater
+from ..DiscGolf import DiscGolf
 from ..ToDo import ToDo
 from ..TestForm import TestForm
 
@@ -71,6 +72,11 @@ class Base(BaseTemplate):
   def bulk_updater_link_click(self, **event_args):
     self.content_panel.clear()
     self.content_panel.add_component(BulkUpdater())
+
+  def link_dg_click(self, **event_args):
+    self.content_panel.clear()
+    self.content_panel.add_component(DiscGolf())
+
 
 
 
