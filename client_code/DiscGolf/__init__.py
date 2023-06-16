@@ -92,7 +92,10 @@ class DiscGolf(DiscGolfTemplate):
   def update_leaderboard_display(self, **event_args):
     for o in self.card_filter.get_components():
       if type(o) is DropDown and o.selected_value:
-        self.lbl_leaderboard_headline.text = f'Leaderboard for {utils.get_time_period_name_from_id(o.selected_value)}'  
+        if self.dd_time_period.selected_value:
+          self.lbl_leaderboard_headline.text = f'Leaderboard for {utils.get_time_period_name_from_id(o.selected_value)}'
+        else:
+          self.lbl_leaderboard_headline.text = f'Leaderboard for {o.selected_value}'  
     
     if self.dd_leaderboard_grouper.selected_value:
       self.rp_leaderboard.items = dgm.group_sort_by_column(self.repeating_panel_1.items, self.dd_leaderboard_grouper.selected_value)
