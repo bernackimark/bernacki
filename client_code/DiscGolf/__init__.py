@@ -66,6 +66,7 @@ class DiscGolf(DiscGolfTemplate):
   def dd_time_period_change(self, **event_args):
     self.clear_all_other_dd_selections(self.dd_time_period)
     self.repeating_panel_1.items = dgm.filter_by_time_period(self.dd_time_period.selected_value)
+    dgm.group_sort_by_column(self.repeating_panel_1.items, 'mpo_champion')
 
   def clear_all_other_dd_selections(self, the_current_dd):
     for o in self.card_filter.get_components():

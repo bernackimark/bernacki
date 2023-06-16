@@ -28,5 +28,8 @@ def filter_by_time_period(time_period_id):
   filtered = [e for e in dg_events if begin <= e['end_date'] <= end]
   return sorted(filtered, key=lambda x: x['end_date'], reverse=True)
 
-def group_sort_by_column(records, column_name):
-  pass  
+def group_sort_by_column(records: list[dict], grouper_column, reverse=True) -> list[dict]:
+  unique_values = {r[grouper_column] for r in records if r[grouper_column] is not None}
+  all_values = [r[grouper_column] for r in records if r[grouper_column] is not None]
+  list_of_dicts = [{'value': v, 'count': all_values.count(v)} for v in unique_values]
+  print( sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse) )
