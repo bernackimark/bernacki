@@ -2,6 +2,276 @@ container:
   type: ColumnPanel
   properties: {col_widths: '{}'}
 components:
+- type: Label
+  properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+    visible: true, text: PDGA Major & DGPT Winners (in the DGPT Era), font_size: null,
+    font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+    background: '', bold: false, underline: false, icon: ''}
+  name: lbl_title
+  layout_properties: {grid_position: 'UJBUKB,NYYUOU'}
+- type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"BFHMUI":10,"BKIDAU":20,"IJQCRA":10,"KAUPEX":20,"UVWVVF":10,"MDXIRS":50,"WGFSLH":15,"WPUXZA":20,"EJHWDP":10,"LLEOAP":32,"VQGAIZ":10,"NPBWIW":10,"WLPBKR":20,"EFMPCQ":10,"GVDXXP":20,"ZCSAYB":10,"LZWPRW":50}',
+    spacing_below: small, background: ''}
+  name: card_filter
+  layout_properties: {grid_position: 'OVURYN,NOWNNS', full_width_row: true}
+  components:
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: MPO Champion, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'YKPLKP,BFHMUI'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_mpo_champions
+    layout_properties: {grid_position: 'YKPLKP,BKIDAU'}
+    event_bindings: {change: dd_mpo_champions_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: FPO Champion, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_2
+    layout_properties: {grid_position: 'YKPLKP,IJQCRA'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_fpo_champions
+    layout_properties: {grid_position: 'YKPLKP,KAUPEX'}
+    event_bindings: {change: dd_fpo_champions_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Event, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_3
+    layout_properties: {grid_position: 'ZNITHF,UVWVVF'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_events
+    layout_properties: {grid_position: 'ZNITHF,MDXIRS'}
+    event_bindings: {change: dd_events_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: State, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_4
+    layout_properties: {grid_position: 'PYZFTL,WGFSLH'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_state
+    layout_properties: {grid_position: 'PYZFTL,WPUXZA'}
+    event_bindings: {change: dd_state_change}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'PYZFTL,VQGAIZ'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Country, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_5
+    layout_properties: {grid_position: 'PYZFTL,EJHWDP'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_country
+    layout_properties: {grid_position: 'PYZFTL,LLEOAP'}
+    event_bindings: {change: dd_country_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Governing Body, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_6
+    layout_properties: {grid_position: 'FKCNVN,NPBWIW'}
+  - type: DropDown
+    properties: {}
+    name: dd_governing_body
+    layout_properties: {grid_position: 'FKCNVN,WLPBKR'}
+    event_bindings: {change: dd_governing_body_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Designation, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_7
+    layout_properties: {grid_position: 'FKCNVN,EFMPCQ'}
+  - type: DropDown
+    properties: {}
+    name: dd_designation
+    layout_properties: {grid_position: 'FKCNVN,GVDXXP'}
+    event_bindings: {change: dd_designation_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Time Period, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_8
+    layout_properties: {grid_position: 'EWNYRF,ZCSAYB'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_time_period
+    layout_properties: {grid_position: 'EWNYRF,LZWPRW'}
+    event_bindings: {change: dd_time_period_change}
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
+  name: card_1
+  layout_properties: {grid_position: 'XMUWXB,FGORYH'}
+  components:
+  - type: Label
+    properties: {}
+    name: lbl_winners
+    layout_properties: {grid_position: 'JPMDOW,YBXSAC'}
+- type: DataGrid
+  properties:
+    role: null
+    columns:
+    - {id: QHKUGJ, title: Year, data_key: year, $$hashKey: 'object:28897', width: '30'}
+    - {id: DDESEM, title: Name, data_key: name, $$hashKey: 'object:28909', expand: true}
+    - {id: SARVJW, title: Gov Body, data_key: governing_body, $$hashKey: 'object:28898',
+      width: '75'}
+    - {id: MVZHBC, title: Designation, data_key: designation, $$hashKey: 'object:28899',
+      width: '100'}
+    - {id: JIXPZR, title: Start Date, data_key: start_date, $$hashKey: 'object:28900',
+      width: '100'}
+    - {id: NMBSMI, title: End Date, data_key: end_date, $$hashKey: 'object:28901',
+      width: '100'}
+    - {id: MKAKAF, title: City, data_key: city, $$hashKey: 'object:28902', expand: true}
+    - {id: MLDCEI, title: State, data_key: state, $$hashKey: 'object:28903', width: '50'}
+    - {id: ZDMPFH, title: Country, data_key: country, $$hashKey: 'object:28904', width: '75'}
+    - {id: VNTSUA, title: MPO Winner, data_key: mpo_champion, $$hashKey: 'object:28905',
+      expand: true}
+    - {id: OMRHJC, title: FPO Winner, data_key: fpo_champion, $$hashKey: 'object:28906'}
+    auto_header: true
+    tooltip: ''
+    border: ''
+    foreground: ''
+    rows_per_page: 50
+    visible: true
+    wrap_on: never
+    show_page_controls: true
+    spacing_above: small
+    spacing_below: small
+    background: ''
+  name: dg_dg_events
+  layout_properties: {grid_position: 'FIVZGS,JOTPHP', full_width_row: true}
+  components:
+  - type: RepeatingPanel
+    properties: {spacing_above: none, spacing_below: none, item_template: DiscGolf.rp_dg_events}
+    name: repeating_panel_1
+    layout_properties: {}
+  data_bindings: []
 - type: FileLoader
   properties:
     role: null
@@ -13,7 +283,7 @@ components:
     enabled: true
     files: []
     foreground: ''
-    visible: true
+    visible: false
     text: Upload
     font_size: null
     font: ''
