@@ -267,7 +267,7 @@ db_schema:
       type: bool
     title: bu_owners
   dg_events:
-    client: full
+    client: search
     server: full
     columns:
     - name: id
@@ -309,5 +309,8 @@ db_schema:
     - name: lmt
       admin_ui: {order: 12, width: 200}
       type: datetime
+    - name: name
+      admin_ui: {order: 13, width: 200}
+      type: string
     title: dg_events
 renamed: true
