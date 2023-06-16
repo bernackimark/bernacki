@@ -1,6 +1,10 @@
 from datetime import date, timedelta
 
 time_periods = [('Last 30 Days', 1), ('Last Month', 2), ('This Year', 3), ('Last Year', 4), ('Last 365 Days', 5), ('All Time', 6)]
+
+def get_time_period_name_from_id(id: int) -> str:
+  return [n[0] for n in time_periods if id == n[1]][0]
+
 today = date.today()
 time_period_begin_end_list = [(1, today-timedelta(days=30), today),
                               (2, (today.replace(day=1) - timedelta(days=1)).replace(day=1), today.replace(day=1) - timedelta(days=1)),
