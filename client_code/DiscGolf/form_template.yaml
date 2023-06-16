@@ -225,14 +225,51 @@ components:
     layout_properties: {grid_position: 'EWNYRF,LZWPRW'}
     event_bindings: {change: dd_time_period_change}
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
-  name: card_1
+  properties: {role: card, col_widths: '{"CEHDZG":30,"CTPHWA":10,"DMKCBK":20}'}
+  name: card_leaderboard
   layout_properties: {grid_position: 'XMUWXB,FGORYH'}
   components:
   - type: Label
-    properties: {}
-    name: lbl_winners
-    layout_properties: {grid_position: 'JPMDOW,YBXSAC'}
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Leaderboard, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: lbl_leaderboard_headline
+    layout_properties: {grid_position: 'EIEVUX,CEHDZG'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Group By, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_9
+    layout_properties: {grid_position: 'EIEVUX,CTPHWA'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_leaderboard_grouper
+    layout_properties: {grid_position: 'EIEVUX,DMKCBK'}
+    event_bindings: {change: dd_leaderboard_grouper_change}
+  - type: RepeatingPanel
+    properties: {item_template: DiscGolf.ItemTemplate1}
+    name: rp_leaderboard
+    layout_properties: {grid_position: 'TGEASO,NMZIGK'}
 - type: DataGrid
   properties:
     role: null

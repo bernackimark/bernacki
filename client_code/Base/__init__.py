@@ -15,6 +15,7 @@ from ..BulkUpdater import BulkUpdater
 from ..DiscGolf import DiscGolf
 from ..ToDo import ToDo
 from ..TestForm import TestForm
+from ..Admin import Admin
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -77,10 +78,9 @@ class Base(BaseTemplate):
     self.content_panel.clear()
     self.content_panel.add_component(DiscGolf())
 
-
-
-
-  
+  def link_admin_click(self, **event_args):
+    self.content_panel.clear()
+    self.content_panel.add_component(Admin())
 
 
 

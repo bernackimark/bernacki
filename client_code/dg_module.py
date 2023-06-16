@@ -10,6 +10,7 @@ from . import utils
 from datetime import date, timedelta
 
 dg_events = [_ for _ in app_tables.dg_events.search()]
+leaderboard_groupers = [('MPO Winner', 'mpo_champion'), ('FPO Winner', 'fpo_champion'), ('Event', 'name'), ('Year', 'year')]
 
 def sort_dg_events(column_name, reverse=False):
   return sorted(dg_events, key=lambda x: x[column_name], reverse=reverse)
@@ -32,4 +33,5 @@ def group_sort_by_column(records: list[dict], grouper_column, reverse=True) -> l
   unique_values = {r[grouper_column] for r in records if r[grouper_column] is not None}
   all_values = [r[grouper_column] for r in records if r[grouper_column] is not None]
   list_of_dicts = [{'value': v, 'count': all_values.count(v)} for v in unique_values]
-  print( sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse) )
+  return sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse)
+  

@@ -1,0 +1,192 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{"LVDRVG":15,"IDBRGS":45,"QFNPPR":15,"MUKHDV":45,"AFRVWO":15,"LGWRAV":45,"ZCDXHC":15,"WTKYVN":45,"DXRJIJ":15,"KETLWK":45,"EUXGEW":15,"MVVKOF":45,"ABGETZ":15,"LKNOOX":45,"JJDNQU":15,"UKIZJM":45,"SYQDLB":15,"TQRZNO":45,"DZYTMT":15,"PAFUDP":45,"WRZRCY":15,"HYJBXM":45}'}
+  name: card_add_new_dg_event
+  layout_properties: {grid_position: 'OBTJLV,OLGTYG'}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Add New Disc Golf Event, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_1
+    layout_properties: {grid_position: 'BMBCPX,MNNNMZ'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: lbl_last_event_added
+    layout_properties: {grid_position: 'BMBCPX,MVSPSV'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Year, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'FIRNOY,LVDRVG'}
+  - type: TextBox
+    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: '',
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      font: '', spacing_above: small, type: number, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false}
+    name: tb_year
+    layout_properties: {grid_position: 'FIRNOY,IDBRGS'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Governing Body, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_2
+    layout_properties: {grid_position: 'ODVGSL,QFNPPR'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_governing_body
+    layout_properties: {grid_position: 'ODVGSL,MUKHDV'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Designation, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_3
+    layout_properties: {grid_position: 'WBZUFR,AFRVWO'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_designation
+    layout_properties: {grid_position: 'WBZUFR,LGWRAV'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Start Date, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_4
+    layout_properties: {grid_position: 'GMOBOL,ZCDXHC'}
+  - type: DatePicker
+    properties: {}
+    name: dp_start
+    layout_properties: {grid_position: 'GMOBOL,WTKYVN'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: End Date, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_5
+    layout_properties: {grid_position: 'YUCTOL,DXRJIJ'}
+  - type: DatePicker
+    properties: {}
+    name: dp_end
+    layout_properties: {grid_position: 'YUCTOL,KETLWK'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: City, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_6
+    layout_properties: {grid_position: 'QGEXMF,EUXGEW'}
+  - type: TextBox
+    properties: {}
+    name: tb_city
+    layout_properties: {grid_position: 'QGEXMF,MVVKOF'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: State, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_7
+    layout_properties: {grid_position: 'AVVYAG,ABGETZ'}
+  - type: TextBox
+    properties: {}
+    name: tb_state
+    layout_properties: {grid_position: 'AVVYAG,LKNOOX'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Country, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_8
+    layout_properties: {grid_position: 'YOXERV,JJDNQU'}
+  - type: TextBox
+    properties: {}
+    name: tb_country
+    layout_properties: {grid_position: 'YOXERV,UKIZJM'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Name, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_9
+    layout_properties: {grid_position: 'LHZGRM,SYQDLB'}
+  - type: TextBox
+    properties: {}
+    name: tb_name
+    layout_properties: {grid_position: 'LHZGRM,TQRZNO'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: MPO Winner, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_10
+    layout_properties: {grid_position: 'SVSYAR,DZYTMT'}
+  - type: TextBox
+    properties: {}
+    name: tb_mpo_champion
+    layout_properties: {grid_position: 'SVSYAR,PAFUDP'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: FPO Winner, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_11
+    layout_properties: {grid_position: 'JAVBXY,WRZRCY'}
+  - type: TextBox
+    properties: {}
+    name: tb_fpo_champion
+    layout_properties: {grid_position: 'JAVBXY,HYJBXM'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Save, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: btn_add_new_dg_event
+    layout_properties: {grid_position: 'UIRSVK,LOTRZA'}
+    event_bindings: {click: btn_add_new_dg_event_click}
+is_package: true

@@ -267,7 +267,7 @@ db_schema:
       type: bool
     title: bu_owners
   dg_events:
-    client: full
+    client: search
     server: full
     columns:
     - name: id
