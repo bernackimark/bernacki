@@ -32,8 +32,10 @@ class Mastermind(MastermindTemplate):
     self.colors_in_guess = 0
   
   def new_game_btn_click(self, **event_args):
-    m.create_new_game(self.email, self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
+    m.create_new_game('', self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
+    # m.create_new_game(self.email, self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
     self.display_available_colors()
+    self.new_game_btn.enabled = False
 
   def display_available_colors(self):
     for idx, c in enumerate(m.color_bank.game_color_objects):
@@ -50,23 +52,25 @@ class Mastermind(MastermindTemplate):
     if self.colors_in_guess > m.game.answer_len:
       return
     color = event_args['sender'].tag.color
-    print(color)
+    m.guess.add_guess_object(color)
+    print(m.guess.color_objects)
+    self.display_guess()
 
-    def remove_color_from_guess(self, **event_args):
-      pass
+  def remove_color_from_guess(self, **event_args):
+    m.guess.remove_guess_object(event_args['sender'].tag.idx)
+    self.display_guess()
+
+  def display_guess(self):
+    self.guess_gp.clear()
+    for idx, c in enumerate(m.guess.color_objects):
+      image = Image(source=c.image, height=50, display_mode='shrink_to_fit')
+      # using a grid panel because i couldn't get the images to appear on a flow panel.  not sure why.
+      link = Link()
+      link.tag.color = c.color
+      link.tag.idx = idx
+      link.add_event_handler('click', self.remove_color_from_guess)
+      link.add_component(image)
+      self.guess_gp.add_component(link, row='A', col_xs=idx*2, width_xs=2)    
 
 
-# # put this in the module
-# class Guess:
-#     def __init__(self):
-#         self.color_objects = []
-
-#     def add_guess_object(self, color: Color):
-#         if len(self.color_objects) > game.answer_len:
-#             print('No more guesses remaining')
-#             return
-#         self.color_objects.append(color)
-
-    def remove_guess_object(self, idx):
-        self.color_objects.pop(idx)
 

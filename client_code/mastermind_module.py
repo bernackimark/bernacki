@@ -7,7 +7,6 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 # anvil notes: outcome was an enum but no support, no return type pipe operator allowed
-
 import random
 from datetime import datetime
 
@@ -60,10 +59,13 @@ class Color:
 
 
 class ColorBank:
-    def __init__(self, color_set_cnt: int):
-        all_colors = ['r', 'y', 'g', 'c', 'b', 'p']
-        self.game_color_objects = [Color(c, f'_/theme/mastermind/mm_{c}.png') for idx, c in enumerate(all_colors) if idx + 1 <= color_set_cnt]
-  
+    def __init__(self):
+        self.all_colors = ['r', 'y', 'g', 'c', 'b', 'p']
+        self.game_color_objects = []
+
+    def generate_game_color_objects(self, color_set_cnt: int):
+      self.game_color_objects = [Color(c, f'_/theme/mastermind/mm_{c}.png') for idx, c in enumerate(self.all_colors) if idx + 1 <= color_set_cnt]
+      
     @property
     def game_color_list(self):
         return [c.color for c in self.game_color_objects]
@@ -75,25 +77,29 @@ class ColorBank:
 # should there be a parent Game class that creates the shell for all games?
 # email, app_name, start, end, ?maybe outcome?
 class Game:
-    def __init__(self, email: str, max_guess_cnt, color_set_cnt, answer_len):
-        self.user_email = email
-        self.app_name = 'mastermind'
-        self.start_time = datetime.utcnow()
-        self.end_time = ''
-        self.color_set_cnt = color_set_cnt
-        self.answer_len = answer_len
-        self.generated_answer = []  # will be a list[Color]
-        self.max_guess_cnt = max_guess_cnt
-        self.guess_cnt = 0
-        self.round_list = []
-        self.outcome = 'no_result'
+    def __init__(self):
+      self.user_email = ''
+      self.app_name = 'mastermind'
+      self.start_time = ''  # datetime.utcnow()
+      self.end_time = ''
+      self.color_set_cnt = 0  # color_set_cnt
+      self.answer_len = 0  # answer_len
+      self.generated_answer = []  # will be a list[Color]
+      self.max_guess_cnt = 0  # max_guess_cnt
+      self.guess_cnt = 0
+      self.round_list = []
+      self.outcome = 'no_result'
+      self.phase = 'not_playing'  # if guessing, "play" button should be disabled
 
     @property
     def answer_str(self):
         return [c.color for c in self.generated_answer]
 
     def generate_answer(self):
+        print(f'Game Answer Len is: {self.answer_len}')
+        print(f'Color Bank is: {color_bank.game_color_list}')
         self.generated_answer = [random.choice(color_bank.game_color_objects) for _ in range(self.answer_len)]
+        print(f'I generated this answer: {self.generated_answer}')
 
     def update_round_list(self, round_obj):
         self.round_list.append(round_obj)
@@ -116,7 +122,6 @@ class Game:
 
 class Round:
     def __init__(self):
-        self.guess_cnt = game.guess_cnt
         self.guess = []  # this is a list[Color]
         self.correct_pos_cnt = 0
         self.incorrect_pos_cnt = 0
@@ -140,33 +145,51 @@ class Round:
         self.incorrect_pos_cnt = total_correct_cnt - self.correct_pos_cnt
 
 
-def create_new_game(email, color_set_cnt, answer_len, max_guess_cnt):
-    global color_bank
-    color_bank = ColorBank(color_set_cnt)
-    print(f'Color Bank is: {color_bank.game_color_list}')
-    global game
-    game = Game(email=email, max_guess_cnt=max_guess_cnt, color_set_cnt=color_set_cnt, answer_len=answer_len)
-    game.generate_answer()
-    # UI.display_answer()
-    UI.display_color_set()
-    
+class Guess:
+    def __init__(self):
+        self.color_objects = []
 
-    # while True:
-    #     game.increment_guess_cnt()
-    #     round = Round()
-    #     # guess = UI.get_user_guess()  # anvil_remove
-    #     round.guess = guess
-    #     round.compare_answer_and_guess()
-    #     game.update_round_list(round.guess_result)
-    #     UI.display_guess_result()
-    #     if round.correct_pos_cnt == game.answer_len:
-    #         game.update_outcome('win')
-    #         UI.display_game_result()
-    #         break
-    #     if round.guess_cnt == game.max_guess_cnt:
-    #         game.update_outcome('loss')
-    #         UI.display_game_result()
-    #         break
+    def add_guess_object(self, color: Color):
+        if len(self.color_objects) > game.answer_len:
+            print('No more guesses remaining')
+            return
+        self.color_objects.append(color)
+
+    def remove_guess_object(self, idx):
+        self.color_objects.pop(idx)
+
+
+def create_new_game(email, color_set_cnt, answer_len, max_guess_cnt):
+  color_bank.generate_game_color_objects(color_set_cnt)
+  # game = Game(email=email, max_guess_cnt=max_guess_cnt, color_set_cnt=color_set_cnt, answer_len=answer_len)
+  game.start_time = datetime.utcnow()
+  game.color_set_cnt, game.answer_len, game.max_guess_cnt = color_set_cnt, answer_len, max_guess_cnt
+
+  game.generate_answer()
+  # UI.display_answer()
+  UI.display_color_set()
+
+
+# i want to create a game instance only when a new game is created, but i can't figure out how to create it on demand (outside of a function)
+# to create 'game' in the global scope, my workaround is to create a shell of a game instance and then actually populate it upon call
+game = Game()
+color_bank = ColorBank()
+guess = Guess()
+
+# round = Round()
+# # guess = UI.get_user_guess()  # anvil_remove
+# round.guess = guess
+# round.compare_answer_and_guess()
+# game.update_round_list(round.guess_result)
+# UI.display_guess_result()
+# if round.correct_pos_cnt == game.answer_len:
+#     game.update_outcome('win')
+#     UI.display_game_result()
+#     break
+# if round.guess_cnt == game.max_guess_cnt:
+#     game.update_outcome('loss')
+#     UI.display_game_result()
+#     break
 
 
 # after knowing all of the letters, regardless of position:
