@@ -31,6 +31,8 @@ roles:
   components: [Link]
 - name: todo-gp
   components: [GridPanel]
+- name: scroll
+  components: [RepeatingPanel]
 color_scheme:
   preset_groups:
   - name: Primary Colour

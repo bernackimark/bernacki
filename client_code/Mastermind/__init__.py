@@ -28,6 +28,7 @@ class Mastermind(MastermindTemplate):
     self.prompt_2_dd.items = util.convert_list_of_ints_to_tuples_for_dd(m.UI.prompt_datatype_answers[1]['answers'])
     self.prompt_3_dd.items = util.convert_list_of_ints_to_tuples_for_dd(m.UI.prompt_datatype_answers[2]['answers'])
     self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value = 6, 4, 10
+    self.rt_instructions.content = m.UI.instructions_text
   
   def new_game_btn_click(self, **event_args):
     m.create_new_game(self.email, self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
@@ -63,6 +64,7 @@ class Mastermind(MastermindTemplate):
 
   def display_guess(self):
     self.guess_gp.clear()
+
     for idx, c in enumerate(m.guess.color_objects):
       image = Image(source=c.image, height=50, display_mode='shrink_to_fit')
       # using a grid panel because i couldn't get the images to appear on a flow panel.  not sure why.
@@ -107,4 +109,8 @@ class Mastermind(MastermindTemplate):
   def btn_play_again_click(self, **event_args):
     self.card_new_game.visible = True
     self.card_play_again.visible = False
+
+  def btn_close_instructions_click(self, **event_args):
+    self.card_instructions.visible = False
+
     

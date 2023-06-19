@@ -12,6 +12,16 @@ from datetime import datetime
 
 
 class UI:
+    instructions_text = '''The goal of the game is to guess the secret color sequence.  Once you have started the game, click on a color to add it to your guess.
+    
+                        Once you've added a color to your guess, you can click on it again to remove it from your guess.  When you are happy with your guess, click on the submit button.
+                        
+                        If you are able to guess the secret sequence within your allotted guesses, you will win the game.  If not, the secret sequence will be revealed, and you'll have lost.
+                        
+                        You can adjust the available colors, the length of the secret sequence, and the number of guesses you are allowed.  If the current settings are too easy or too hard, adjust up or down.
+                        
+                        Happy Masterminding.  Love, Bernacki'''
+  
     prompt_datatype_answers = [
         {'prompt': 'How many possible colors would you like to choose from (4 to 6)?', 'datatype': 'int', 'answers': [4, 5, 6]},
         {'prompt': 'How long of a sequence would you like (between 1 and 6)?', 'datatype': 'int', 'answers': [1, 2, 3, 4, 5, 6]},
