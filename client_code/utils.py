@@ -1,3 +1,4 @@
+import anvil.server
 from datetime import date, timedelta
 import random
 

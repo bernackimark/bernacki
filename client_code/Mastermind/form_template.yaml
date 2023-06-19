@@ -1,10 +1,27 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{}'}
+  properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
 components:
 - type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_play_again
+  layout_properties: {grid_position: 'BIGPZJ,OFYIRK'}
+  components:
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Play Again, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_play_again
+    layout_properties: {grid_position: 'TQUWQO,JBSGFW'}
+    event_bindings: {click: btn_play_again_click}
+- type: ColumnPanel
   properties: {role: card, col_widths: '{"ZITUSI":50,"WOCQMX":10,"PHILRY":50,"YLINWT":10,"DDBHCU":50,"CQBLJU":10}'}
-  name: card_1
+  name: card_new_game
   layout_properties: {grid_position: 'MGUNHC,BYQBBT'}
   components:
   - type: Label
@@ -41,8 +58,29 @@ components:
     layout_properties: {grid_position: 'RRANOG,HNPGXV'}
     event_bindings: {click: new_game_btn_click}
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
-  name: card_2
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_round_number
+  layout_properties: {grid_position: 'PAHYEN,TEYJPI', full_width_row: true}
+  components:
+  - type: Label
+    properties: {role: headline, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: '', font_size: null, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: lbl_game_status
+    layout_properties: {grid_position: 'QIHSRI,WWUETJ'}
+  - type: GridPanel
+    properties: {spacing_above: small, spacing_below: small, background: '', foreground: '',
+      border: '', visible: false, role: null, tooltip: ''}
+    name: gp_winning_combo
+    layout_properties: {grid_position: 'KIEVFU,RGDFZV'}
+- type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_available_colors
   layout_properties: {grid_position: 'RQOXVZ,ATTBOM'}
   components:
   - type: Label
@@ -57,8 +95,10 @@ components:
     name: available_colors_gp
     layout_properties: {grid_position: 'ZNVYZT,GHJZCN'}
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
-  name: card_3
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_your_guess
   layout_properties: {grid_position: 'PSPZOA,XMERED'}
   components:
   - type: Label
@@ -73,10 +113,57 @@ components:
     name: guess_gp
     layout_properties: {grid_position: 'MHYYVA,EUCXNE'}
   - type: Button
-    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: false,
       foreground: '', visible: true, text: submit guess, font_size: null, font: '',
       spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}
     name: submit_guess_btn
     layout_properties: {grid_position: 'HUWLCJ,XOBZDB'}
+    event_bindings: {click: submit_guess_btn_click}
+- type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: false,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_guess_log
+  layout_properties:
+    col_widths: {}
+    grid_position: CMVYLX,TYEDLL
+  components:
+  - type: Label
+    properties: {role: headline, align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: Your Guesses, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_1_copy
+    layout_properties: {grid_position: 'VCOMPG,IVYCLP'}
+  - type: DataGrid
+    properties:
+      role: null
+      columns:
+      - {id: VNBZXZ, title: 'Guess #', data_key: guess_number, $$hashKey: 'object:8747',
+        width: '100'}
+      - {id: IFRPVX, title: Guess, data_key: guess, $$hashKey: 'object:8748', expand: true}
+      - {id: ZBGFPF, title: 'Correct #', data_key: correct_pos_cnt, $$hashKey: 'object:8749',
+        width: '100'}
+      - {id: EJWMDP, title: 'Incorrect #', data_key: incorrect_pos_cnt, $$hashKey: 'object:8828',
+        width: '100'}
+      auto_header: true
+      tooltip: ''
+      border: ''
+      foreground: ''
+      rows_per_page: 20
+      visible: true
+      wrap_on: never
+      show_page_controls: false
+      spacing_above: small
+      spacing_below: small
+      background: ''
+    name: dg_guess_log
+    layout_properties: {grid_position: 'YZFRSX,RXMEMB'}
+    components:
+    - type: RepeatingPanel
+      properties: {spacing_above: none, spacing_below: none, item_template: Mastermind.GuessLogRow}
+      name: rp_guess_log
+      layout_properties: {}
+    data_bindings: []
 is_package: true

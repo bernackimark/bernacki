@@ -1,0 +1,39 @@
+container:
+  type: DataRowPanel
+  data_bindings: []
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    auto_display_data: true, visible: true, font_size: 18, font: '', spacing_above: none,
+    spacing_below: none, italic: false, background: '', bold: false, underline: false}
+components:
+- type: GridPanel
+  properties: {}
+  name: gp_guess_log_row_colors
+  layout_properties: {column: IFRPVX}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: 30, font: '', spacing_above: large, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_1
+  layout_properties: {column: VNBZXZ}
+  data_bindings:
+  - {property: text, code: 'self.item[''guess_number'']'}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: 30, font: '', spacing_above: large, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_2
+  layout_properties: {column: ZBGFPF}
+  data_bindings:
+  - {property: text, code: 'self.item[''correct_pos_cnt'']'}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: 30, font: '', spacing_above: large, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: label_3
+  layout_properties: {column: EJWMDP}
+  data_bindings:
+  - {property: text, code: 'self.item[''incorrect_pos_cnt'']'}
+is_package: true
