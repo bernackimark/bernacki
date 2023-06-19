@@ -12,13 +12,13 @@ from datetime import datetime
 
 
 class UI:
-    instructions_text = '''The goal of the game is to guess the secret color sequence.  Once you have started the game, click on a color to add it to your guess.
+    instructions_text = '''For each game, a secret color sequence is generated, and your goal is to guess sequence before you are out of chances.
     
-                        Once you've added a color to your guess, you can click on it again to remove it from your guess.  When you are happy with your guess, click on the submit button.
+                        Once you have started the game, you will see a list of available colors to choose from.  The secret color sequence will be comprised of those colors -- each color can be used zero, once, or multiple times.  Click on an available color to add it to your guess.  Once you've added a color to your guess, you can click on it again to remove it from your guess.  Once you are happy with your guess, click on the submit button.
                         
-                        If you are able to guess the secret sequence within your allotted guesses, you will win the game.  If not, the secret sequence will be revealed, and you'll have lost.
+                        Each of your guesses will be shown in Your Previous Guess section at the bottom.  The 'Correct #' will tell you how many colors you got in the correct position.  The 'Incorrect #' will tell you how many colors you have correctly identified but in the incorrect position. 
                         
-                        You can adjust the available colors, the length of the secret sequence, and the number of guesses you are allowed.  If the current settings are too easy or too hard, adjust up or down.
+                        If you want to increase or decrease the difficulty, when starting a new game, you can adjust the available colors, the length of the secret sequence, and the number of guesses you are allowed.
                         
                         Happy Masterminding.  Love, Bernacki'''
   
@@ -85,6 +85,9 @@ class ColorBank:
       
     def remove_color(self, idx: int):
       self.color_objects.pop(idx)
+
+    def remove_all(self):
+      self.color_objects.clear()
       
     def get_color_from_letter(self, letter: str) -> Color:
         return [c for c in self.color_objects if letter == c.letter][0]

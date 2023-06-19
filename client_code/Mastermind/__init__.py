@@ -74,6 +74,7 @@ class Mastermind(MastermindTemplate):
       link.add_component(image)
       self.guess_gp.add_component(link, row='A', col_xs=idx*2, width_xs=2)    
     self.submit_guess_btn.enabled = (len(m.guess.color_objects) == m.game.answer_len)
+    self.btn_clear_guess.enabled = (len(m.guess.color_objects) > 0)
 
   def submit_guess_btn_click(self, **event_args):
     m.create_new_round()
@@ -83,6 +84,10 @@ class Mastermind(MastermindTemplate):
     self.display_guess()
     self.display_game_status()
 
+  def btn_clear_guess_click(self, **event_args):
+    m.guess.remove_all()
+    self.display_guess()
+  
   def display_guess_log(self):          
     self.rp_guess_log.items = sorted(m.game.round_list, key=lambda x: x['guess_number'], reverse=True)
 
@@ -112,5 +117,6 @@ class Mastermind(MastermindTemplate):
 
   def btn_close_instructions_click(self, **event_args):
     self.card_instructions.visible = False
+
 
     
