@@ -32,3 +32,13 @@ class Admin(AdminTemplate):
                       mpo_champion=self.tb_mpo_champion.text, fpo_champion=self.tb_fpo_champion.text, name=self.tb_name.text)
     self.get_most_recent_loaded_event()
 
+  def btn_clear_click(self, **event_args):
+    for o in self.card_add_new_dg_event.get_components():
+      if type(o) is TextBox:
+        o.text = None
+      elif type(o) is DatePicker:
+        o.date = None
+      elif type(o) is DropDown:
+        o.selected_value = None
+
+
