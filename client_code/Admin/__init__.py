@@ -19,7 +19,7 @@ class Admin(AdminTemplate):
 
   def get_most_recent_loaded_event(self):
     last_event, last_added_ts = anvil.server.call('get_most_recent_event')
-    self.lbl_last_event_added.text = f'Last Event Added: {last_event} on {last_added_ts}' 
+    self.lbl_last_event_added.text = f'Last Event Added: {last_event} on:{chr(10)}{last_added_ts:%m.%d.%Y %H:%M:%S}' 
 
   def btn_add_new_dg_event_click(self, **event_args):
     for o in self.card_add_new_dg_event.get_components():
