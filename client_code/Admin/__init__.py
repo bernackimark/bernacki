@@ -17,9 +17,6 @@ class Admin(AdminTemplate):
     self.dd_designation.items = dgm.filter_sort_unique_column('designation')
     self.get_most_recent_loaded_event()
 
-    winners = {w['mpo_champion'] for w in app_tables.dg_events.search()}
-    self.lbl_winners.text = winners
-
   def get_most_recent_loaded_event(self):
     last_event, last_added_ts = anvil.server.call('get_most_recent_event')
     self.lbl_last_event_added.text = f'Last Event Added: {last_event} on {last_added_ts}' 

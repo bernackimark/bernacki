@@ -197,8 +197,4 @@ components:
     name: btn_add_new_dg_event
     layout_properties: {grid_position: 'UIRSVK,LOTRZA'}
     event_bindings: {click: btn_add_new_dg_event_click}
-- type: Label
-  properties: {}
-  name: lbl_winners
-  layout_properties: {grid_position: 'EVDXSB,EWGKXW'}
 is_package: true

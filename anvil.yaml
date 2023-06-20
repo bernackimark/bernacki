@@ -64,64 +64,81 @@ metadata: {}
 startup_form: Cribbage
 db_schema:
   bu_tasks:
+    title: bu_tasks
     client: none
     server: full
     columns:
     - name: task_id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 200}
       type: number
     - name: task_name
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: string
-    title: bu_tasks
   bu_item_owner:
+    title: bu_item_owner
     client: none
     server: full
     columns:
     - name: item_id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 108.4}
       type: number
     - name: item_name
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: owner_name
-      admin_ui: {order: 2, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: ownership_begin_dt
-      admin_ui: {order: 3, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: ownership_end_dt
-      admin_ui: {order: 4, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: is_current
-      admin_ui: {order: 5, width: 200}
+      admin_ui: {width: 200}
       type: bool
-    title: bu_item_owner
   bu_items:
+    title: bu_items
     client: none
     server: full
     columns:
     - name: item_id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 200}
       type: number
     - name: item_name
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: string
-    title: bu_items
+  dg_players:
+    title: dg_players
+    client: search
+    server: full
+    columns:
+    - name: pdga_id
+      admin_ui: {width: 200}
+      type: number
+    - name: first_name
+      admin_ui: {width: 200}
+      type: string
+    - name: last_name
+      admin_ui: {width: 200}
+      type: string
+    - name: division
+      admin_ui: {width: 200}
+      type: string
   bu_statuses:
+    title: bu_statuses
     client: none
     server: full
     columns:
     - name: status_desc
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: status_type
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: is_default
-      admin_ui: {order: 2, width: 200}
+      admin_ui: {width: 200}
       type: bool
-    title: bu_statuses
   stuff:
     title: stuff
     client: search
@@ -143,28 +160,28 @@ db_schema:
       admin_ui: {width: 200}
       type: date
   bu_item_status:
+    title: bu_item_status
     client: none
     server: full
     columns:
     - name: item_id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 137.4}
       type: number
     - name: status_desc
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: status_type
-      admin_ui: {order: 2, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: status_begin_dt
-      admin_ui: {order: 3, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: status_end_dt
-      admin_ui: {order: 4, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: is_current
-      admin_ui: {order: 5, width: 200}
+      admin_ui: {width: 200}
       type: bool
-    title: bu_item_status
   users:
     title: Users
     client: none
@@ -195,16 +212,16 @@ db_schema:
       admin_ui: {width: 200}
       type: simpleObject
     - name: stuff
-      admin_ui: {width: 200}
+      admin_ui: {width: 226}
       type: simpleObject
     - name: n_password_failures
       admin_ui: {width: 200}
       type: number
     - name: first_name
-      admin_ui: {order: 10, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: last_name
-      admin_ui: {order: 11, width: 200}
+      admin_ui: {width: 200}
       type: string
   bots:
     title: bots
@@ -256,84 +273,84 @@ db_schema:
       admin_ui: {width: 200}
       type: string
   games_log:
+    title: games_log
     client: none
     server: full
     columns:
     - name: id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 71}
       type: number
     - name: game_name
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 158}
       type: string
     - name: game_start_ts
-      admin_ui: {order: 2, width: 200}
+      admin_ui: {width: 67}
       type: datetime
     - name: game_end_ts
-      admin_ui: {order: 3, width: 200}
+      admin_ui: {width: 50}
       type: datetime
     - name: player_emails
-      admin_ui: {order: 4, width: 200}
+      admin_ui: {width: 200}
       type: simpleObject
     - name: game_data
-      admin_ui: {order: 5, width: 200}
+      admin_ui: {width: 1006}
       type: simpleObject
-    title: games_log
   bu_owners:
+    title: bu_owners
     client: none
     server: full
     columns:
     - name: name
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: is_active
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 200}
       type: bool
-    title: bu_owners
   dg_events:
+    title: dg_events
     client: search
     server: full
     columns:
     - name: id
-      admin_ui: {order: 0, width: 200}
+      admin_ui: {width: 58}
       type: number
     - name: year
-      admin_ui: {order: 1, width: 200}
+      admin_ui: {width: 83}
       type: number
     - name: governing_body
-      admin_ui: {order: 2, width: 200}
+      admin_ui: {width: 97}
       type: string
     - name: designation
-      admin_ui: {order: 3, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: start_date
-      admin_ui: {order: 4, width: 200}
+      admin_ui: {width: 139}
       type: date
     - name: end_date
-      admin_ui: {order: 5, width: 200}
+      admin_ui: {width: 132}
       type: date
     - name: city
-      admin_ui: {order: 6, width: 200}
+      admin_ui: {width: 200}
       type: string
     - name: state
-      admin_ui: {order: 7, width: 200}
+      admin_ui: {width: 99}
       type: string
     - name: country
-      admin_ui: {order: 8, width: 200}
+      admin_ui: {width: 102}
       type: string
     - name: mpo_champion
-      admin_ui: {order: 9, width: 200}
+      admin_ui: {width: 200}
       type: simpleObject
     - name: fpo_champion
-      admin_ui: {order: 10, width: 200}
+      admin_ui: {width: 200}
       type: simpleObject
     - name: created_ts
-      admin_ui: {order: 11, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: lmt
-      admin_ui: {order: 12, width: 200}
+      admin_ui: {width: 200}
       type: datetime
     - name: name
-      admin_ui: {order: 13, width: 200}
+      admin_ui: {width: 200}
       type: string
-    title: dg_events
 renamed: true
