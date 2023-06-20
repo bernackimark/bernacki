@@ -41,4 +41,23 @@ class Admin(AdminTemplate):
       elif type(o) is DropDown:
         o.selected_value = None
 
+  def btn_save_new_golfer_click(self, **event_args):
+    for o in self.card_add_new_golfer.get_components():
+      if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
+        alert('You missed some data')
+        break
+    anvil.server.call('write_disc_golfer', pdga_id=self.tb_pdga_id.text, first_name=self.tb_first_name.text,
+                      last_name=self.tb_last_name.text, division=self.dd_division.selected_value)
+
+  def btn_clear_new_golfer_click(self, **event_args):
+    for o in self.card_add_new_golfer.get_components():
+      if type(o) is TextBox:
+        o.text = None
+      elif type(o) is DatePicker:
+        o.date = None
+      elif type(o) is DropDown:
+        o.selected_value = None
+
+
+
 

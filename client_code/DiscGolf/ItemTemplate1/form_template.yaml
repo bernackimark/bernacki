@@ -1,7 +1,13 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{}'}
+  properties: {col_widths: '{"JSNBYB":40,"DJFOQV":20,"VNEEUW":15}'}
 components:
+- type: Image
+  properties: {height: 110}
+  name: image_1
+  layout_properties: {grid_position: 'DIUTKA,VNEEUW'}
+  data_bindings:
+  - {property: source, code: '''https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'''}
 - type: Label
   properties: {}
   name: lbl_leaderboard_value

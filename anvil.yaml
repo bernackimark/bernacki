@@ -125,6 +125,15 @@ db_schema:
     - name: division
       admin_ui: {width: 200}
       type: string
+    - name: full_name
+      admin_ui: {order: 4, width: 200}
+      type: string
+    - name: photo
+      admin_ui: {order: 5, width: 200}
+      type: media
+    - name: photo_url
+      admin_ui: {order: 6, width: 200}
+      type: string
   bu_statuses:
     title: bu_statuses
     client: none

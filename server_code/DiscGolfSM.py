@@ -11,6 +11,10 @@ import xlrd
 import openpyxl
 import pandas as pd
 from datetime import date, datetime
+import requests
+from bs4 import BeautifulSoup as soup
+
+BASE_URL = 'https://www.pdga.com/player/'
 
 @anvil.server.callable
 def load_spreadsheet(file) -> None:
@@ -37,3 +41,37 @@ def write_dg_event(**kwargs):
 @anvil.server.callable
 def get_most_recent_event() -> tuple[str, datetime]:
   return [(r['name'], r['created_ts']) for r in app_tables.dg_events.search(tables.order_by('end_date', ascending=False))][0]
+
+@anvil.server.callable
+def write_disc_golfer(pdga_id: int, first_name: str, last_name: str, division: str):
+  app_tables.dg_players.add_row(pdga_id=pdga_id, first_name=first_name, last_name=last_name, full_name=f'{first_name} {last_name}', division=division)
+  update_player_photos(pdga_id)
+
+@anvil.server.callable
+def update_player_photos(pdga_id: int) -> str:
+  img_url = get_player_image_url(pdga_id)
+  # convert to bytes, if i want to store the image in the db, but that might be too slow
+  add_player_photo_url(pdga_id, img_url)
+  return f'Updated {pdga_id}!'
+
+def get_player_image_url(pdga_id: int) -> str:
+    url = BASE_URL + str(pdga_id)
+    r = requests.get(url).content
+    s = soup(r, 'html.parser')
+  
+    try:
+        img_url = s.find(rel="gallery-player_photo").find('img').get('src')
+    except:
+        img_url = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+
+    ### i stored the image URLs.  need to test out performance
+  
+    return img_url
+
+# def convert_url_to_bytes(img_url: str) -> bytes:
+#   with open(img_url,'wb') as f:
+#     f.write(r.content)
+
+def add_player_photo_url(pdga_id: int, img_url: str):
+  row = app_tables.dg_players.get(pdga_id=pdga_id)
+  row['photo_url'] = img_url

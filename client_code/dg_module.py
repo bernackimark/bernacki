@@ -34,4 +34,3 @@ def group_sort_by_column(records: list[dict], grouper_column, reverse=True) -> l
   all_values = [r[grouper_column] for r in records if r[grouper_column] is not None]
   list_of_dicts = [{'value': v, 'count': all_values.count(v)} for v in unique_values]
   return sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse)
-  
