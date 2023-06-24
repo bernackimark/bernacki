@@ -60,7 +60,7 @@ runtime_options:
   client_version: '3'
   server_version: python3-sandbox
   server_spec: {base: python310-standard}
-metadata: {}
+metadata: {logo_img: 'asset:cat_cropped.png'}
 startup_form: Cribbage
 db_schema:
   bu_tasks:

@@ -1,0 +1,111 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_1
+  layout_properties: {grid_position: 'LCSHII,PYFBLV', full_width_row: true}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Build A Trip, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_1
+    layout_properties: {grid_position: 'AIPCQZ,XAVRJI'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'Replace the pre-filled points with your own points and
+        build your trip.  It will pull real-time traffic data and give you actual
+        driving times in the My Route Options sections down below.
+
+        The limitations of this Beta include:
+
+        - Your origin & destination must be different points
+
+        - You must have four points', font_size: 16, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'MILCZJ,YJDGKK'}
+  - type: DataGrid
+    properties:
+      role: null
+      columns:
+      - {id: ZDBBHJ, title: '', data_key: column_4, $$hashKey: 'object:18546', width: 49,
+        expand: false}
+      - {id: NVPSZO, title: '', data_key: column_1, $$hashKey: 'object:18544', width: 110,
+        expand: false}
+      - {id: MJATHJ, title: Point, data_key: name, $$hashKey: 'object:18489', expand: true}
+      - {id: JDTWLP, title: Origin, data_key: orig, $$hashKey: 'object:18490', width: '100'}
+      - {id: UGEVXC, title: Destination, data_key: dest, $$hashKey: 'object:18491',
+        width: '100'}
+      auto_header: true
+      tooltip: ''
+      border: ''
+      foreground: ''
+      rows_per_page: 20
+      visible: true
+      wrap_on: never
+      show_page_controls: false
+      spacing_above: small
+      spacing_below: small
+      background: ''
+    name: dg_build_trip
+    layout_properties: {grid_position: 'UUYCWT,LABKOT'}
+    components:
+    - type: RepeatingPanel
+      properties: {spacing_above: none, spacing_below: none, item_template: TripBuilder.build_a_trip_row_template}
+      name: rp_build_trip
+      layout_properties: {}
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: build my trip, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_build_trip
+    layout_properties: {grid_position: 'NRYXAD,DGMNOX'}
+    event_bindings: {click: btn_build_trip_click}
+- type: ColumnPanel
+  properties: {role: card, tooltip: '', border: '', foreground: '', visible: true,
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    spacing_below: small, background: ''}
+  name: card_2
+  layout_properties: {grid_position: 'WRKXAG,HOSECN', full_width_row: true}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: My Route Options, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_2
+    layout_properties: {grid_position: 'BMPLWV,SOVJJT'}
+  - type: DataGrid
+    properties:
+      role: null
+      columns:
+      - {id: IQGZBI, title: Trip Route, data_key: points_string, $$hashKey: 'object:24442'}
+      - {id: DLWCLX, title: Trip Time, data_key: duration, $$hashKey: 'object:24443',
+        width: '100'}
+      auto_header: true
+      tooltip: ''
+      border: ''
+      foreground: ''
+      rows_per_page: 20
+      visible: true
+      wrap_on: never
+      show_page_controls: true
+      spacing_above: small
+      spacing_below: small
+      background: ''
+    name: dg_my_routes
+    layout_properties: {grid_position: 'HXPBLT,PIODKS'}
+    components:
+    - type: RepeatingPanel
+      properties: {spacing_above: none, spacing_below: none, item_template: TripBuilder.RowTemplate2}
+      name: rp_my_routes
+      layout_properties: {}
+is_package: true

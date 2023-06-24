@@ -16,6 +16,7 @@ from ..DiscGolf import DiscGolf
 from ..ToDo import ToDo
 from ..TestForm import TestForm
 from ..Admin import Admin
+from ..TripBuilder import TripBuilder
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -81,6 +82,11 @@ class Base(BaseTemplate):
   def link_admin_click(self, **event_args):
     self.content_panel.clear()
     self.content_panel.add_component(Admin())
+
+  def link_trip_builder_click(self, **event_args):
+    self.content_panel.clear()
+    self.content_panel.add_component(TripBuilder())
+
 
 
 

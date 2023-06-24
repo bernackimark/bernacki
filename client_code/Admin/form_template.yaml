@@ -290,4 +290,32 @@ components:
     name: btn_save_new_golfer
     layout_properties: {grid_position: 'JMJXIB,HEYPFW'}
     event_bindings: {click: btn_save_new_golfer_click}
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
+  name: card_1
+  layout_properties: {grid_position: 'LDIHSC,CEQKAO'}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Geography, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_3
+    layout_properties: {grid_position: 'LREQTL,UFZZIP'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: run geo, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: run_geo_btn
+    layout_properties: {grid_position: 'WWOCIP,DEAHHP'}
+    event_bindings: {click: run_geo_btn_click}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: run geo no api calls, font_size: null,
+      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: run_geo_no_api_calls_btn
+    layout_properties: {grid_position: 'WWOCIP,LFGSED'}
+    event_bindings: {click: run_geo_no_api_calls_btn_click}
 is_package: true

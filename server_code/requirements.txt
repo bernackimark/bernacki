@@ -1,4 +1,5 @@
-pandas
 openpyxl
 xlrd
 bs4
+geopy
+openrouteservice
