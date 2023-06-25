@@ -76,10 +76,10 @@ components:
     name: prompt_3_dd
     layout_properties: {grid_position: 'ZJSAZV,WOCQMX'}
   - type: Button
-    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: play, font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
+    properties: {role: primary-action-color, align: center, tooltip: '', border: '',
+      enabled: true, foreground: '', visible: true, text: play, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
     name: new_game_btn
     layout_properties: {grid_position: 'RRANOG,HNPGXV'}
     event_bindings: {click: new_game_btn_click}

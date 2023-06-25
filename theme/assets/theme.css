@@ -603,6 +603,12 @@ body>div[data-notify="container"].alert-warning>span[data-notify="title"]{
   background-color: %color:Primary 500%;
 }
 
+/* I added this section of primary-action-color ... Primary 700 is currently a bold maroon */
+.anvil-role-primary-action-color > .btn, .btn-primary, .anvil-role-primary-color.file-loader>label {
+  color: white;
+  background-color: %color:Primary 700%;
+}
+
 .anvil-role-secondary-color > .btn, .anvil-role-secondary-color.file-loader>label {
   color: white;
   background-color: %color:Secondary 500%;

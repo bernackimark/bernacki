@@ -2,7 +2,7 @@ container: {type: DataRowPanel}
 components:
 - type: Button
   properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-    foreground: 'theme:Secondary 700', visible: true, text: '', font_size: null, font: '',
+    foreground: 'theme:Secondary 500', visible: true, text: '', font_size: null, font: '',
     spacing_above: large, icon_align: right, spacing_below: medium, italic: false,
     background: '', bold: false, underline: false, icon: 'fa:trash-o'}
   name: btn_delete_point
