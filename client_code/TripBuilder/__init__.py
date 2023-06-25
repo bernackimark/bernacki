@@ -16,7 +16,8 @@ class TripBuilder(TripBuilderTemplate):
     self.init_components(**properties)
 
     self.display_trip_builder()
-
+    self.rp_build_trip.set_event_handler('x-refresh-trip-builder', self.display_trip_builder)
+  
   def btn_build_trip_click(self, **event_args):
     for row in self.rp_build_trip.items:
       if row['name'] in ('', None):
@@ -35,7 +36,7 @@ class TripBuilder(TripBuilderTemplate):
   def display_my_routes(self, data: list[dict]):
     self.rp_my_routes.items = sorted(data, key=lambda x: x['duration'])
 
-  def display_trip_builder(self):
+  def display_trip_builder(self, **e):
     self.rp_build_trip.items = m.trip_builder_items
 
   def btn_add_point_click(self, **event_args):

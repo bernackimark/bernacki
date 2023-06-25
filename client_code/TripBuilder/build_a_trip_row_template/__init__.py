@@ -21,4 +21,9 @@ class build_a_trip_row_template(build_a_trip_row_templateTemplate):
     self.init_components(**properties)
 
     self.tb_point_name.placeholder = next(next_placeholder)
+
+  def btn_delete_point_click(self, **event_args):
+    
+    self.parent.raise_event('x-refresh-trip-builder')
+
     
