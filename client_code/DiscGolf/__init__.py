@@ -14,6 +14,9 @@ class DiscGolf(DiscGolfTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+
+    dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+    
     self.repeating_panel_1.items = dgm.sort_dg_events('end_date', True)
     # self.repeating_panel_1.items = app_tables.dg_events.search(tables.order_by("end_date", ascending=False))
     self.dd_mpo_champions.items = dgm.filter_sort_unique_column('mpo_champion')

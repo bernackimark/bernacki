@@ -14,3 +14,7 @@ trip_builder_items: list[dict] = [{'name': '', 'orig': True, 'dest': False},
 def add_item():
   trip_builder_items.append({'name': '', 'orig': False, 'dest': False})
   print(trip_builder_items)
+
+def delete_item(item):
+  trip_builder_items.remove(item)
+  print(trip_builder_items)

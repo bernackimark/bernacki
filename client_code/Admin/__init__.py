@@ -15,6 +15,7 @@ class Admin(AdminTemplate):
     self.init_components(**properties)
     self.dd_governing_body.items = dgm.filter_sort_unique_column('governing_body')
     self.dd_designation.items = dgm.filter_sort_unique_column('designation')
+    dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
     self.get_most_recent_loaded_event()
 
   def get_most_recent_loaded_event(self):

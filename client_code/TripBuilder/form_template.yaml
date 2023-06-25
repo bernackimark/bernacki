@@ -4,7 +4,7 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: card, tooltip: '', border: '', foreground: '', visible: true,
-    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+    wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"XAVRJI":55,"MWQIWR":5}',
     spacing_below: small, background: ''}
   name: card_1
   layout_properties: {grid_position: 'LCSHII,PYFBLV', full_width_row: true}
@@ -16,20 +16,25 @@ components:
       underline: false, icon: ''}
     name: headline_1
     layout_properties: {grid_position: 'AIPCQZ,XAVRJI'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: none,
+      icon_align: left, spacing_below: none, italic: false, background: '', bold: false,
+      underline: false, icon: 'fa:chevron-down'}
+    name: btn_expand_collapse_trip_builder_card
+    layout_properties: {grid_position: 'AIPCQZ,MWQIWR'}
+    event_bindings: {click: btn_expand_collapse_trip_builder_card_click}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: 'Replace the pre-filled points with your own points and
-        build your trip.  It will pull real-time traffic data and give you actual
-        driving times in the My Route Options sections down below.
-
-        The limitations of this Beta include:
-
-        - Your origin & destination must be different points
-
-        - You must have four points', font_size: 16, font: '', spacing_above: small,
+      visible: true, text: "Replace the pre-filled points with your own points to\
+        \ build your trip.\nIt will calculate all possible route combinations, pull\
+        \ real-time traffic data, and give you actual driving times in the My Route\
+        \ Options sections down below.\n\nThe limitations of this Beta include:\n\
+        \     -     Your origin & destination must be different points\n     -   \
+        \  There is a max of seven points", font_size: 16, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
-    name: label_1
+    name: lbl_instructions
     layout_properties: {grid_position: 'MILCZJ,YJDGKK'}
   - type: DataGrid
     properties:

@@ -8,6 +8,8 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+from ... import trip_builder_module as m
+
 import random
 from itertools import cycle
 
@@ -23,7 +25,7 @@ class build_a_trip_row_template(build_a_trip_row_templateTemplate):
     self.tb_point_name.placeholder = next(next_placeholder)
 
   def btn_delete_point_click(self, **event_args):
-    
+    m.delete_item(self.item)
     self.parent.raise_event('x-refresh-trip-builder')
 
     

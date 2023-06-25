@@ -22,8 +22,7 @@ class Base(BaseTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.my_stuff.width, self.sign_in.width = 130, 115
-    self.show_my_stuff_link()
+    self.go_home_link.icon = '_/theme/bernacki_logo.png'
     self.change_sign_in_text()
     # self.content_panel.add_component(Home())
     
@@ -31,17 +30,10 @@ class Base(BaseTemplate):
   
   def go_to_base(self):
     self.content_panel.clear()
-    self.content_panel.add_component(Base())
 
   def go_home_link_click(self, **event_args):
-    self.go_to_base()    
-    
-  def my_stuff_click(self, **event_args):
-    self.content_panel.clear()
-    self.content_panel.add_component(Home())
-
-  def show_my_stuff_link(self):
-    self.my_stuff.visible = anvil.users.get_user() != None
+    self.cp_link_highlights(**event_args)
+    self.go_to_base()  
 
   def todo_link_click(self, **event_args):
     self.content_panel.clear()
@@ -68,29 +60,39 @@ class Base(BaseTemplate):
       self.sign_in.text = "Sign In"
 
   def mastermind_link_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(Mastermind())
 
   def bulk_updater_link_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(BulkUpdater())
 
   def link_dg_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(DiscGolf())
 
   def link_admin_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(Admin())
 
   def link_trip_builder_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(TripBuilder())
 
+  def link_stuff_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(Home())
 
-
-
-
-
+  def cp_link_highlights(self, **e):
+    for l in self.cp_links.get_components():
+      if type(l) is Link:
+        l.role = ''
+    e['sender'].role = 'selected'
 
 

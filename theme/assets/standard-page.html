@@ -7,8 +7,20 @@ body  {
   background-attachment: fixed;
   background-position: center;
   background-size: 600px 300px;*/
+  /* background-size: cover; */
   }
+
+/* this .bg-image section was added for the Bernacki logo */
+.bg-image {
+  background-image: url("_/theme/bernacki-logo-opacity-60.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 600px;
+  position: relative;
+}
 </style>
+
 
 <div class="structure">
   <div class="app-bar" anvil-drop-container=".anvil-container" anvil-drop-redirect=".placeholder">
@@ -30,16 +42,18 @@ body  {
     <div class="left-nav-placeholder anvil-designer-only" anvil-if-slot-empty="left-nav" anvil-drop-slot="left-nav">
       <div class="prompt">To add a sidebar, drop a ColumnPanel here.</div>
     </div>
-
+    
     <div class="content">
-      <div anvil-slot-repeat="default" class="anvil-measure-this"></div>
-      <div class="placeholder drop-here" anvil-if-slot-empty="default" anvil-drop-slot="default">Drop a ColumnPanel here.</div>
+      <div class="bg-image">  <!--This line was added for Bernacki logo-->
+        <div anvil-slot-repeat="default" class="anvil-measure-this"></div>
+        <div class="placeholder drop-here" anvil-if-slot-empty="default" anvil-drop-slot="default">Drop a ColumnPanel here.</div>
+      </div>  <!--This line was added for Bernacki logo-->
     </div>
   </div>
   <div class="nav-shield"></div>
 </div>
 <div anvil-drop-default anvil-drop-redirect=".placeholder" anvil-drop-container=".anvil-container"></div>
- 
+
 <script>
   function hideSidebar() {
     var ln = $('.structure > .nav-holder > .left-nav');

@@ -29,7 +29,7 @@ class TripBuilder(TripBuilderTemplate):
     if [idx for idx, r in enumerate(self.rp_build_trip.items) if r['orig']][0] == [idx for idx, r in enumerate(self.rp_build_trip.items) if r['dest']][0]:
       alert('Please have a different origin & destination.  It is currently a Beta limitation.')
       return
-    
+    self.expand_collapse_trip_builder_card('collapse')
     res = anvil.server.call('run_geo', self.rp_build_trip.items)
     self.display_my_routes(res)
 
@@ -38,10 +38,34 @@ class TripBuilder(TripBuilderTemplate):
 
   def display_trip_builder(self, **e):
     self.rp_build_trip.items = m.trip_builder_items
+    if len(m.trip_builder_items) < 7:
+      self.btn_add_point.enabled = True
 
   def btn_add_point_click(self, **event_args):
+    if len(m.trip_builder_items) >= 7:
+      alert('Our Beta currently only allows for seven points max')
+      return
     m.add_item()
     self.display_trip_builder()
+    if len(m.trip_builder_items) >= 7:
+      self.btn_add_point.enabled = False
+
+  def btn_expand_collapse_trip_builder_card_click(self, **event_args):
+    if self.btn_expand_collapse_trip_builder_card.icon == 'fa:chevron-up':
+      self.expand_collapse_trip_builder_card('expand')
+    else:
+      self.expand_collapse_trip_builder_card('collapse')
+
+  def expand_collapse_trip_builder_card(self, action: str):
+    if action == 'collapse':
+      self.btn_expand_collapse_trip_builder_card.icon = 'fa:chevron-up'
+      self.lbl_instructions.visible = self.dg_build_trip.visible = self.btn_build_trip.visible = False
+    elif action == 'expand':
+      self.btn_expand_collapse_trip_builder_card.icon = 'fa:chevron-down'
+      self.lbl_instructions.visible = self.dg_build_trip.visible = self.btn_build_trip.visible = True
+    else:
+      pass
+    
     
 
 
