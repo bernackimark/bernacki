@@ -8,16 +8,14 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+from .. import trip_builder_module as m
+
 class TripBuilder(TripBuilderTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    self.rp_build_trip.items = [{'name': '77 Forest St, New Britain, CT', 'orig': True, 'dest': False},
-                 {'name': 'Taino Prime, Meriden, CT', 'orig': False, 'dest': False},
-                 {'name': 'New Britain Stadium, New Britain, CT', 'orig': False, 'dest': False},
-                 {'name': '20 Church St, Hartford, CT', 'orig': False, 'dest': True}]
-    # Any code you write here will run before the form opens.
+    self.display_trip_builder()
 
   def btn_build_trip_click(self, **event_args):
     for row in self.rp_build_trip.items:
@@ -36,4 +34,14 @@ class TripBuilder(TripBuilderTemplate):
 
   def display_my_routes(self, data: list[dict]):
     self.rp_my_routes.items = sorted(data, key=lambda x: x['duration'])
+
+  def display_trip_builder(self):
+    self.rp_build_trip.items = m.trip_builder_items
+
+  def btn_add_point_click(self, **event_args):
+    m.add_item()
+    self.display_trip_builder()
+    
+
+
 
