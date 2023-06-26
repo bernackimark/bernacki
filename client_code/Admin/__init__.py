@@ -60,20 +60,19 @@ class Admin(AdminTemplate):
         o.selected_value = None
 
   def run_geo_btn_click(self, **event_args):
-    incoming_data = [{'name': '77 Forest St, New Britain, CT', 'orig': True, 'dest': False},
-                 {'name': 'Taino Prime, Meriden, CT', 'orig': False, 'dest': False},
-                 {'name': 'New Britain Stadium, New Britain, CT', 'orig': False, 'dest': False},
-                 {'name': '20 Church St, Hartford, CT', 'orig': False, 'dest': True}]
+    incoming_data = [{'name': '77 Forest St, New Britain, CT', 'orig': True, 'dest': False, 'lat_long': ()},
+                 {'name': 'Taino Prime, Meriden, CT', 'orig': False, 'dest': False, 'lat_long': (40.74844, -73.98566)},
+                 {'name': 'New Britain Stadium, New Britain, CT', 'orig': False, 'dest': False, 'lat_long': ()},
+                 {'name': '20 Church St, Hartford, CT', 'orig': False, 'dest': True, 'lat_long': ()}]
     anvil.server.call('run_geo', incoming_data)
 
   def run_geo_no_api_calls_btn_click(self, **event_args):
-    incoming_data = [{'name': '77 Forest St, New Britain, CT', 'orig': True, 'dest': False},
-                 {'name': 'Taino Prime, Meriden, CT', 'orig': False, 'dest': False},
-                 {'name': 'New Britain Stadium, New Britain, CT', 'orig': False, 'dest': False},
-                 {'name': '20 Church St, Hartford, CT', 'orig': False, 'dest': True}]
+    incoming_data = [{'name': '77 Forest St, New Britain, CT', 'orig': True, 'dest': False, 'lat_long': ()},
+                 {'name': 'Taino Prime, Meriden, CT', 'orig': False, 'dest': False, 'lat_long': (40.74844, -73.98566)},
+                 {'name': 'New Britain Stadium, New Britain, CT', 'orig': False, 'dest': False, 'lat_long': ()},
+                 {'name': '20 Church St, Hartford, CT', 'orig': False, 'dest': True, 'lat_long': ()}]
     anvil.server.call('run_geo_no_api_calls', incoming_data)
 
-
-
-
+  def btn_known_points_add_click(self, **event_args):
+    anvil.server.call('known_points_create')
 
