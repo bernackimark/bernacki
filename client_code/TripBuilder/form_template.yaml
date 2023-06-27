@@ -36,6 +36,49 @@ components:
       underline: false, icon: ''}
     name: lbl_instructions
     layout_properties: {grid_position: 'MILCZJ,YJDGKK'}
+  - type: ColumnPanel
+    properties: {col_widths: '{"OQWDVZ":10,"ZBCUXT":40,"JCURZN":30}'}
+    name: cp_collections
+    layout_properties: {grid_position: 'QFUJDT,PKZDUS'}
+    components:
+    - type: Label
+      properties: {role: null, align: right, tooltip: '', border: '', foreground: '',
+        visible: true, text: 'Collections:', font_size: 18, font: '', spacing_above: large,
+        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+        underline: false, icon: ''}
+      name: label_1
+      layout_properties: {grid_position: 'VRSXHZ,OQWDVZ'}
+    - type: DropDown
+      properties:
+        role: null
+        align: full
+        tooltip: ''
+        placeholder: ''
+        border: ''
+        enabled: true
+        foreground: ''
+        items: []
+        visible: true
+        font_size: null
+        font: ''
+        spacing_above: small
+        spacing_below: small
+        italic: false
+        background: ''
+        bold: false
+        underline: false
+        include_placeholder: true
+      name: dd_known_collections
+      layout_properties: {grid_position: 'VRSXHZ,ZBCUXT'}
+      event_bindings: {change: dd_known_collections_change}
+    - type: Button
+      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+        foreground: '', visible: true, text: save these points to a collection, font_size: null,
+        font: '', spacing_above: medium, icon_align: left, spacing_below: none, italic: false,
+        background: '', bold: false, underline: false, icon: ''}
+      name: btn_save_collection
+      layout_properties: {grid_position: 'VRSXHZ,JCURZN'}
+      event_bindings: {click: btn_save_collection_click}
   - type: DataGrid
     properties:
       role: null
@@ -48,6 +91,8 @@ components:
       - {id: JDTWLP, title: Origin, data_key: orig, $$hashKey: 'object:18490', width: '80'}
       - {id: UGEVXC, title: Destination, data_key: dest, $$hashKey: 'object:18491',
         width: '80'}
+      - {id: PRJFVW, title: Coordinates, data_key: lat_long, $$hashKey: 'object:51603',
+        width: '175'}
       auto_header: true
       tooltip: ''
       border: ''

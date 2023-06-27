@@ -57,4 +57,13 @@ components:
   layout_properties: {column: MJATHJ}
   data_bindings:
   - {property: text, code: 'self.item[''name'']', writeback: true}
+- type: Label
+  properties: {role: null, align: center, tooltip: '', border: '', foreground: '',
+    visible: true, text: '', font_size: 9, font: '', spacing_above: large, icon_align: left,
+    spacing_below: small, italic: false, background: '', bold: false, underline: false,
+    icon: ''}
+  name: lbl_lat_long
+  layout_properties: {column: PRJFVW}
+  data_bindings:
+  - {property: text, code: 'self.item[''lat_long'']'}
 is_package: true

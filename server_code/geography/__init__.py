@@ -89,22 +89,22 @@ def get_valid_routes(all_possible_route_perms: list[tuple[Segment]], segment_cnt
 def run_geography(data: list[dict]) -> list[dict]:
     lat_longs: list[tuple[float, float]] = get_lat_long([(p['name'], p['lat_long']) for p in data])
     # lat_longs: list[tuple[float, float]] = [(41.6616108, -72.7967357), (41.52602295, -72.75613792979621), (41.6485533, -72.77513066618887), (41.7689809, -72.6733028)]
-    points: list[Point] = create_points(incoming_data, lat_longs)
+    points: list[Point] = create_points(data, lat_longs)
     segments_no_distances: list[Segment] = generate_segments(points)
     distances: list[list[float]] = generate_distance_matrix(points)
     # distances: list[list[float]] = [[0.0, 1134.51, 392.74, 1319.48], [1141.72, 0.0, 1033.58, 1564.67], [374.17, 1067.07, 0.0, 1312.37], [1249.03, 1607.08, 1303.54, 0.0]]
     segments: list[Segment] = append_distances_to_segments(segments_no_distances, distances)
     routes: list[Route] = create_routes(segments, len(points))
-    return [{'points_string': r.points_string, 'duration': r.duration_hour_minutes} for r in routes]
+    return [{'points_string': r.points_string, 'duration': r.duration_hour_minutes, 'lat_longs': lat_longs} for r in routes]
 
 
 def run_geography_no_api_calls(data: list[dict]) -> list[dict]:
     # lat_longs: list[tuple[float, float]] = get_lat_long([(p['name'], p['lat_long']) for p in data])
     lat_longs: list[tuple[float, float]] = [(41.6616108, -72.7967357), (41.52602295, -72.75613792979621), (41.6485533, -72.77513066618887), (41.7689809, -72.6733028)]
-    points: list[Point] = create_points(incoming_data, lat_longs)
+    points: list[Point] = create_points(data, lat_longs)
     segments_no_distances: list[Segment] = generate_segments(points)
     # distances: list[list[float]] = generate_distance_matrix(points)
     distances: list[list[float]] = [[0.0, 1134.51, 392.74, 1319.48], [1141.72, 0.0, 1033.58, 1564.67], [374.17, 1067.07, 0.0, 1312.37], [1249.03, 1607.08, 1303.54, 0.0]]
     segments: list[Segment] = append_distances_to_segments(segments_no_distances, distances)
     routes: list[Route] = create_routes(segments, len(points))
-    return [{'points_string': r.points_string, 'duration': r.duration_hour_minutes} for r in routes]
+    return [{'points_string': r.points_string, 'duration': r.duration_hour_minutes, 'lat_longs': lat_longs} for r in routes]

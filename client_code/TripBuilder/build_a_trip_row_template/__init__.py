@@ -23,6 +23,10 @@ class build_a_trip_row_template(build_a_trip_row_templateTemplate):
     self.init_components(**properties)
 
     self.tb_point_name.placeholder = next(next_placeholder)
+    if self.lbl_lat_long.text in [(), None]:
+      self.lbl_lat_long.visible = False
+    else:
+      self.lbl_lat_long.visible = True
 
   def btn_delete_point_click(self, **event_args):
     m.delete_item(self.item)
