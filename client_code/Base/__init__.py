@@ -49,7 +49,6 @@ class Base(BaseTemplate):
     else:
       anvil.users.login_with_form()
     self.change_sign_in_text()
-    self.show_my_stuff_link()
 
   def change_sign_in_text(self):
     user = anvil.users.get_user()

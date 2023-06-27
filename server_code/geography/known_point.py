@@ -29,7 +29,6 @@ class KnownCollection:
     known_collection_id: int
     collection_name: str
     email: str
-    known_points: list[KnownPoint]
     created_ts: datetime = datetime.now()
 
 
@@ -37,11 +36,10 @@ class KnownCollection:
 def create_known_points(p_list: list[dict], collection_id: int) -> list[KnownPoint]:
     return [KnownPoint(known_collection_id=collection_id, name=p['name'], lat_long=p['lat_long']) for p in p_list]
 
-
+# anvil-specific
 @anvil.server.callable
 def create_known_collection_and_points(coll_name: str, email: str, points: list[dict]) -> None:
-    kc = KnownCollection(known_collection_id=get_next_known_collection_id(), collection_name=coll_name, email=email,
-                         known_points=known_points)
+    kc = KnownCollection(known_collection_id=get_next_known_collection_id(), collection_name=coll_name, email=email)
     app_tables.geo_known_collections.add_row(collection_name=coll_name, created_ts=datetime.now(), email=email, known_collection_id=get_next_known_collection_id())
     known_points = create_known_points(points, get_row_count_known_collection())
     for p in known_points:
@@ -51,13 +49,13 @@ def create_known_collection_and_points(coll_name: str, email: str, points: list[
 # anvil-specific
 @anvil.server.callable
 def get_user_known_collections(email: str = 'bernackimark@gmail.com') -> list[tuple[str, int]]:
-    return [(r['collection_name'], r['known_collection_id']) for r in app_tables.geo_known_collections.search() if r['email'] in [email, 'all']]
+    return [(r['collection_name'], r['known_collection_id']) for r in app_tables.geo_known_collections.search() if r['email'] in [email, 'public']]
 
 
 # anvil-specific
 @anvil.server.callable
-def get_known_points(known_collection_id) -> list[dict]:
-    return [{'name': r['name'], 'lat_long': r['lat_long']} for r in app_tables.geo_known_points.search(known_collection_id=known_collection_id)]
+def get_known_points(known_collection_id: int) -> list[dict]:
+    return [{'name': r['name'], 'orig': False, 'dest': False, 'lat_long': r['lat_long']} for r in app_tables.geo_known_points.search(known_collection_id=known_collection_id)]
       
 
 # anvil-specific

@@ -27,13 +27,14 @@ components:
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: "Replace the pre-filled points with your own points to\
-        \ build your trip.\nIt will calculate all possible route combinations, pull\
-        \ real-time traffic data, and give you actual driving times in the My Route\
-        \ Options sections down below.\n\nThe limitations of this Beta include:\n\
-        \     -     Your origin & destination must be different points\n     -   \
-        \  There is a max of seven points", font_size: 16, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
+        \ build your trip.  (You must have at least three points to build a trip.)\n\
+        It will calculate all possible route combinations, pull real-time traffic\
+        \ data, and give you actual driving times in the My Route Options sections\
+        \ down below.\n\nThe limitations of this Beta include:\n     -     Your origin\
+        \ & destination must be different points\n     -     There is a max of seven\
+        \ points", font_size: 16, font: '', spacing_above: small, icon_align: left,
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
     name: lbl_instructions
     layout_properties: {grid_position: 'MILCZJ,YJDGKK'}
   - type: ColumnPanel

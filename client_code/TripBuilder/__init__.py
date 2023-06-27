@@ -18,7 +18,10 @@ class TripBuilder(TripBuilderTemplate):
     self.display_trip_builder()
     self.rp_build_trip.set_event_handler('x-refresh-trip-builder', self.display_trip_builder)
 
-    self.dd_known_collections.items = anvil.server.call('get_user_known_collections', anvil.users.get_user())
+    if not anvil.users.get_user():
+      self.dd_known_collections.items = anvil.server.call('get_user_known_collections', None)
+    else:
+      self.dd_known_collections.items = anvil.server.call('get_user_known_collections', anvil.users.get_user()['email'])
   
   def btn_build_trip_click(self, **event_args):
     for row in self.rp_build_trip.items:
@@ -71,27 +74,25 @@ class TripBuilder(TripBuilderTemplate):
       pass
 
   def dd_known_collections_change(self, **event_args):
-    """This method is called when an item is selected"""
-    pass
+    m.trip_builder_items = anvil.server.call('get_known_points', self.dd_known_collections.selected_value)
+    self.display_trip_builder()
 
   def btn_save_collection_click(self, **event_args):
-    print(m.trip_builder_items)
+    if not anvil.users.get_user():
+      alert("You must be signed in to save a collection.  It's free to do so.")
+      return
+    if not anvil.users.get_user()['confirmed_email']:
+      alert("Please perform the e-mail verification step in order to complete the sign-up process.")
+      return
     for p in m.trip_builder_items:
       if p['name'] in ['', None] or p['lat_long'] in [(), None]:
         alert('To create a collection, first create a list of points & coordinates.  To obtain coordinates, enter a good description for your points, then click on the Build My Trip button.')
         return
     if len(m.trip_builder_items) < 3:
-      alert('You must have three points to save a collection.')
+      alert('You must have at least three points to save a collection.')
       return
     tb_new_coll = TextBox(placeholder='Enter the name for your collection here')
     c = confirm(content=tb_new_coll, large=True, title='Save Your Collection?')
     if c:
-      anvil.server.call('create_known_collection_and_points', coll_name=tb_new_coll.text, email=anvil.users.get_user(), points=m.trip_builder_items)
+      anvil.server.call('create_known_collection_and_points', coll_name=tb_new_coll.text, email=anvil.users.get_user()['email'], points=m.trip_builder_items)
     
-
-
-    
-    
-
-
-
