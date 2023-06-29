@@ -80,4 +80,9 @@ class Admin(AdminTemplate):
     res = anvil.server.call('get_fangraphs_leaderboard')
     self.lbl_fangraphs_data.text = res
 
+  def btn_scrape_fg_standings_click(self, **event_args):
+    res = anvil.server.call('get_fangraphs_standings')
+    self.lbl_fg_standings.text = res
+
+
 
