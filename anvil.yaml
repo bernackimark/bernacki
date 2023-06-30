@@ -1,3 +1,10 @@
+scheduled_tasks:
+- task_name: run_baseball_bets
+  time_spec:
+    n: 1
+    every: day
+    at: {minute: 0, hour: 14}
+  job_id: UJCVWFFM
 dependencies: []
 services:
 - source: /runtime/services/tables.yml

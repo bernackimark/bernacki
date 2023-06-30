@@ -81,7 +81,9 @@ def format_text(fg_info: list[dict], bets: list[dict], bet_stats: list[dict]) ->
     stitched_list = [f"Bet: {b['team_name']} {b['position']} {b['cnt']}. Their rest of the season line is: {b['wins_needed']}-{b['remaining_games'] - b['wins_needed']}. They must play like a {b['must_play_like']} win team." for b in bets]
     return '\n'.join(stitched_list)
 
+
 @anvil.server.callable
+@anvil.server.background_task
 def run_baseball_bets() -> None:
     html_table: list[str] = get_standings_html()
     teams: list[dict] = create_standings_from_html(html_table)
