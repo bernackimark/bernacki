@@ -76,13 +76,11 @@ class Admin(AdminTemplate):
   def btn_known_points_add_click(self, **event_args):
     anvil.server.call('known_points_create')
 
-  def btn_scrape_fangraphs_click(self, **event_args):
-    res = anvil.server.call('get_fangraphs_leaderboard')
-    self.lbl_fangraphs_data.text = res
+  def button_1_click(self, **event_args):
+    anvil.server.call('run_baseball_bets')
 
-  def btn_scrape_fg_standings_click(self, **event_args):
-    res = anvil.server.call('get_fangraphs_standings')
-    self.lbl_fg_standings.text = res
+
+
 
 
 

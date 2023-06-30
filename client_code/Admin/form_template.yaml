@@ -338,26 +338,10 @@ components:
     layout_properties: {grid_position: 'RDSKRB,PJSZAP'}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: scrape fangraphs leaderboard, font_size: null,
+      foreground: '', visible: true, text: manually run baseball, font_size: null,
       font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}
-    name: btn_scrape_fangraphs
-    layout_properties: {grid_position: 'GAFVYO,UYZEER'}
-    event_bindings: {click: btn_scrape_fangraphs_click}
-  - type: Label
-    properties: {}
-    name: lbl_fangraphs_data
-    layout_properties: {grid_position: 'SUCVHQ,XAPDRA'}
-  - type: Button
-    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: scrape fg standings, font_size: null, font: '',
-      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-      background: '', bold: false, underline: false, icon: ''}
-    name: btn_scrape_fg_standings
-    layout_properties: {grid_position: 'MCMSWT,GNVZXV'}
-    event_bindings: {click: btn_scrape_fg_standings_click}
-  - type: Label
-    properties: {}
-    name: lbl_fg_standings
-    layout_properties: {grid_position: 'NNJUZD,XUGUCM'}
+    name: btn_run_baseball
+    layout_properties: {grid_position: 'LLBUVT,PPXPMN'}
+    event_bindings: {click: button_1_click}
 is_package: true
