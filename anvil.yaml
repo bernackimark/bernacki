@@ -3,7 +3,7 @@ scheduled_tasks:
   time_spec:
     n: 1
     every: day
-    at: {minute: 0, hour: 14}
+    at: {minute: 20, hour: 18}
   job_id: UJCVWFFM
 dependencies: []
 services:
