@@ -13,9 +13,10 @@ from .. import dg_module as dgm
 class Admin(AdminTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
+    dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
     self.dd_governing_body.items = dgm.filter_sort_unique_column('governing_body')
     self.dd_designation.items = dgm.filter_sort_unique_column('designation')
-    dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+    self.dd_event_name.items = sorted(list({(n['name'], n['name']) for n in dgm.dg_events}))
     self.get_most_recent_loaded_event()
 
   def get_most_recent_loaded_event(self):
@@ -30,7 +31,7 @@ class Admin(AdminTemplate):
     anvil.server.call('write_dg_event', year=self.tb_year.text, governing_body=self.dd_governing_body.selected_value,
                       designation=self.dd_designation.selected_value, start_date=self.dp_start.date, end_date=self.dp_end.date,
                       city=self.tb_city.text, state=self.tb_state.text, country=self.tb_country.text,
-                      mpo_champion=self.tb_mpo_champion.text, fpo_champion=self.tb_fpo_champion.text, name=self.tb_name.text)
+                      mpo_champion=self.tb_mpo_champion.text, fpo_champion=self.tb_fpo_champion.text, name=self.dd_event_name.selected_value)
     self.get_most_recent_loaded_event()
 
   def btn_clear_click(self, **event_args):
@@ -76,8 +77,8 @@ class Admin(AdminTemplate):
   def btn_known_points_add_click(self, **event_args):
     anvil.server.call('known_points_create')
 
-  def button_1_click(self, **event_args):
-    anvil.server.call('run_baseball_bets')
+  # def button_1_click(self, **event_args):
+  #   anvil.server.call('run_baseball_bets')
 
 
 

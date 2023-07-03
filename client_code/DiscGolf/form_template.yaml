@@ -274,22 +274,20 @@ components:
   properties:
     role: null
     columns:
-    - {id: QHKUGJ, title: Year, data_key: year, $$hashKey: 'object:28897', width: '30'}
+    - {id: QHKUGJ, title: Year, data_key: year, $$hashKey: 'object:28897', width: '40'}
     - {id: DDESEM, title: Name, data_key: name, $$hashKey: 'object:28909', expand: true}
     - {id: SARVJW, title: Gov Body, data_key: governing_body, $$hashKey: 'object:28898',
       width: '75'}
     - {id: MVZHBC, title: Designation, data_key: designation, $$hashKey: 'object:28899',
-      width: '100'}
-    - {id: JIXPZR, title: Start Date, data_key: start_date, $$hashKey: 'object:28900',
-      width: '100'}
+      width: '85'}
     - {id: NMBSMI, title: End Date, data_key: end_date, $$hashKey: 'object:28901',
-      width: '100'}
-    - {id: MKAKAF, title: City, data_key: city, $$hashKey: 'object:28902', expand: true}
+      width: '85'}
     - {id: MLDCEI, title: State, data_key: state, $$hashKey: 'object:28903', width: '50'}
     - {id: ZDMPFH, title: Country, data_key: country, $$hashKey: 'object:28904', width: '75'}
     - {id: VNTSUA, title: MPO Winner, data_key: mpo_champion, $$hashKey: 'object:28905',
-      expand: true}
-    - {id: OMRHJC, title: FPO Winner, data_key: fpo_champion, $$hashKey: 'object:28906'}
+      expand: false, width: '150'}
+    - {id: OMRHJC, title: FPO Winner, data_key: fpo_champion, $$hashKey: 'object:28906',
+      width: '150'}
     auto_header: true
     tooltip: ''
     border: ''

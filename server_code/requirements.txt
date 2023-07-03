@@ -3,4 +3,3 @@ xlrd
 bs4
 geopy
 openrouteservice
-pybaseball
