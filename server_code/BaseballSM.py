@@ -10,14 +10,21 @@ import anvil.server
 
 from bs4 import BeautifulSoup as bs
 import requests
+import calendar
+from datetime import date, timedelta
 from emailer import send_email
+from pybaseball import schedule_and_record
 
 FG_STANDINGS_HEADERS = ['team_name', 'ytd_g', 'ytd_w', 'ytd_l', 'ytd_pct', 'ytd_run_diff', 'ytd_rs', 'ytd_ra',
                         'ros_g', 'ros_w', 'ros_l', 'ros_pct', 'ros_run_diff', 'ros_rs', 'ros_ra',
                         'proj_w', 'proj_l', 'proj_pct', 'proj_rdiff', 'proj_rs', 'proj_ra']
 SUBJECT_TEAMS = ['Braves', 'Rangers', 'Red Sox', 'Nationals', 'Athletics', 'Dodgers', 'Pirates']
+TEAM_NAME_ABBREVS = [('Dodgers', 'LAD'), ('Pirates', 'PIT'), ('Athletics', 'OAK'), ('Braves', 'ATL'),
+                     ('Rangers', 'TEX'), ('Red Sox', 'BOS'), ('Nationals', 'WSN')]
 SUBJECT_COLUMNS = ['team_name', 'ytd_w', 'ytd_l', 'proj_w', 'proj_l']
 GAMES_IN_SEASON = 162
+
+yesterday = date.today() - timedelta(1)
 
 bets = [{'team_name': 'Dodgers', 'position': 'under', 'cnt': 96, 'amt': 5000},
         {'team_name': 'Pirates', 'position': 'over', 'cnt': 67, 'amt': 5000},
@@ -74,11 +81,27 @@ def current_bet_stats(fg_teams: list[dict], my_bets: list[dict]) -> list[dict]:
     return current_stats
 
 
-def format_text(fg_info: list[dict], bets: list[dict], bet_stats: list[dict]) -> str:
-    # stitch the three list of dicts into just one
+def get_yesterday_results(team_name_abbrev: list[tuple[str, str]]) -> list[dict]:
+    results: list[dict] = []
+    for team in team_name_abbrev:
+        data = schedule_and_record(2023, team[1])
+        team_dict: list[dict] = data.to_dict(orient='records')
+        yesterday_decision = [game['W/L'] for game in team_dict if game['Date'][game['Date'].index(",") + 2:] == f'{calendar.month_abbr[yesterday.month]} {yesterday.day}']
+        if not yesterday_decision:
+            results.append({'team_name': team[0], 'yesterday_result': 'Off day yesterday'})
+        elif yesterday_decision[0] == 'W':
+            results.append({'team_name': team[0], 'yesterday_result': 'They won yesterday'})
+        else:
+            results.append({'team_name': team[0], 'yesterday_result': 'They lost yesterday'})
+    return results
+
+
+def format_text(fg_info: list[dict], bets: list[dict], bet_stats: list[dict], yesterday_results: list[dict]) -> str:
+    # stitch the four lists into just one
     [bet.update(bet_stats[idx]) for idx, bet in enumerate(bets)]
     [bet.update(fg_team) for bet in bets for fg_team in fg_info if fg_team['team_name'] == bet['team_name']]
-    stitched_list = [f"Bet: {b['team_name']} {b['position']} {b['cnt']}. Their rest of the season line is: {b['wins_needed']}-{b['remaining_games'] - b['wins_needed']}. They must play like a {b['must_play_like']} win team." for b in bets]
+    [bet.update(res) for bet in bets for res in yesterday_results if res['team_name'] == bet['team_name']]
+    stitched_list = [f"Bet: {b['team_name']} {b['position']} {b['cnt']}. {b['yesterday_result']}. Their rest of the season line is: {b['wins_needed']}-{b['remaining_games'] - b['wins_needed']}. They must play like a {b['must_play_like']} win team." for b in bets]
     return '\n'.join(stitched_list)
 
 
@@ -90,5 +113,6 @@ def run_baseball_bets() -> None:
     filtered_teams: list[dict] = filter_teams(teams, SUBJECT_TEAMS)
     fg_data: list[dict] = filter_columns(filtered_teams)
     bet_stats: list[dict] = current_bet_stats(fg_data, bets)
-    message_body: str = format_text(fg_data, bets, bet_stats)
+    yesterday_results: list[dict] = get_yesterday_results(TEAM_NAME_ABBREVS)
+    message_body: str = format_text(fg_data, bets, bet_stats, yesterday_results)
     send_email(from_name='Bernacki', to='bernackimark@gmail.com', subject='Baseball Bets', text=message_body)
