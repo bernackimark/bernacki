@@ -17,6 +17,7 @@ from ..ToDo import ToDo
 from ..TestForm import TestForm
 from ..Admin import Admin
 from ..TripBuilder import TripBuilder
+from ..Bets import Bets
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -93,5 +94,12 @@ class Base(BaseTemplate):
       if type(l) is Link:
         l.role = ''
     e['sender'].role = 'selected'
+
+  def link_bets_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(Bets())
+
+
 
 

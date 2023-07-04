@@ -362,4 +362,24 @@ components:
     name: btn_run_baseball
     layout_properties: {grid_position: 'LLBUVT,PPXPMN'}
     event_bindings: {click: button_1_click}
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
+  name: card_3
+  layout_properties: {grid_position: 'EOHMGV,JYZIPT'}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Bets, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_5
+    layout_properties: {grid_position: 'IMQKEV,NXJWNV'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: manually run bets, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_run_bets
+    layout_properties: {grid_position: 'MFZDON,TENNID'}
+    event_bindings: {click: btn_run_bets_click}
 is_package: true

@@ -80,6 +80,10 @@ class Admin(AdminTemplate):
   # def button_1_click(self, **event_args):
   #   anvil.server.call('run_baseball_bets')
 
+  def btn_run_bets_click(self, **event_args):
+    anvil.server.call('write_bets')
+
+
 
 
 

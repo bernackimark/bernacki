@@ -76,6 +76,56 @@ runtime_options:
 metadata: {logo_img: 'asset:bernacki_logo-logo.png'}
 startup_form: Cribbage
 db_schema:
+  bets_bets:
+    client: none
+    server: full
+    columns:
+    - name: creator
+      admin_ui: {order: 0, width: 200}
+      type: string
+    - name: receiver
+      admin_ui: {order: 1, width: 200}
+      type: string
+    - name: bet_type
+      admin_ui: {order: 2, width: 200}
+      type: simpleObject
+    - name: privacy_level
+      admin_ui: {order: 3, width: 200}
+      type: simpleObject
+    - name: prize
+      admin_ui: {order: 4, width: 200}
+      type: simpleObject
+    - name: memo
+      admin_ui: {order: 5, width: 200}
+      type: string
+    - name: maturity_dt
+      admin_ui: {order: 6, width: 200}
+      type: date
+    - name: id
+      admin_ui: {order: 7, width: 200}
+      type: string
+    - name: winner
+      admin_ui: {order: 8, width: 200}
+      type: string
+    - name: created_dt
+      admin_ui: {order: 9, width: 200}
+      type: date
+    - name: agreement_dt
+      admin_ui: {order: 10, width: 200}
+      type: date
+    - name: status
+      admin_ui: {order: 11, width: 200}
+      type: string
+    - name: last_updater
+      admin_ui: {order: 12, width: 200}
+      type: string
+    - name: lmt
+      admin_ui: {order: 13, width: 200}
+      type: datetime
+    - name: history
+      admin_ui: {order: 14, width: 200}
+      type: simpleObject
+    title: bets_bets
   bu_tasks:
     title: bu_tasks
     client: none
