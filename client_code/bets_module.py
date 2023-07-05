@@ -31,7 +31,13 @@ class Bet():
       if self.receiver_prize['prize_type'] == 'Financial':
         self.receiver_prize['to_win'] = float(self.receiver_prize['to_win'])
 
-# the_bet = Bet(creator='bernackimark@gmail.com', receiver='jdumond812@gmail.com',
-#     bet_type={'type': 'OU', 'bet_type_extras': {'what': 'Red Sox', 'line': 76.5, 'unit': 'wins', 'over_email': 'bernackimark@gmail.com', 'under_email': 'jdumond812@gmail.com'}},
-#     privacy_level='Public', prize={'type': 'FINANCIAL', 'creator_win_cents': 5000, 'receiver_win_cents': 5000, 'creator_win_other': '', 'receiver_win_other': ''},
-#     memo='Red Sox OU 76.5, Bernacki Over, Jake Under', maturity_dt=date(2023, 10, 2))
+@anvil.server.portable_class
+class SelfBet():
+    def __init__(self, creator: str, bet_category: str, prize: dict, drinks_level: int, outcome: str):
+      self.creator
+      self.bet_category
+      self.privacy_level
+      self.prize = {'prize_type': creator_prize_type, 'to_win': creator_to_win}
+      self.memo = memo
+      self.drinks_levels
+      self.outcome
