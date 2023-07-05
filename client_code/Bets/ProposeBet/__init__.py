@@ -10,9 +10,6 @@ from anvil.tables import app_tables
 
 from ... import bets_module as m
 
-current_user = {'first': 'Mark', 'last': 'Bernacki', 'full': 'Mark Bernacki', 'email': 'bernackimark@gmail.com'}
-
-
 class ProposeBet(ProposeBetTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -77,7 +74,7 @@ class ProposeBet(ProposeBetTemplate):
         alert('You missed some data')
         break
     
-    data = m.Bet(creator=current_user['email'], receiver=self.dd_receiver.selected_value, 
+    data = m.Bet(creator=m.current_user['email'], receiver=self.dd_receiver.selected_value, 
                  bet_type={'bet_type': self.dd_bet_type.selected_value, 'bet_type_extras': bet_type_extra_value_dict},
                  privacy_level=self.dd_privacy_level.selected_value, creator_prize_type=self.dd_creator_prize_type.selected_value,
                  creator_to_win=self.tb_creator_winnings.text, receiver_prize_type=self.dd_receiver_prize_type.selected_value,

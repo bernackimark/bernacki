@@ -18,6 +18,7 @@ from ..TestForm import TestForm
 from ..Admin import Admin
 from ..TripBuilder import TripBuilder
 from ..Bets.ProposeBet import ProposeBet
+from ..Bets.SelfBet import SelfBet
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -108,6 +109,8 @@ class Base(BaseTemplate):
     self.content_panel.clear()
     self.content_panel.add_component(ProposeBet())
 
-
-
+  def link_self_bet_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(SelfBet())
 
