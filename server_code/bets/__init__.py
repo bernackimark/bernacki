@@ -9,6 +9,7 @@ from anvil.tables import app_tables
 import anvil.server
 
 from .. import bets_module as m
+from datetime import date, datetime
 
 # from bets.bet import Bet
 # from db import all_bets
@@ -40,10 +41,12 @@ def update_pending_outcome() -> None:
 @anvil.server.callable
 def write_bets() -> None:
   app_tables.bets_bets.add_row(agreement_dt=date(2023, 4, 2), bet_type={'type': 'OU', 'bet_type_extras': {'what': 'Braves', 'line': 92, 'unit': 'wins', 'over_email': 'jdumond812gmail.com', 'under_email': 'bernackimark@gmail.com'}},
-                               created_dt=datetime.now(), creator='bernackimark@gmail.com', history=[], id='abc-123', last_updater='bernackimark@gmail.com', lmt=datetime.now(),
-                               maturity_dt=date(2023, 10, 2), memo='Braves OU 92: Jake Over, Bernacki Under', privacy_level='PUBLIC',
+                               created_dt=date.today(), creator='bernackimark@gmail.com', history=[], id='abc-123', last_updater='bernackimark@gmail.com', lmt=datetime.now(),
+                               maturity_dt=date(2023, 10, 2), memo='Braves OU 92: Jake Over, Bernacki Under', privacy_level='Public',
                                creator_prize={'prize_type': 'Financial', 'to_win': 50}, receiver_prize={'prize_type': 'Other', 'to_win': 'A case of Natty Light'},
-                               receiver='jdumond812@gmail.com', status='PROPOSED', winner=None)
+                               receiver='jdumond812@gmail.com', status='Proposed', winner=None)
+  for r in app_tables.bets_bets.search():
+    print(dict(r))
 
 @anvil.server.callable
 def print_incoming_data(data: m.Bet) -> None:

@@ -67,18 +67,10 @@ class Bets(BetsTemplate):
         if type(c) is TextBox and c.tag:
           all_ui_values.append({c.tag: c.text})
         elif type(c) is DatePicker and c.tag:
-          all_ui_values.append({c.tag, c.date})
+          all_ui_values.append({c.tag: c.date})
         elif type(c) is DropDown and c.tag:
-          all_ui_values.append({c.tag, c.selected_value})
-      for c in self.card_propose_bet.get_components():
-        if type(c) is TextBox and c.tag:
-          all_ui_values.append({c.tag, c.text})
-        elif type(c) is DatePicker and c.tag:
-          all_ui_values.append({c.tag, c.date})
-        elif type(c) is DropDown and c.tag:
-          all_ui_values.append({c.tag, c.selected_value})
-      all_ui_values.append({'current_user': current_user['email']})
-      self.tb_title.text = m.auto_generate_new_bet_title(all_ui_values)
+          all_ui_values.append({c.tag: c.selected_value})
+      self.tb_title.text = m.auto_generate_new_bet_title(all_ui_values, self.dd_bet_type.selected_value)
     for o in self.card_propose_bet.get_components():
       if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
         alert('You missed some data')
