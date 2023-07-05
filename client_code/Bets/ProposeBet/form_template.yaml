@@ -1,0 +1,120 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
+  name: card_propose_bet
+  layout_properties: {grid_position: 'DWIDEP,AYQREH'}
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Propose A Bet, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_1
+    layout_properties: {grid_position: 'FWAEOK,YVCSFE'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Other Person, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'DEYGXZ,OXQLHH'}
+  - type: DropDown
+    properties: {}
+    name: dd_receiver
+    layout_properties: {grid_position: 'DEYGXZ,XSUVBW'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Bet Type, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_2
+    layout_properties: {grid_position: 'EDBJZZ,ZIPXNF'}
+  - type: DropDown
+    properties: {}
+    name: dd_bet_type
+    layout_properties: {grid_position: 'EDBJZZ,QOTMQV'}
+    event_bindings: {change: dd_bet_type_change}
+  - type: GridPanel
+    properties: {spacing_above: small, spacing_below: small, background: '', foreground: '',
+      border: '', visible: true, role: null, tooltip: ''}
+    name: gp_bet_type_extras
+    layout_properties: {grid_position: 'NUKTUQ,HWHBBE'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Privacy Level, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_3
+    layout_properties: {grid_position: 'NNOPFH,AQJVPB'}
+  - type: DropDown
+    properties: {}
+    name: dd_privacy_level
+    layout_properties: {grid_position: 'NNOPFH,SOPFIF'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'What is your prize?', font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_4
+    layout_properties: {grid_position: 'MLYJVQ,TYFVHM'}
+  - type: DropDown
+    properties: {}
+    name: dd_creator_prize_type
+    layout_properties: {grid_position: 'MLYJVQ,DZBVEB'}
+    event_bindings: {change: dd_creator_prize_type_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: 'What is the other person''s prize?', font_size: null,
+      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: label_7
+    layout_properties: {grid_position: 'MLYJVQ,OMZUEK'}
+  - type: DropDown
+    properties: {}
+    name: dd_receiver_prize_type
+    layout_properties: {grid_position: 'MLYJVQ,LZHGNF'}
+    event_bindings: {change: dd_receiver_prize_type_change}
+  - type: ColumnPanel
+    properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '',
+      spacing_below: small, background: ''}
+    name: cp_creator_prize
+    layout_properties: {grid_position: 'FIIJIK,YUDWHO'}
+  - type: ColumnPanel
+    properties: {}
+    name: cp_reciver_prize
+    layout_properties: {grid_position: 'FIIJIK,FBMMFP'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Title, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_5
+    layout_properties: {grid_position: 'OUYZMD,SKGMLO'}
+  - type: TextBox
+    properties: {}
+    name: tb_title
+    layout_properties: {grid_position: 'OUYZMD,TPJECA'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Maturity Date, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_6
+    layout_properties: {grid_position: 'MWCWJW,VVBBEF'}
+  - type: DatePicker
+    properties: {}
+    name: dp_maturity_dt
+    layout_properties: {grid_position: 'MWCWJW,YFZKKV'}
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: propose this bet, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_propose_bet
+    layout_properties: {grid_position: 'ZLYFRA,EJSHNK'}
+    event_bindings: {click: btn_propose_bet_click}
+is_package: true
