@@ -6,6 +6,15 @@ bet_types = [('OU', 'OU')]
 privacy_levels = [('Friends', 'Friends'), ('Public', 'Public'), ('Private', 'Private')]
 prize_types = [('Financial', 'Financial'), ('Other', 'Other')]
 
+def get_all_other_users(current_user_email: str) -> list[str]:
+  return [u for u in users if u[1] != current_user_email]
+
+def auto_generate_new_bet_title(ui_data: list[dict]) -> str:
+  # flatten the incoming list of dicts
+  d = {k: v for d in ui_data for k, v in d.items()}
+  if ui_data['bet_type'] == 'OU':
+    return f"{d['what']} {d['line']} {d['units']}. {d['over_user']} has the over."
+
 @anvil.server.portable_class
 class Bet():
     def __init__(self, creator: str, receiver: str, bet_type: dict, privacy_level: str, creator_prize_type: str, creator_to_win: str,

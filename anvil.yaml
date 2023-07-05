@@ -92,7 +92,7 @@ db_schema:
     - name: privacy_level
       admin_ui: {order: 3, width: 200}
       type: simpleObject
-    - name: prize
+    - name: creator_prize
       admin_ui: {order: 4, width: 200}
       type: simpleObject
     - name: memo
@@ -124,6 +124,9 @@ db_schema:
       type: datetime
     - name: history
       admin_ui: {order: 14, width: 200}
+      type: simpleObject
+    - name: receiver_prize
+      admin_ui: {order: 15, width: 200}
       type: simpleObject
     title: bets_bets
   bu_tasks:
