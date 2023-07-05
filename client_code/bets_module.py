@@ -1,12 +1,11 @@
 import anvil.server
 from datetime import date, datetime
-from collections import namedtuple
 
 users = [('Mark Bernacki', 'bernackimark@gmail.com'), ('Jake Dumond', 'jdumond812@gmail.com')]
 bet_types = [('OU', 'OU')]
 outcomes = [('Win', 'win'), ('Loss', 'loss'), ('Push', 'push')]
-privacy_levels = [('Friends', 'Friends'), ('Public', 'Public'), ('Private', 'Private')]
-prize_types = [('Financial', 'Financial'), ('Other', 'Other')]
+privacy_levels = [('Friends', 'friends'), ('Public', 'public'), ('Private', 'private')]
+prize_types = [('Financial', 'financial'), ('Other', 'other')]
 bet_cats = ['Blackjack', 'Poker', 'Roulette', 'Baccarat', 'Craps', 'Keno', 'Video Poker', 'Three Card Poker', 'Pai Gow',
             'Pai Gow Poker', 'Texas Hold\'em (Limit)', 'Daily Fantasy', 'Fantasy Baseball', 'Fantasy Basketball', 'Fantasy Football',
  'March Madness', 'Sic Bo', 'Spanish 21', 'Ultimate Texas Hold\'em', 'Carribean Stud', 'Let It Ride', 'Golf',
@@ -22,26 +21,7 @@ def auto_generate_new_bet_title(ui_data: dict, bet_type: str) -> str:
   if bet_type == 'OU':
     return f"{ui_data['what']} over/under {ui_data['line']} {ui_data['units']}"
 
-ProposedBet = collections.namedtuple('ProposedBet', ['creator', 'receiver', 'bet_type', 'privacy_level',
-                                     'creator_prize_type', 'creator_to_win', 'receiver_prize_type', 'receiver_to_win',
-                                     'title', 'creator_memo', 'maturity_dt'])
-
       # if self.creator_prize['prize_type'] == 'Financial':
       #   self.creator_prize['to_win'] = float(self.creator_prize['to_win'])
       # if self.receiver_prize['prize_type'] == 'Financial':
       #   self.receiver_prize['to_win'] = float(self.receiver_prize['to_win'])
-
-@anvil.server.portable_class
-class SelfBet():
-    def __init__(self, creator: str, bet_category: str, prize_type: str, net, memo: str, maturity_dt: date, drinks_level: int, outcome: str):
-      self.creator = creator
-      self.bet_category = bet_category
-      self.privacy_level = 'PRIVATE'
-      self.prize = {'prize_type': prize_type, 'to_win': net}
-      self.memo = memo
-      self.maturity_date = maturity_dt
-      self.drinks_levels = drinks_level
-      self.outcome = outcome
-
-      if self.prize['prize_type'] == 'Financial':
-        self.prize['to_win'] = float(self.creator_prize['to_win'])

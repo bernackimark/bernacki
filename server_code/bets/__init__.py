@@ -49,8 +49,8 @@ def write_bets() -> None:
     print(dict(r))
 
 @anvil.server.callable
-def print_incoming_data(data: m.Bet) -> None:
-  print(vars(data))
+def print_incoming_data(data) -> None:
+  print(data)
 
 # todos:
 # simplify permissible actions

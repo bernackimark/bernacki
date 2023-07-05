@@ -74,11 +74,14 @@ class ProposeBet(ProposeBetTemplate):
         alert('You missed some data')
         break
     
-    data = m.ProposedBet(m.current_user['email'], self.dd_receiver.selected_value, self.dd_bet_type.selected_value, self.dd_privacy_level.selected_value,
-                         self.dd_creator_prize_type.selected_value, self.tb_creator_winnings.text, self.dd_receiver_prize_type.selected_value, self.tb_receiver_winnings.text,
-                         self.tb_title.text, self.tb_memo.text, self.dp_maturity_dt.date)
+    data = {'creator': m.current_user['email'], 'receiver': self.dd_receiver.selected_value, 'bet_type': self.dd_bet_type.selected_value,
+            'privacy_level': self.dd_privacy_level.selected_value, 'creator_prize_type': self.dd_creator_prize_type.selected_value,
+            'creator_to_win': self.tb_creator_winnings.text, 'receiver_prize_type': self.dd_receiver_prize_type.selected_value,
+            'receiver_to_win': self.tb_receiver_winnings.text, 'title': self.tb_title.text, 'creator_memo': self.tb_memo.text,
+            'maturity_dt': self.dp_maturity_dt.date}
 
-    print(data)    
-# anvil.server.call('print_incoming_data', data)
+    # in an OU bet, i need to denote who took which position   
+
+    anvil.server.call('print_incoming_data', data)
     
     
