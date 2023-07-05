@@ -9,12 +9,9 @@ prize_types = [('Financial', 'Financial'), ('Other', 'Other')]
 def get_all_other_users(current_user_email: str) -> list[str]:
   return [u for u in users if u[1] != current_user_email]
 
-def auto_generate_new_bet_title(ui_data: list[dict], bet_type: str) -> str:
-  print(ui_data)
-  # flatten the incoming list of dicts
-  d = {k: v for d in ui_data for k, v in d.items()}
+def auto_generate_new_bet_title(ui_data: dict, bet_type: str) -> str:
   if bet_type == 'OU':
-    return f"{d['what']} over/under {d['line']} {d['units']}"
+    return f"{ui_data['what']} over/under {ui_data['line']} {ui_data['units']}"
 
 @anvil.server.portable_class
 class Bet():

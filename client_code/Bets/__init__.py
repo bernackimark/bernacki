@@ -61,21 +61,24 @@ class Bets(BetsTemplate):
     self.cp_reciver_prize.add_component(self.tb_receiver_winnings)
   
   def btn_propose_bet_click(self, **event_args):
+    all_bet_type_extra_values: list[dict] = []
+    for c in self.gp_bet_type_extras.get_components():
+      if type(c) is TextBox and c.tag:
+        all_bet_type_extra_values.append({c.tag: c.text})
+      elif type(c) is DatePicker and c.tag:
+        all_bet_type_extra_values.append({c.tag: c.date})
+      elif type(c) is DropDown and c.tag:
+        all_bet_type_extra_values.append({c.tag: c.selected_value}) 
+    bet_type_extra_value_dict: dict = {k: v for d in all_bet_type_extra_values for k, v in d.items()}
     if not self.tb_title.text:
-      all_ui_values: list[dict] = []
-      for c in self.gp_bet_type_extras.get_components():
-        if type(c) is TextBox and c.tag:
-          all_ui_values.append({c.tag: c.text})
-        elif type(c) is DatePicker and c.tag:
-          all_ui_values.append({c.tag: c.date})
-        elif type(c) is DropDown and c.tag:
-          all_ui_values.append({c.tag: c.selected_value})
-      self.tb_title.text = m.auto_generate_new_bet_title(all_ui_values, self.dd_bet_type.selected_value)
+      self.tb_title.text = m.auto_generate_new_bet_title(bet_type_extra_value_dict, self.dd_bet_type.selected_value)
     for o in self.card_propose_bet.get_components():
       if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
         alert('You missed some data')
         break
-    data = m.Bet(creator=current_user['email'], receiver=self.dd_receiver.selected_value, bet_type=self.dd_bet_type.selected_value,
+    
+    data = m.Bet(creator=current_user['email'], receiver=self.dd_receiver.selected_value, 
+                 bet_type={'bet_type': self.dd_bet_type.selected_value, 'bet_type_extras': bet_type_extra_value_dict},
                  privacy_level=self.dd_privacy_level.selected_value, creator_prize_type=self.dd_creator_prize_type.selected_value,
                  creator_to_win=self.tb_creator_winnings.text, receiver_prize_type=self.dd_receiver_prize_type.selected_value,
                  receiver_to_win=self.tb_receiver_winnings.text, memo=self.tb_title.text, maturity_dt = self.dp_maturity_dt.date)
