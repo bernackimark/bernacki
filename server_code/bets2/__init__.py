@@ -32,6 +32,11 @@ def write_test_bet() -> None:
   bet = Bet(Party())
   app_tables.bets_bets2.add_row(bet=bet)
 
+
+@anvil.server.callable
+def create_bet_single_party(d: dict) -> None:
+  
+
 # current_user = user1
 
 
