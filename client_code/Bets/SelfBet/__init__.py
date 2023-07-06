@@ -28,5 +28,5 @@ class SelfBet(SelfBetTemplate):
 
     # need to create the "only one button can be selected concept, and getting the datatype correct for 'net' based on Financial/Other button selected"
     
-    anvil.server.call('print_incoming_data', data)
+    anvil.server.call('write_bet_single_party', data)
 
