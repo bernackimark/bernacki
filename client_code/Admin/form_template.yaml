@@ -376,6 +376,14 @@ components:
     layout_properties: {grid_position: 'IMQKEV,NXJWNV'}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: write test bet, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_write_test_bet
+    layout_properties: {grid_position: 'MFZDON,XHJTKW'}
+    event_bindings: {click: btn_write_test_bet_click}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: manually run bets, font_size: null, font: '',
       spacing_above: small, icon_align: left, spacing_below: small, italic: false,
       background: '', bold: false, underline: false, icon: ''}

@@ -17,7 +17,20 @@ from datetime import date, datetime
 # from bets.permissible_actions import Actions, get_perm_actions
 # from bets.enums import BetStatus
 
+from dataclasses import dataclass
 
+@dataclass
+class Party:
+  name: str = 'John'
+
+@dataclass
+class Bet:
+  party: Party
+
+@anvil.server.callable
+def write_test_bet() -> None:
+  bet = Bet(Party())
+  app_tables.bets_bets2.add_row(bet=bet)
 
 # current_user = user1
 

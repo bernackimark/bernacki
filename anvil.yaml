@@ -200,6 +200,14 @@ db_schema:
     - name: photo_url
       admin_ui: {order: 6, width: 200}
       type: string
+  bets_bets2:
+    client: none
+    server: full
+    columns:
+    - name: bet
+      admin_ui: {order: 0, width: 200}
+      type: simpleObject
+    title: bets_bets2
   geo_known_points:
     client: none
     server: full
