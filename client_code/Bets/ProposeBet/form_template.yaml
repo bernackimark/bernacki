@@ -85,7 +85,7 @@ components:
     layout_properties: {grid_position: 'FIIJIK,YUDWHO'}
   - type: ColumnPanel
     properties: {}
-    name: cp_reciver_prize
+    name: cp_receiver_prize
     layout_properties: {grid_position: 'FIIJIK,FBMMFP'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',

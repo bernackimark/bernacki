@@ -31,8 +31,7 @@ class ProposeBet(ProposeBetTemplate):
       tb_line = TextBox(type='number', placeholder=92, tag='line')
       tb_units = TextBox(placeholder='2023 Wins', tag='units')
       lbl_over = Label(text="Who's taking the over?", font_size=16)
-      dd_over = DropDown(include_placeholder=True, items=m.users, tag='over_user')
-      dd_under = DropDown(include_placeholder=True, placeholder='Under User',items=m.users, tag='under_user')
+      dd_over = DropDown(include_placeholder=True, items=m.users, tag='over_email')
       self.gp_bet_type_extras.add_component(tb_what, row='A', col_xs=0, width_xs=4)
       self.gp_bet_type_extras.add_component(tb_line, row='A', col_xs=4, width_xs=4)
       self.gp_bet_type_extras.add_component(tb_units, row='A', col_xs=8, width_xs=4)
@@ -42,7 +41,7 @@ class ProposeBet(ProposeBetTemplate):
       self.gp_bet_type_extras.clear()
 
   def dd_creator_prize_type_change(self, **event_args):
-    if self.dd_creator_prize_type.selected_value == 'Financial':
+    if self.dd_creator_prize_type.selected_value == 'financial':
       self.tb_creator_winnings = TextBox(placeholder=20.00, type='number')
     else:
       self.tb_creator_winnings = TextBox(placeholder='A case of Natty Light', type='text')
@@ -50,12 +49,12 @@ class ProposeBet(ProposeBetTemplate):
     self.cp_creator_prize.add_component(self.tb_creator_winnings)
 
   def dd_receiver_prize_type_change(self, **event_args):
-    if self.dd_receiver_prize_type.selected_value == 'Financial':
+    if self.dd_receiver_prize_type.selected_value == 'financial':
       self.tb_receiver_winnings = TextBox(placeholder=20.00, type='number')
     else:
       self.tb_receiver_winnings = TextBox(placeholder='A case of Natty Light', type='text')
-    self.cp_reciver_prize.clear()
-    self.cp_reciver_prize.add_component(self.tb_receiver_winnings)
+    self.cp_receiver_prize.clear()
+    self.cp_receiver_prize.add_component(self.tb_receiver_winnings)
   
   def btn_propose_bet_click(self, **event_args):
     all_bet_type_extra_values: list[dict] = []
@@ -73,12 +72,26 @@ class ProposeBet(ProposeBetTemplate):
       if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
         alert('You missed some data')
         break
+
+    bet_type_extras = dict()
+    for o in self.gp_bet_type_extras.get_components():
+      if type(o) is TextBox:
+        record = {o.tag: o.text}
+        bet_type_extras.update(record)
+      elif type(o) is DatePicker:
+        record = {o.tag: o.date}
+        bet_type_extras.update(record)
+      elif type(o) is DropDown:
+        record = {o.tag: o.selected_value}
+        bet_type_extras.update(record)
+      else:
+        pass
     
     data = {'creator': m.current_user['email'], 'receiver': self.dd_receiver.selected_value, 'bet_type': self.dd_bet_type.selected_value,
             'privacy_level': self.dd_privacy_level.selected_value, 'creator_prize_type': self.dd_creator_prize_type.selected_value,
             'creator_to_win': self.tb_creator_winnings.text, 'receiver_prize_type': self.dd_receiver_prize_type.selected_value,
-            'receiver_to_win': self.tb_receiver_winnings.text, 'title': self.tb_title.text, 'creator_memo': self.tb_memo.text,
-            'maturity_dt': self.dp_maturity_dt.date}
+            'receiver_to_win': self.tb_receiver_winnings.text, 'title': self.tb_title.text, 'creator_memo': self.tb_memo.text, 'maturity_dt': self.dp_maturity_dt.date,
+            'bet_type': self.dd_bet_type.selected_value, 'bet_type_extras': bet_type_extras}
 
     # in an OU bet, i need to denote who took which position   
 
