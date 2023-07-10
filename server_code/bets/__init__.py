@@ -44,6 +44,7 @@ def write_bet_single_party(d: dict) -> None:
   title = d['title'], maturity_dt = d['maturity_dt'], id = str(uuid.uuid4()), bet_category = d['bet_category'], privacy_level = 'private',
   created_dt = date.today(), agreement_dt = None, status = 'complete', last_updater = d['creator'], lmt = datetime.now(), history = None
   )
+  
 # current_user = user1
 
 
