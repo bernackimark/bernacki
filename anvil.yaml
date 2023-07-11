@@ -5,6 +5,12 @@ scheduled_tasks:
     every: day
     at: {minute: 0, hour: 14}
   job_id: UJCVWFFM
+- task_name: update_all_dg_player_photo_urls
+  time_spec:
+    n: 1
+    every: day
+    at: {minute: 0, hour: 6}
+  job_id: BMAPLCDN
 dependencies: []
 services:
 - source: /runtime/services/tables.yml
@@ -185,9 +191,6 @@ db_schema:
     - name: full_name
       admin_ui: {order: 4, width: 200}
       type: string
-    - name: photo
-      admin_ui: {order: 5, width: 200}
-      type: media
     - name: photo_url
       admin_ui: {order: 6, width: 200}
       type: string

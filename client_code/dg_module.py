@@ -9,7 +9,8 @@ from . import utils
 
 from datetime import date, timedelta
 
-dg_events = []  # [_ for _ in app_tables.dg_events.search()]  I'm now loading this from the Form intializer
+dg_events = []  # [_ for _ in app_tables.dg_events.search()]  I'm now loading this from the Form intializer, so that it doesn't run upon App startup
+dg_players = []  # ditto
 leaderboard_groupers = [('MPO Winner', 'mpo_champion'), ('FPO Winner', 'fpo_champion'), ('Event', 'name'), ('Year', 'year')]
 
 def sort_dg_events(column_name, reverse=False):
@@ -34,3 +35,10 @@ def group_sort_by_column(records: list[dict], grouper_column, reverse=True) -> l
   all_values = [r[grouper_column] for r in records if r[grouper_column] is not None]
   list_of_dicts = [{'value': v, 'count': all_values.count(v)} for v in unique_values]
   return sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse)
+
+def get_image_url_from_name(scoreboard_value: str) -> str:
+  # i need this because, the table isn't always displaying a name
+  for p in dg_players:
+    if p['full_name'] == scoreboard_value:
+      return p['photo_url']
+  return ''

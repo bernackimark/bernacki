@@ -16,6 +16,7 @@ class DiscGolf(DiscGolfTemplate):
     self.init_components(**properties)
 
     dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+    dgm.dg_players = [_ for _ in app_tables.dg_players.search()]
     
     self.repeating_panel_1.items = dgm.sort_dg_events('end_date', True)
     # self.repeating_panel_1.items = app_tables.dg_events.search(tables.order_by("end_date", ascending=False))
