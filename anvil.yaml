@@ -228,6 +228,38 @@ db_schema:
     - name: is_default
       admin_ui: {width: 200}
       type: bool
+  bugs_features:
+    client: none
+    server: full
+    columns:
+    - name: id
+      admin_ui: {order: 0, width: 200}
+      type: string
+    - name: submitter_email
+      admin_ui: {order: 1, width: 200}
+      type: string
+    - name: submitted_ts
+      admin_ui: {order: 2, width: 200}
+      type: datetime
+    - name: status
+      admin_ui: {order: 3, width: 200}
+      type: string
+    - name: screenshot
+      admin_ui: {order: 4, width: 200}
+      type: media
+    - name: category
+      admin_ui: {order: 5, width: 200}
+      type: string
+    - name: description
+      admin_ui: {order: 6, width: 200}
+      type: string
+    - name: app
+      admin_ui: {order: 7, width: 200}
+      type: string
+    - name: submitter_name
+      admin_ui: {order: 8, width: 200}
+      type: string
+    title: bugs_features
   stuff:
     title: stuff
     client: search
