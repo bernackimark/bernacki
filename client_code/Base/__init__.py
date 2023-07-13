@@ -19,6 +19,7 @@ from ..Admin import Admin
 from ..TripBuilder import TripBuilder
 from ..Bets.ProposeBet import ProposeBet
 from ..Bets.SelfBet import SelfBet
+from ..FeaturesFeedback import FeaturesFeedback
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -114,3 +115,7 @@ class Base(BaseTemplate):
     self.content_panel.clear()
     self.content_panel.add_component(SelfBet())
 
+  def link_feedback_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(FeaturesFeedback())

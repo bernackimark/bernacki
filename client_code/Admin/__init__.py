@@ -18,6 +18,7 @@ class Admin(AdminTemplate):
     self.dd_designation.items = dgm.filter_sort_unique_column('designation')
     self.dd_event_name.items = sorted(list({(n['name'], n['name']) for n in dgm.dg_events}))
     self.get_most_recent_loaded_event()
+    self.dd_security.items = [('Admin', 'admin'), ('Private', 'private') , ('Public', 'public'), ('Testing', 'testing')]
 
   def get_most_recent_loaded_event(self):
     last_event, last_added_ts = anvil.server.call('get_most_recent_event')
@@ -85,6 +86,14 @@ class Admin(AdminTemplate):
 
   def btn_write_test_bet_click(self, **event_args):
     anvil.server.call('write_test_bet')
+
+  def btn_add_new_app_click(self, **event_args):
+    if not self.tb_new_app_name.text or not self.tb_new_app_title.text:
+      alert('Enter a name and title, dumbass')
+      return
+    anvil.server.call_s('write_new_app', name=self.tb_new_app_name.text, title=self.tb_new_app_title.text,
+                        user=anvil.users.get_user(), icon_str=self.tb_icon_str.text, security=self.dd_security.selected_value)
+
 
 
 
