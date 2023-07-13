@@ -60,3 +60,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     
   def get_existing_requests(self):
     self.rp_feature_requests.items = anvil.server.call_s('get_feature_requests', anvil.users.get_user())
+
+  def dd_new_feature_apps_change(self, **event_args):
+    self.rb_existing_app.selected = True
+

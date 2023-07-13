@@ -137,6 +137,7 @@ components:
       include_placeholder: true
     name: dd_new_feature_apps
     layout_properties: {grid_position: 'VWFCFL,CTWORX'}
+    event_bindings: {change: dd_new_feature_apps_change}
   - type: Spacer
     properties: {height: 32}
     name: spacer_1
@@ -190,11 +191,12 @@ components:
     properties:
       role: null
       columns:
-      - {id: LVZCBG, title: App, data_key: app, $$hashKey: 'object:24960', width: '150'}
+      - {id: LVZCBG, title: App, data_key: app, $$hashKey: 'object:24960', width: '100'}
       - {id: QVMIDJ, title: Submitted By, data_key: submitter_name, $$hashKey: 'object:24961',
-        width: '150'}
-      - {id: VTKDGT, title: Submitted On, data_key: submitted_ts, $$hashKey: 'object:24962'}
-      - {id: ONEEGR, title: Status, data_key: status, $$hashKey: 'object:24963'}
+        width: '100'}
+      - {id: VTKDGT, title: Submitted On, data_key: submitted_ts, $$hashKey: 'object:24962',
+        width: '100'}
+      - {id: ONEEGR, title: Status, data_key: status, $$hashKey: 'object:24963', width: '100'}
       - {id: EQKPQS, title: Description, data_key: description, $$hashKey: 'object:24965'}
       auto_header: true
       tooltip: ''
