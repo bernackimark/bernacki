@@ -9,7 +9,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from datetime import date, datetime
-from ... import bets_module as m
+from .. import bets_module as m
 
 class SelfBet(SelfBetTemplate):
   def __init__(self, **properties):

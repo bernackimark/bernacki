@@ -8,7 +8,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-from ... import bets_module as m
+from .. import bets_module as m
 
 class ProposeBet(ProposeBetTemplate):
   def __init__(self, **properties):

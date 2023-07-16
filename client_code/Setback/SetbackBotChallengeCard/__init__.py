@@ -6,9 +6,9 @@ from anvil.google.drive import app_files
 import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
-from ..Home import Home
-from ..Setback import Setback
-from ..Setback.SetbackBotChallenge import SetbackBotChallenge
+from ...Home import Home
+from .. import Setback
+from ..SetbackBotChallenge import SetbackBotChallenge
 from anvil.tables import app_tables
 
 class SetbackBotChallengeCard(SetbackBotChallengeCardTemplate):

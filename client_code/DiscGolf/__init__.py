@@ -7,7 +7,7 @@ import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from .. import dg_module as dgm
+from . import dg_module as dgm
 from .. import utils
 
 class DiscGolf(DiscGolfTemplate):

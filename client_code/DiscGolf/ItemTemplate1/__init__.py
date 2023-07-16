@@ -8,7 +8,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-from ... import dg_module as m
+from .. import dg_module as m
 
 class ItemTemplate1(ItemTemplate1Template):
   def __init__(self, **properties):

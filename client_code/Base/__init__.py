@@ -11,7 +11,6 @@ from ..Home import Home
 from ..Setback import Setback
 from ..Setback.SetbackBotChallenge import SetbackBotChallenge
 from ..Mastermind import Mastermind
-from ..BulkUpdater import BulkUpdater
 from ..DiscGolf import DiscGolf
 from ..ToDo import ToDo
 from ..TestForm import TestForm
@@ -65,11 +64,6 @@ class Base(BaseTemplate):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(Mastermind())
-
-  def bulk_updater_link_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(BulkUpdater())
 
   def link_dg_click(self, **event_args):
     self.cp_link_highlights(**event_args)
