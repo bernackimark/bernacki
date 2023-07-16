@@ -94,6 +94,10 @@ class Admin(AdminTemplate):
     anvil.server.call_s('write_new_app', name=self.tb_new_app_name.text, title=self.tb_new_app_title.text,
                         user=anvil.users.get_user(), icon_str=self.tb_icon_str.text, security=self.dd_security.selected_value)
 
+  def btn_run_mohegan_click(self, **event_args):
+    anvil.server.call('run_mohegan_scrape')
+
+
 
 
 
