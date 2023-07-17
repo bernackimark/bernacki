@@ -7,18 +7,19 @@ import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from ..Home import Home
-from ..Setback import Setback
-from ..Setback.SetbackBotChallenge import SetbackBotChallenge
-from ..Mastermind import Mastermind
-from ..DiscGolf import DiscGolf
-from ..ToDo import ToDo
-from ..TestForm import TestForm
+
 from ..Admin import Admin
-from ..TripBuilder import TripBuilder
 from ..Bets.ProposeBet import ProposeBet
 from ..Bets.SelfBet import SelfBet
+from ..DiscGolf import DiscGolf
 from ..FeaturesFeedback import FeaturesFeedback
+from ..Games import Games
+from ..Games.Cribbage import Cribbage
+from ..Games.Mastermind import Mastermind
+from ..Games.Setback import Setback
+from ..Games.Setback.SetbackBotChallenge import SetbackBotChallenge
+from ..ToDo import ToDo
+from ..TripBuilder import TripBuilder
 
 class Base(BaseTemplate):
   def __init__(self, **properties):
@@ -36,10 +37,6 @@ class Base(BaseTemplate):
   def go_home_link_click(self, **event_args):
     self.cp_link_highlights(**event_args)
     self.go_to_base()  
-
-  def todo_link_click(self, **event_args):
-    self.content_panel.clear()
-    self.content_panel.add_component(ToDo())    
     
   def sign_in_click(self, **event_args):
     user = anvil.users.get_user()
@@ -60,11 +57,6 @@ class Base(BaseTemplate):
     else:
       self.sign_in.text = "Sign In"
 
-  def mastermind_link_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Mastermind())
-
   def link_dg_click(self, **event_args):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
@@ -79,11 +71,6 @@ class Base(BaseTemplate):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(TripBuilder())
-
-  def link_stuff_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Home())
 
   def cp_link_highlights(self, **e):
     for l in self.cp_links.get_components():
@@ -113,3 +100,26 @@ class Base(BaseTemplate):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(FeaturesFeedback())
+
+  def link_mastermind_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(Mastermind())
+
+  def link_setback_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(Setback())
+
+  def link_games_click(self, **event_args):
+    for o in self.link_games.get_components():
+      if type(o) is Link:
+        if o.visible == False:
+          o.visible = True
+        else:
+          o.visible = False
+
+  def link_todo_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(ToDo())

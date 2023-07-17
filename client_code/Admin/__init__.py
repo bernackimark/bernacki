@@ -8,7 +8,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-from .. import dg_module as dgm
+from ..DiscGolf import dg_module as dgm
 
 class Admin(AdminTemplate):
   def __init__(self, **properties):
@@ -28,7 +28,7 @@ class Admin(AdminTemplate):
     for o in self.card_add_new_dg_event.get_components():
       if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
         alert('You missed some data')
-        break
+        return
     anvil.server.call('write_dg_event', year=self.tb_year.text, governing_body=self.dd_governing_body.selected_value,
                       designation=self.dd_designation.selected_value, start_date=self.dp_start.date, end_date=self.dp_end.date,
                       city=self.tb_city.text, state=self.tb_state.text, country=self.tb_country.text,

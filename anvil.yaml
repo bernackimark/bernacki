@@ -351,7 +351,7 @@ db_schema:
       type: simpleObject
   dg_events:
     title: dg_events
-    client: search
+    client: full
     server: full
     columns:
     - name: id

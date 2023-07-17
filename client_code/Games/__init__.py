@@ -1,4 +1,4 @@
-from ._anvil_designer import HomeTemplate
+from ._anvil_designer import GamesTemplate
 from anvil import *
 import anvil.server
 import anvil.google.auth, anvil.google.drive
@@ -7,12 +7,13 @@ import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from ..Setback import Setback
-from ..Setback.SetbackBotChallenge import SetbackBotChallenge
-from ..Cribbage import Cribbage
-from ..ToDo import ToDo
+from .Cribbage import Cribbage
+from .Mastermind import Mastermind
+from .Setback import Setback
+from .Setback.SetbackBotChallenge import SetbackBotChallenge
 
-class Home(HomeTemplate):
+
+class Games(GamesTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
@@ -33,14 +34,8 @@ class Home(HomeTemplate):
     self.stuff_repeating_panel.visible = False
     self.content_panel.add_component(SetbackBotChallenge())
 
-  def launch_todo_btn_click(self, **event_args):
+  def launch_mastermind_click(self, **event_args):
     self.content_panel.clear()
     self.stuff_repeating_panel.visible = False
-    self.content_panel.add_component(ToDo())
-
-
-  
-
-
-
+    self.content_panel.add_component(Mastermind())
 

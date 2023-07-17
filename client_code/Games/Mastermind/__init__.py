@@ -9,7 +9,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from . import mastermind_module as m
-from .. import utils_for_anvil as util
+from ... import utils_for_anvil as util
 import anvil.image
 
 class Mastermind(MastermindTemplate):

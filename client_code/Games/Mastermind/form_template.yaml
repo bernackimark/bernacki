@@ -204,7 +204,7 @@ components:
     components:
     - type: RepeatingPanel
       properties: {role: scroll, tooltip: '', border: '', foreground: '', items: null,
-        visible: true, spacing_above: none, spacing_below: none, item_template: Mastermind.GuessLogRow,
+        visible: true, spacing_above: none, spacing_below: none, item_template: Games.Mastermind.GuessLogRow,
         background: ''}
       name: rp_guess_log
       layout_properties: {}
