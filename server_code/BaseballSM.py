@@ -88,8 +88,9 @@ def get_yesterday_results_stats_api() -> list[dict]:
     d: dict = requests.get(f'http://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate={y}&endDate={y}').json()
     all_outcomes = []
     for e in d['dates'][0]['games']:
-        all_outcomes.append((e['teams']['away']['team']['name'], e['teams']['away']['isWinner']))
-        all_outcomes.append((e['teams']['home']['team']['name'], e['teams']['home']['isWinner']))
+        is_winner_away, is_winner_home = e['teams']['away'].get('isWinner'), e['teams']['home'].get('isWinner')
+        all_outcomes.append((e['teams']['away']['team']['name'], is_winner_away))
+        all_outcomes.append((e['teams']['home']['team']['name'], is_winner_home))
     my_outcomes: list[dict] = []
     for t in NICKNAME_FULL_NAME:
         if t[1] not in [o[0] for o in all_outcomes]:
