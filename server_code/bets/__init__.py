@@ -8,7 +8,6 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
-from .. import bets_module as m
 from datetime import date, datetime
 import uuid
 
