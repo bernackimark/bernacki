@@ -33,6 +33,7 @@ class BugFeature:
   submitter_email: str
   submitter_name: str
   description: str
+  title: str = None
   screenshot: str = None
   submitted_ts: datetime = datetime.now()
   status: RequestStatus = RequestStatus.REPORTED.value
@@ -40,12 +41,27 @@ class BugFeature:
   id: str = str(uuid.uuid4())
   history: list = field(default_factory=list)
 
+  def __post_init__(self):
+    if not self.title:
+      self.title = create_title_from_text(self.description)
+
+
+def create_title_from_text(text: str) -> str:
+  first_period_space_index = text.find('. ')
+  if len(text.split(' ')) <= 10:
+      return text
+  elif first_period_space_index == -1:
+      first_ten_words = text.split(' ')[:10]
+      return ' '.join(first_ten_words)
+  else:
+      return text.split('. ')[0] + '.'
+
 
 @anvil.server.callable
-def write_to_features_feedback(cat: str, app: str, user: dict, desc: str, screenshot: str = None) -> str:
+def write_to_features_feedback(cat: str, app: str, user: dict, title: str, desc: str, screenshot: str = None) -> str:
   submitter_name = user['handle'] if user else None
   submitter_email = user['email'] if user else None
-  req = BugFeature(category=cat, app=app, submitter_email=submitter_email, submitter_name=submitter_name, description=desc, screenshot=screenshot)
+  req = BugFeature(category=cat, app=app, submitter_email=submitter_email, submitter_name=submitter_name, title=title, description=desc, screenshot=screenshot)
   d = asdict(req)
   app_tables.bugs_features.add_row(**d)
   return 'I logged your submission.  Thank you!!'

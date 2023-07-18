@@ -15,6 +15,9 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
 
     my_apps = anvil.server.call_s('get_my_apps', anvil.users.get_user())
     self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = my_apps
+    self.tb_bug_title.placeholder, self.tb_feature_title.placeholder = 'My issue title', 'My feature/idea title'
+    self.ta_bug_description.placeholder = self.ta_new_description.placeholder = 'My description.  Please enter as much information as possible.'
+    
     if anvil.users.get_user():
       self.card_feature_requests.visible = True
       self.lbl_log_in_to_see_feature_requests.visible = False
@@ -31,7 +34,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
       alert('Please provide a fuller description.')
       return
     msg = anvil.server.call('write_to_features_feedback', cat='bug', app=self.dd_report_bug_apps.selected_value,
-                        user=anvil.users.get_user(), screenshot=self.fl_bug_screenshot.file, desc=self.ta_bug_description.text)
+                        user=anvil.users.get_user(), screenshot=self.fl_bug_screenshot.file, title=self.tb_bug_title.text, desc=self.ta_bug_description.text)
     if self.fl_bug_screenshot.file:
       self.fl_bug_screenshot.clear()
     Notification(msg).show()
@@ -54,7 +57,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     screenshot = self.fl_bug_screenshot.file if self.fl_bug_screenshot.file else None
     cat = 'enhancement' if self.rb_existing_app.selected else 'new'
     msg = anvil.server.call('write_to_features_feedback', cat=cat, app=app,
-                        user=anvil.users.get_user(), desc=self.ta_new_description.text)
+                        user=anvil.users.get_user(), title=self.tb_feature_title.text, desc=self.ta_new_description.text)
     self.get_existing_requests()
     Notification(msg).show()
     

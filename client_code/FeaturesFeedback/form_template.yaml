@@ -43,6 +43,10 @@ components:
       include_placeholder: true
     name: dd_report_bug_apps
     layout_properties: {grid_position: 'OLRJVF,DWYNEJ'}
+  - type: TextBox
+    properties: {}
+    name: tb_bug_title
+    layout_properties: {grid_position: 'XNHZYC,FJPYHB'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Please describe the issue with some detail, font_size: null,
@@ -103,18 +107,22 @@ components:
     layout_properties: {grid_position: 'WJXSNT,YUOANR'}
   - type: RadioButton
     properties: {role: null, selected: false, align: left, tooltip: '', border: '',
-      enabled: true, foreground: '', value: existing_app, visible: true, text: My Request is on ...,
-      font_size: null, font: '', spacing_above: small, spacing_below: small, italic: false,
-      background: '', bold: false, group_name: rb_new_request_group, underline: false}
-    name: rb_existing_app
-    layout_properties: {grid_position: 'IVRXLR,EZKSXY'}
-  - type: RadioButton
-    properties: {role: null, selected: false, align: left, tooltip: '', border: '',
       enabled: true, foreground: '', value: new_idea, visible: true, text: My Idea is brand new,
       font_size: null, font: '', spacing_above: small, spacing_below: small, italic: false,
       background: '', bold: false, group_name: rb_new_request_group, underline: false}
     name: rb_new_idea
     layout_properties: {grid_position: 'IVRXLR,RIIXYX'}
+  - type: RadioButton
+    properties: {role: null, selected: false, align: left, tooltip: '', border: '',
+      enabled: true, foreground: '', value: existing_app, visible: true, text: My Request is on ...,
+      font_size: null, font: '', spacing_above: small, spacing_below: small, italic: false,
+      background: '', bold: false, group_name: rb_new_request_group, underline: false}
+    name: rb_existing_app
+    layout_properties: {grid_position: 'IVRXLR,UTGITL'}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'VWFCFL,LCLTZZ'}
   - type: DropDown
     properties:
       role: null
@@ -138,10 +146,10 @@ components:
     name: dd_new_feature_apps
     layout_properties: {grid_position: 'VWFCFL,CTWORX'}
     event_bindings: {change: dd_new_feature_apps_change}
-  - type: Spacer
-    properties: {height: 32}
-    name: spacer_1
-    layout_properties: {grid_position: 'VWFCFL,ZXJLPY'}
+  - type: TextBox
+    properties: {}
+    name: tb_feature_title
+    layout_properties: {grid_position: 'ZYPIGU,RBAIPO'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Please describe the issue with some detail, font_size: null,
@@ -191,13 +199,15 @@ components:
     properties:
       role: null
       columns:
-      - {id: LVZCBG, title: App, data_key: app, $$hashKey: 'object:24960', width: '100'}
+      - {id: LVZCBG, title: App, data_key: app, $$hashKey: 'object:24960', width: '75'}
       - {id: QVMIDJ, title: Submitted By, data_key: submitter_name, $$hashKey: 'object:24961',
-        width: '100'}
+        width: '75'}
       - {id: VTKDGT, title: Submitted On, data_key: submitted_ts, $$hashKey: 'object:24962',
-        width: '100'}
-      - {id: ONEEGR, title: Status, data_key: status, $$hashKey: 'object:24963', width: '100'}
-      - {id: EQKPQS, title: Description, data_key: description, $$hashKey: 'object:24965'}
+        width: '75'}
+      - {id: ONEEGR, title: Status, data_key: status, $$hashKey: 'object:24963', width: '75'}
+      - {id: TMHWZE, title: Title, data_key: title, $$hashKey: 'object:14422', width: '250'}
+      - {id: EQKPQS, title: Description, data_key: description, $$hashKey: 'object:24965',
+        expand: true}
       auto_header: true
       tooltip: ''
       border: ''
