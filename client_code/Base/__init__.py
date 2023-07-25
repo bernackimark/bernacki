@@ -18,6 +18,7 @@ from ..Games.Cribbage import Cribbage
 from ..Games.Mastermind import Mastermind
 from ..Games.Setback import Setback
 from ..Games.Setback.SetbackBotChallenge import SetbackBotChallenge
+from ..Games.Slots import Slots
 from ..ToDo import ToDo
 from ..TripBuilder import TripBuilder
 
@@ -106,6 +107,11 @@ class Base(BaseTemplate):
     self.content_panel.clear()
     self.content_panel.add_component(Mastermind())
 
+  def link_slots_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(Slots())
+    
   def link_setback_click(self, **event_args):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()

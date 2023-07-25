@@ -280,6 +280,9 @@ db_schema:
     - name: is_tester
       admin_ui: {order: 14, width: 200}
       type: bool
+    - name: info
+      admin_ui: {order: 15, width: 200}
+      type: simpleObject
   bots:
     title: bots
     client: search
