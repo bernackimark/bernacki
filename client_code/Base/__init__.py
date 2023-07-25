@@ -22,6 +22,7 @@ from ..Games.Slots import Slots
 from ..ToDo import ToDo
 from ..TripBuilder import TripBuilder
 
+
 class Base(BaseTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
