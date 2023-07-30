@@ -18,7 +18,7 @@ class Mastermind(MastermindTemplate):
     self.init_components(**properties)
 
     user = anvil.users.get_user()
-    self.email = user['email'] if user else 'bernackimark@gmail.com'
+    self.email = user['email'] if user else None
     # print(f'The email is: {email}')
     
     self.prompt_1_lbl.text = m.UI.prompt_datatype_answers[0]['prompt']

@@ -31,7 +31,7 @@ class GamesLog:
 
 @anvil.server.callable
 def write_game_data(d: dict, updated_player_data: dict = {}):
-    game_class = GamesLog(d['game_name'], d['game_start_ts'], d['game_end_ts'], d['player_emails'], d['game_data'])
+    game_class = GamesLog(**d)
     record = game_class.as_dict()
     app_tables.games_log.add_row(**record)
 
