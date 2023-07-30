@@ -126,19 +126,18 @@ class Mastermind(gm.Game):
         if self.is_winner:
             self.outcome = 'win'
             self.state = 'game_over'
+            self.send_end_game_data_to_parent()
             self.write_game_to_db()
             return
         if self.guess_number == self.max_guess_cnt:
             self.outcome = 'loss'
             self.state = 'game_over'
+            self.send_end_game_data_to_parent()
             self.write_game_to_db()
             return
 
-    def write_game_to_db(self):
-        self.game_end_ts = datetime.utcnow()
-        # for all of the data collected in this game's class, send that up to the parent Game class
+    def send_end_game_data_to_parent(self):
         self.game_data = self.game_data_dict
-        anvil.server.call('write_game_data', self.parent_class_dict)
 
 
 def compare_guess_to_answer() -> dict:
