@@ -11,28 +11,38 @@ import anvil.server
 from dataclasses import dataclass, field
 from datetime import datetime
 
+
+@dataclass
+class GamesLog:
+    game_name: str
+    game_start_ts: datetime
+    game_end_ts: datetime
+    player_emails: list[str] = field(default_factory=list)
+    game_data: dict = field(default_factory=dict)
+    id: int = len(app_tables.games_log.search()) + 1
+
+    def __post_init__(self):
+        if type(self.player_emails) == str:
+            self.player_emails = [self.player_emails]
+
+    def as_dict(self):
+        return self.__dict__
+
+
 @anvil.server.callable
-def write_game_data(d: dict, updated_player_data=dict()):
-  if updated_player_data:
-    user_email = d['player_emails'][0]
+def write_game_data(d: dict, updated_player_data: dict = {}):
+    game_class = GamesLog(d['game_name'], d['game_start_ts'], d['game_end_ts'], d['player_emails'], d['game_data'])
+    record = game_class.as_dict()
+    app_tables.games_log.add_row(**record)
+
+    if updated_player_data:
+        update_player_data(game_class.player_emails[0], updated_player_data)
+
+
+def update_player_data(user_email: str, d: dict):
     user_row = app_tables.users.get(email=user_email)
     user_row_info: dict = user_row['info']
-    for k, v in updated_player_data.items():
-      if k in user_row_info.keys():
-          user_row_info[k] = v
+    for k, v in d.items():
+        if k in user_row_info.keys():
+            user_row_info[k] = v
     user_row['info'] = user_row_info
-
-  # here is the reasoning behind this seemingly odd approach above
-  # row = app_tables.my_table.search()[0]
-  # dic = row['column_with_dict']
-  # dic['key'] = new_value  # row is not aware of this change
-  # row['column_with_dict'] = dic  # row is finally updated
-
-  # remove any extra columns before writing a row to the games_log table
-  db_columns = [d['name'] for d in app_tables.games_log.list_columns()]
-  key_copy = tuple(d.keys())  
-  for k in key_copy:
-      if k not in db_columns:
-          del d[k]
-  
-  app_tables.games_log.add_row(id=len(app_tables.games_log.search())+1, **d)

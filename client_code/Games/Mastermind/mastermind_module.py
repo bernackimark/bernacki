@@ -29,175 +29,141 @@ class UI:
         {'prompt': 'How many guesses would you like to allow yourself (between 1 and 20)?', 'datatype': 'int', 'answers': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}
     ]
 
-    @staticmethod
-    def get_user_input(prompt_datatype_answer: dict):  # return type is int | str ... no anvil support for this
-        print(prompt_datatype_answer['prompt'])
-        cnt = 0
-        while cnt not in prompt_datatype_answer['answers']:
-            if prompt_datatype_answer['datatype'] == 'int':
-                cnt = int(input())
-            else:
-                cnt = input()
-        return cnt
-
-    @staticmethod
-    def get_user_guess() -> list:
-        print(f'Please guess {mastermind.answer_len} colors. ')
-        return [input() for _ in range(mastermind.answer_len)]
-
-    @staticmethod
-    def display_answer() -> None:
-        answer = [c.color for c in mastermind.generated_answer]
-        print(f'The answer is {answer}')
-
-    @staticmethod
-    def display_color_set() -> None:
-        print(f'Your color options are {color_bank.game_color_list}')
-
-    @staticmethod
-    def display_guess_result() -> None:
-        print(f'Guess #{mastermind.guess_cnt} of {mastermind.max_guess_cnt}. {round_.guess} has {round_.correct_pos_cnt} correct positions & {round_.incorrect_pos_cnt} incorrect positions.')
-
-    @staticmethod
-    def display_game_result() -> None:
-        print(f'{mastermind.mastermind_data}')
-
-
 class Color:
-    def __init__(self, letter: str, image: str):
-        self.letter = letter
+    def __init__(self, color: str, image: str):
+        self.color = color
         self.image = image
 
     def __repr__(self):
-      return f'Color Object: {self.letter}'
+        return self.color
 
 
 class ColorBank:
-    all_color_letters = ['r', 'y', 'g', 'c', 'b', 'p']
+    def __init__(self, color_set_cnt: int):
+        all_colors = ['r', 'y', 'g', 'c', 'b', 'p']
+        self.game_color_objects = [Color(c, f'_/theme/mastermind/mm_{c}.png') for idx, c in enumerate(all_colors) if idx + 1 <= color_set_cnt]
+    def __repr__(self):
+        return ' '.join([c.color for c in self.game_color_objects])
+
+    @property
+    def game_color_list(self):
+        return [c.color for c in self.game_color_objects]
+
+    def get_color_from_letter(self, letter: str) -> Color:
+        return [c for c in self.game_color_objects if letter == c.color][0]
+
+
+class Guess:
     def __init__(self):
         self.color_objects = []
-      
+
     @property
-    def color_letter_list(self):
-        return [c.letter for c in self.color_objects]
+    def guess_str(self):
+        return [c.color for c in self.color_objects]
 
-    def add_color(self, color_obj: Color):
-      self.color_objects.append(color_obj)
-      
-    def remove_color(self, idx: int):
-      self.color_objects.pop(idx)
+    @property
+    def guess_len(self):
+        return len(self.color_objects)
 
-    def remove_all(self):
-      self.color_objects.clear()
-      
-    def get_color_from_letter(self, letter: str) -> Color:
-        return [c for c in self.color_objects if letter == c.letter][0]
+    def add_guess_str(self, color_str: str) -> bool:
+        if len(self.color_objects) >= mastermind.answer_len:
+            return False
+        self.color_objects.append(mastermind.color_bank.get_color_from_letter(color_str))
+        return True
+
+    def add_guess_object(self, color: Color):
+        if len(self.color_objects) >= mastermind.answer_len:
+            print('No more guesses remaining')
+            return
+        self.color_objects.append(color)
+
+    def remove_guess_object(self, idx):
+        self.color_objects.pop(idx)
+
+    def clear_my_guess(self):
+        self.color_objects.clear()
 
 
-# should there be a parent Game class that creates the shell for all games?
-# email, app_name, start, end, ?maybe outcome?
-class Mastermind:
-    def __init__(self):
-      self.color_set_cnt = 0  # color_set_cnt
-      self.answer_len = 0  # answer_len
-      self.generated_answer = ColorBank()
-      self.max_guess_cnt = 0  # max_guess_cnt
-      self.guess_cnt = 0
-      self.round_list = []
-      self.outcome = ''
-      self.state = 'new_game'  # if guessing, "play" button should be disabled
+class Mastermind(gm.Game):
+    def __init__(self, player_emails: list[str], color_set_cnt: int, answer_len: int, max_guess_cnt: int):
+        super().__init__('mastermind', player_emails)
+        self.color_set_cnt = color_set_cnt
+        self.color_bank = ColorBank(color_set_cnt)
+        self.answer_len = answer_len
+        self.generated_answer = [random.choice(self.color_bank.game_color_objects) for _ in range(self.answer_len)]
+        self.max_guess_cnt = max_guess_cnt
+        self.guess_number = 0
+        self.round_list = []
+        self.outcome = 'no_result'
+        self.state = 'guessing'
 
-    def generate_answer(self):
-      for i in range(self.answer_len):
-        c = random.choice(available_color_bank.color_objects)
-        self.generated_answer.add_color(c)
+    @property
+    def as_dictionary(self) -> dict:
+        return self.__dict__
 
-    def append_round(self, round_obj: dict):
-      self.round_list.append(round_obj)
+    @property
+    def game_data_dict(self) -> dict:
+        return {'color_set_cnt': self.color_set_cnt, 'answer_len': self.answer_len, 'max_guess_cnt': self.max_guess_cnt,
+                'guesses_used': self.guess_number, 'outcome': self.outcome}
+  
+    @property
+    def answer_str(self):
+        return [c.color for c in self.generated_answer]
 
     def increment_guess_cnt(self):
-        self.guess_cnt += 1
+        self.guess_number += 1
 
-    def evaluate_end_game(self, correct_pos_cnt):
-      if correct_pos_cnt == self.answer_len:
-        self.update_outcome('win')
-      elif self.guess_cnt >= self.max_guess_cnt:
-        self.update_outcome('loss')
-
-    def update_outcome(self, outcome: str):
-      self.outcome = outcome
-      self.state = 'game_over'
-      game.game_end_ts = datetime.utcnow()
-      game.game_data = self.mastermind_data
-      anvil.server.call('write_game_data', game.as_dictionary)
+    def evaluate_answer_log_result(self):
+        self.increment_guess_cnt()
+        round_result: dict = compare_guess_to_answer()
+        self.round_list.append(round_result)
 
     @property
-    def mastermind_data(self) -> dict:
-      return {'color_set_cnt': self.color_set_cnt, 'answer': self.generated_answer.color_letter_list, 'answer_len': self.answer_len,
-                                    'max_guess_cnt': self.max_guess_cnt, 'actual_guess_cnt': self.guess_cnt, 'outcome': self.outcome}
-  
-    # @property
-    # def result_dict(self):
-    #     return {'email': self.user_email, 'app': self.app_name,
-    #             'start_time': self.start_time, 'end_time': datetime.utcnow(),
-    #             'color_set_cnt': self.color_set_cnt, 'answer': self.generated_answer.color_letter_list, 'answer_len': self.answer_len,
-    #             'max_guess_cnt': self.max_guess_cnt, 'actual_guess_cnt': self.guess_cnt,
-    #             'outcome': self.outcome}
+    def is_winner(self) -> bool:
+        return self.round_list[-1]['correct_pos_cnt'] == self.answer_len
+
+    def check_for_end_game(self):
+        if self.is_winner:
+            self.outcome = 'win'
+            self.state = 'game_over'
+            self.write_game_to_db()
+            return
+        if self.guess_number == self.max_guess_cnt:
+            self.outcome = 'loss'
+            self.state = 'game_over'
+            self.write_game_to_db()
+            return
+
+    def write_game_to_db(self):
+        self.game_end_ts = datetime.utcnow()
+        # for all of the data collected in this game's class, send that up to the parent Game class
+        self.game_data = self.game_data_dict
+        anvil.server.call('write_game_data', self.parent_class_dict)
 
 
-class Round:
-    def __new__(cls, *args, **kwargs):
-        return super().__new__(cls)
-      
-    def __init__(self):
-        self.guess_number = mastermind.guess_cnt + 1
-        self.guess = guess.color_objects
-        self.correct_pos_cnt = 0
-        self.incorrect_pos_cnt = 0
+def compare_guess_to_answer() -> dict:
+    correct_pos_cnt, total_correct_cnt = 0, 0
+    answer_copy = mastermind.answer_str.copy()
 
-    def compare_answer_and_guess(self) -> None:
-      mastermind.increment_guess_cnt()
-      total_correct_cnt = 0
-      guess_letters = guess.color_letter_list.copy()
-      answer_letters = mastermind.generated_answer.color_letter_list.copy()
-      print(answer_letters, guess_letters)
-      for l in guess_letters:
-          if l in answer_letters:
-              answer_letters.remove(l)
-              total_correct_cnt += 1
-      for i in range(mastermind.answer_len):
-          if guess.color_letter_list[i] == mastermind.generated_answer.color_letter_list[i]:
-              self.correct_pos_cnt += 1
-      self.incorrect_pos_cnt = total_correct_cnt - self.correct_pos_cnt
-      mastermind.append_round({'guess_number': self.guess_number, 'guess': self.guess.copy(),
-                         'correct_pos_cnt': self.correct_pos_cnt, 'incorrect_pos_cnt': self.incorrect_pos_cnt})
+    for c in guess.guess_str:
+        if c in answer_copy:
+            answer_copy.remove(c)
+            total_correct_cnt += 1
+    for i in range(mastermind.answer_len):
+        if guess.guess_str[i] == mastermind.answer_str[i]:
+            correct_pos_cnt += 1
+    incorrect_pos_cnt = total_correct_cnt - correct_pos_cnt
+    return {'guess_number': mastermind.guess_number, 'guess': guess.color_objects.copy(),
+            'correct_pos_cnt': correct_pos_cnt, 'incorrect_pos_cnt': incorrect_pos_cnt}
 
-    def end_round(self) -> None:
-      guess.color_objects.clear()
-      mastermind.evaluate_end_game(self.correct_pos_cnt)
-      
 
-def create_new_game(email, color_set_cnt, answer_len, max_guess_cnt):
-  game.__init__('mastermind', [email])
-  available_color_bank.color_objects = [Color(c, f'_/theme/mastermind/mm_{c}.png') for idx, c in enumerate(ColorBank.all_color_letters) if idx + 1 <= color_set_cnt]
-  # game = Game(email=email, max_guess_cnt=max_guess_cnt, color_set_cnt=color_set_cnt, answer_len=answer_len)
-  mastermind.__init__()
-  mastermind.color_set_cnt, mastermind.answer_len, mastermind.max_guess_cnt = color_set_cnt, answer_len, max_guess_cnt
-  mastermind.generate_answer()
-  mastermind.state = 'guessing'
-  
+def is_guess_full() -> bool:
+    print(mastermind.answer_len, guess.guess_len)
+    return mastermind.answer_len == guess.guess_len
 
-def create_new_round():
-  round_.__init__()
 
-# i want to create a game instance only when a new game is created, but i can't figure out how to create it on demand (outside of a function)
-# to create 'game' in the global scope, my workaround is to create a shell of a game instance and then actually populate it upon call
-game = gm.Game.__new__(gm.Game)
-mastermind = Mastermind.__new__(Mastermind)
-available_color_bank = ColorBank()
-guess = ColorBank()
-round_ = Round.__new__(Round)
-
+mastermind: Mastermind
+guess = Guess()
 
 # after knowing all of the letters, regardless of position:
 # 4 of same letter = 1 permutation
