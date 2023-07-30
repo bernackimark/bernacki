@@ -1,3 +1,4 @@
+import anvil.server
 class UI:
     @staticmethod
     def get_user_bet() -> int:

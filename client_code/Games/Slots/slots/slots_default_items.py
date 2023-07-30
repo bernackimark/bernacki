@@ -1,3 +1,4 @@
+import anvil.server
 from .slots_classes import Piece, Shape
 
 default_pieces = [

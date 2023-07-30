@@ -431,4 +431,5 @@ db_schema:
       type: simpleObject
     title: parms
 secrets: {}
+uplink_visible: true
 renamed: true
