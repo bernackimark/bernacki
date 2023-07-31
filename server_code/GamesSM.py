@@ -21,10 +21,6 @@ class GamesLog:
     game_data: dict = field(default_factory=dict)
     id: int = len(app_tables.games_log.search()) + 1
 
-    def __post_init__(self):
-        if type(self.player_emails) == str:
-            self.player_emails = [self.player_emails]
-
     def as_dict(self):
         return self.__dict__
 

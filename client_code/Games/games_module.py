@@ -16,11 +16,17 @@ class Game:
     @property
     def as_dictionary(self) -> dict:
         return self.__dict__
+    
+    @property
+    def player_emails_list(self) -> list:
+        if type(self.player_emails) == str:
+            return [self.player_emails]
+        return self.player_emails
 
     @property
     def parent_class_dict(self) -> dict:
         return {'game_name': self.game_name, 'game_start_ts': self.game_start_ts, 'game_end_ts': self.game_end_ts,
-                'player_emails': self.player_emails, 'game_data': self.game_data}
+                'player_emails': self.player_emails_list, 'game_data': self.game_data}
 
     def write_game_to_db(self):
         self.game_end_ts = datetime.utcnow()
