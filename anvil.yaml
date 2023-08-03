@@ -3,7 +3,7 @@ scheduled_tasks:
   time_spec:
     n: 1
     every: day
-    at: {minute: 29, hour: 16}
+    at: {minute: 19, hour: 4}
   job_id: UJCVWFFM
 - task_name: update_all_dg_player_photo_urls
   time_spec:
