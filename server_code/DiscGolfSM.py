@@ -51,24 +51,25 @@ def write_disc_golfer(pdga_id: int, first_name: str, last_name: str, division: s
   app_tables.dg_players.add_row(pdga_id=pdga_id, first_name=first_name, last_name=last_name, full_name=f'{first_name} {last_name}', division=division, photo_url=img_url)
 
 
-def get_player_image_url(pdga_id: int) -> str:
+def get_player_image_url(pdga_id: int) -> (str, bool):
     url = BASE_URL + str(pdga_id)
     r = requests.get(url).content
     s = soup(r, 'html.parser')
   
     try:
         img_url = s.find(rel="gallery-player_photo").find('img').get('src')
+        found = True
     except:
         img_url = PLAYER_IMG_DEFAULT_URL
+        found = False
   
-    return img_url
+    return img_url, found
 
 @anvil.server.background_task
 def update_all_dg_player_photo_urls() -> None:
   for r in app_tables.dg_players.search():
-    current_online_image = get_player_image_url(r['pdga_id'])
-    if r['photo_url'] != current_online_image:
-      print(f"Updating image for {r['full_name']}")
-      r['photo_url'] = current_online_image
-    else:
-      print('Online image matches stored image')
+    current_online_image, found = get_player_image_url(r['pdga_id'])
+    if found:  # if there is no image found, don't update it ... still provides an image for a player who took down an image
+      if r['photo_url'] != current_online_image:
+        print(f"Updating image for {r['full_name']}")
+        r['photo_url'] = current_online_image

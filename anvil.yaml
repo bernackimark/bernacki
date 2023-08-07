@@ -9,7 +9,7 @@ scheduled_tasks:
   time_spec:
     n: 1
     every: day
-    at: {minute: 12, hour: 16}
+    at: {minute: 3, hour: 22}
   job_id: BMAPLCDN
 dependencies: []
 services:
