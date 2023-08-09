@@ -8,6 +8,8 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+from .CreatePayLine import CreatePayLine
+
 from . import slots as m
 import random
 from itertools import cycle
@@ -54,4 +56,8 @@ class Slots(SlotsTemplate):
 
   def btn_spin_click(self, **event_args):
     m.spin_reels(self.tb_bet_amt.text)
+
+  def btn_create_pay_line_click(self, **event_args):
+    alert(content=CreatePayLine(), title='Create My Own Payline', large=True)
+
 

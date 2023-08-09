@@ -4,6 +4,19 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: card, col_widths: '{}'}
+  name: card_2
+  layout_properties: {grid_position: 'VWNRBD,FMSKBS'}
+  components:
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Create My Own PayLine, font_size: null,
+      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false, icon: ''}
+    name: btn_create_pay_line
+    layout_properties: {grid_position: 'EYRXHJ,LNLQXJ'}
+    event_bindings: {click: btn_create_pay_line_click}
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
   name: card_1
   layout_properties: {grid_position: 'FYBRLZ,FSQLNH'}
   components:
