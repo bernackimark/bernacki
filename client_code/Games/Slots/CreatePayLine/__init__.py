@@ -8,7 +8,8 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-from ..slots import create_pay_line as m
+from ..slots import user_pay_line as m
+
 
 class CreatePayLine(CreatePayLineTemplate):
   def __init__(self, **properties):
@@ -23,10 +24,13 @@ class CreatePayLine(CreatePayLineTemplate):
       for c_idx, tile in enumerate(row):
         link = Link()
         link.add_component(Image(source=tile.img))
-        link.add_event_handler('click', tile.click_tile())
+        link.add_event_handler('click', self.tile_click(tile))  # creates this error: TypeError: The 'click' event handler added to Link must be a callable, not type 'NoneType'
         link.tag = (r_idx, c_idx)
         self.gp_create_shape.add_component(link,
                                            row=self.matrix.rows[r_idx],
                                            col_xs=self.matrix.cols[c_idx],
                                            width_xs=1)
 
+  def tile_click(self, tile, **e):
+    print('ABC')
+    tile.click_tile()

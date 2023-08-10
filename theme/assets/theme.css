@@ -817,7 +817,7 @@ https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-m
 }
 
 /* custom spinner */
-
+/*
 @-webkit-keyframes flipInX{
   0%{-webkit-transform:perspective(400px)rotateX(90deg);
       transform:perspective(400px) rotateX(90deg);
@@ -858,4 +858,14 @@ https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-m
     box-shadow: none;
     background-color: transparent;
     background-image: url(_/theme/bernacki_logo-tiny_boxes.png) !important;
+    background-image: url(_/theme/ezgif.com-optimize.gif) !important;
 } 
+*/
+
+#loadingSpinner {
+    width: 150px;
+    height:150px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: url(_/theme/ezgif.com-optimize.gif) !important;
