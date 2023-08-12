@@ -35,7 +35,8 @@ def write_game_data(d: dict, updated_player_data: dict = {}):
         update_player_data(game_class.player_emails[0], updated_player_data)
 
 
-def update_player_data(user_email: str, d: dict):
+@anvil.server.callable
+def update_player_info(user_email: str, d: dict):
     user_row = app_tables.users.get(email=user_email)
     user_row_info: dict = user_row['info']
     for k, v in d.items():
