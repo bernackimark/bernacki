@@ -24,12 +24,27 @@ class TileMatrix:
         return iter(self.tiles)
 
     def click_tile(self, row, col):
-        # if any tile in the column is selected (that's not the tile itself), don't allow it to be selected
-        current_col: list[bool] = [t.is_checked for r_idx, tiles in enumerate(self.tiles)
+        # this can probably be simplified using the checked_matrix property
+        current_col: list[bool] = [t.is_checked for r_idx, tiles in enumerate(self)
                                    if r_idx != row
                                    for c_idx, t in enumerate(tiles) if c_idx == col]
         if any(current_col):
             return
         self.tiles[row][col].switch_checked()
+
+    @property
+    def checked_matrix(self) -> [list[list[bool]]]:
+        return [[t.is_checked for c_idx, t in enumerate(tiles)] for r_idx, tiles in enumerate(self)]
+
+    @property
+    def is_legitimate_shape(self) -> bool:
+        # first two columns must have a tile
+        # all checked columns must be consecutive
+        
+        return NotImplementedError
+    
+        # CODE THESE RULES NEXT
+
+
 
 tile_matrix: TileMatrix
