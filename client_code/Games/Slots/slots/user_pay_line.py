@@ -8,7 +8,7 @@ class Tile:
 
     @property
     def img(self):
-        return 'm' if self.is_checked else 'g'
+        return '_/theme/maroon_tile.png' if self.is_checked else '_/theme/gold_tile.png'
 
 
 class TileMatrix:
