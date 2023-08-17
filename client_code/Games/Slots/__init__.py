@@ -10,6 +10,7 @@ from anvil.tables import app_tables
 
 from .CreatePayLine import CreatePayLine
 
+from .slots import user_pay_line as upl
 from . import slots as m
 import random
 from itertools import cycle
@@ -58,6 +59,7 @@ class Slots(SlotsTemplate):
     m.spin_reels(self.tb_bet_amt.text)
 
   def btn_create_pay_line_click(self, **event_args):
-    alert(content=CreatePayLine(), title='Create My Own Payline', large=True)
-
+    c = confirm(content=CreatePayLine(), large=True)
+    if c:
+      upl.tile_matrix
 
