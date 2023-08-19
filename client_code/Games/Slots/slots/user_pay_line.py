@@ -1,6 +1,3 @@
-from itertools import pairwise
-
-
 class Tile:
     def __init__(self):
         self.is_checked: bool = False
@@ -23,7 +20,8 @@ class TileMatrix:
         self.col_cnt = col_cnt
         self.tiles: list[list[Tile]] = [[Tile() for c in TileMatrix.cols if c-1 <= self.col_cnt]
                                         for r_idx, _ in enumerate(TileMatrix.rows) if r_idx <= self.row_cnt-1]
-        self.legit_status = ''
+        self.status = ''
+        self.multiplier = 3
 
     def __iter__(self):
         return iter(self.tiles)
@@ -53,16 +51,18 @@ class TileMatrix:
     @property
     def is_valid(self) -> bool:
         if not self.name:
-            self.legit_status = 'Please name your pay line.'
+            self.status = 'Please name your pay line.'
             return False
         # first two columns must have a tile
         if not (self.column_trues[0] and self.column_trues[1]):
-            self.legit_status = 'Your first two columns must have a title.'
+            self.status = 'Your first two columns must have a title.'
             return False
         # all checked columns must be consecutive, therefore a False-True pair isn't valid
-        if (False, True) in pairwise(self.column_trues):
-            self.legit_status = "Don't leave any gaps between columns."
+        pairs = [(c, self.column_trues[idx+1]) for idx, c in enumerate(self.column_trues) if idx < self.col_cnt-1]
+        if (False, True) in pairs:
+            self.status = "Don't leave any gaps between columns."
             return False
+        self.status = 'submitted'
         return True
 
 

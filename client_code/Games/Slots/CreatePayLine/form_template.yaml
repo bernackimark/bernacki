@@ -3,7 +3,7 @@ container:
   properties: {col_widths: '{}'}
 components:
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
+  properties: {role: card, col_widths: '{"SMFYDD":40,"QGDGTB":10,"FQSQAO":10}'}
   name: card_create_pay_line
   layout_properties: {grid_position: 'JVMUUX,IMDKQQ'}
   components:
@@ -49,6 +49,7 @@ components:
       background: '', bold: false, underline: false}
     name: tb_pay_line_name
     layout_properties: {grid_position: 'YQYIND,OHWZUB ESMSAZ,OPPJEU'}
+    event_bindings: {lost_focus: tb_pay_line_name_lost_focus}
   - type: DropDown
     properties:
       role: null
@@ -69,7 +70,26 @@ components:
       bold: false
       underline: false
       include_placeholder: false
-    name: drop_down_1
+    name: dd_winning_multiplier
     layout_properties: {grid_position: 'YQYIND,OHWZUB QVAYGH,PLXLTA'}
-    event_bindings: {change: drop_down_1_change}
+    event_bindings: {change: dd_winning_multiplier_change}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'JFQZBP,SMFYDD'}
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: save, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: btn_create_pay_line
+    layout_properties: {grid_position: 'JFQZBP,QGDGTB'}
+    event_bindings: {click: btn_create_pay_line_click}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: cancel, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: btn_cancel_pay_line
+    layout_properties: {grid_position: 'JFQZBP,FQSQAO'}
 is_package: true

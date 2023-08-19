@@ -42,3 +42,23 @@ class CreatePayLine(CreatePayLineTemplate):
     # self.matrix.click_tile(row, col)
     m.tile_matrix.click_tile(row, col)
     self.display_matrix()
+    m.tile_matrix.status = ''
+
+  def tb_pay_line_name_lost_focus(self, **event_args):
+    m.tile_matrix.name = self.tb_pay_line_name.text
+    m.tile_matrix.status = ''
+  
+  def dd_winning_multiplier_change(self, **event_args):
+    m.tile_matrix.multiplier = self.dd_winning_multiplier.selected_value
+  
+  def btn_create_pay_line_click(self, **event_args):
+    if not m.tile_matrix.is_valid:
+      alert(m.tile_matrix.status)
+      return
+    m.tile_matrix.status = 'submitted'
+    self.visible = False
+
+
+
+    
+

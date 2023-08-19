@@ -58,7 +58,9 @@ class Slots(SlotsTemplate):
     m.spin_reels(self.tb_bet_amt.text)
 
   def btn_create_pay_line_click(self, **event_args):
-    c = confirm(content=CreatePayLine(), large=True)
-    if c:
-      upl.tile_matrix
+    c = alert(content=CreatePayLine(), large=True, buttons=[('Close', 'Close')])
+    if upl.tile_matrix.status == 'submitted':
+      pass
+
+      # from here we create_game_shape & create_pay_line
 
