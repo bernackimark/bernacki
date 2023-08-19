@@ -54,7 +54,6 @@ class Slots(SlotsTemplate):
     self.tb_bet_amt.text = 0
     self.lbl_balance.text = m.slots.slots_balance - self.tb_bet_amt.text
     
-
   def btn_spin_click(self, **event_args):
     m.spin_reels(self.tb_bet_amt.text)
 
