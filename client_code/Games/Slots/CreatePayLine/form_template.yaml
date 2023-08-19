@@ -20,11 +20,27 @@ components:
     layout_properties: {grid_position: 'UXCOTW,VUMQXF'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Name Your Pay Line, font_size: 20, font: '', spacing_above: large,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1_copy
+    layout_properties:
+      col_widths: {}
+      grid_position: YQYIND,KCWKQF FRYZTD,YGVGTP
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Winning Multiplier, font_size: 20, font: '', spacing_above: large,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_1
-    layout_properties: {grid_position: 'YQYIND,KCWKQF'}
+    layout_properties: {grid_position: 'YQYIND,KCWKQF KWPOSL,DOFOXO'}
+  - type: TextBox
+    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: My Awesome Pay Line,
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false}
+    name: tb_pay_line_name
+    layout_properties: {grid_position: 'YQYIND,OHWZUB ESMSAZ,OPPJEU'}
   - type: DropDown
     properties:
       role: null
@@ -46,6 +62,6 @@ components:
       underline: false
       include_placeholder: false
     name: drop_down_1
-    layout_properties: {grid_position: 'YQYIND,OHWZUB'}
+    layout_properties: {grid_position: 'YQYIND,OHWZUB QVAYGH,PLXLTA'}
     event_bindings: {change: drop_down_1_change}
 is_package: true

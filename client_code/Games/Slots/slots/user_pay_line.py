@@ -15,6 +15,7 @@ class TileMatrix:
     cols = [1, 2, 3, 4, 5]
 
     def __init__(self, row_cnt: int, col_cnt: int):
+        self.name = ''
         self.row_cnt = row_cnt
         self.col_cnt = col_cnt
         self.tiles: list[list[Tile]] = [[Tile() for c in TileMatrix.cols if c-1 <= self.col_cnt]
