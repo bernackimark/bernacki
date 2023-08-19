@@ -1,0 +1,54 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{}'}
+  name: card_1
+  layout_properties: {grid_position: 'GFUCXU,FIBRLU'}
+  components:
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Shape, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'SPJOMW,FTJJAI'}
+  - type: FlowPanel
+    properties: {}
+    name: fp_shape
+    layout_properties: {grid_position: 'SPJOMW,BSIDPW'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Color Scheme, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_2
+    layout_properties: {grid_position: 'ERRZRX,GGAJYZ'}
+  - type: FlowPanel
+    properties: {}
+    name: fp_scheme
+    layout_properties: {grid_position: 'ERRZRX,OSXESP'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Musical Scale, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_3
+    layout_properties: {grid_position: 'ZNXSQL,QCHPUJ'}
+  - type: DropDown
+    properties: {}
+    name: dd_scale
+    layout_properties: {grid_position: 'ZNXSQL,KZODWZ'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Motion, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_4
+    layout_properties: {grid_position: 'NKYGXQ,FYDNHG'}
+  - type: DropDown
+    properties: {}
+    name: dd_motion
+    layout_properties: {grid_position: 'NKYGXQ,JMQXMT'}
+is_package: true

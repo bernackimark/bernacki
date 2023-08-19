@@ -121,6 +121,15 @@ components:
       event_bindings: {click: link_self_bet_click}
   - type: Link
     properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
+      visible: true, text: Sound Visualizer, font_size: 18, wrap_on: mobile, font: '',
+      col_spacing: medium, spacing_above: small, icon_align: top, col_widths: '',
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: 'fa:tasks'}
+    name: link_sound_visualizer
+    layout_properties: {grid_position: 'APHIVI,KNXEXE'}
+    event_bindings: {click: link_sound_visualizer_click}
+  - type: Link
+    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
       visible: true, text: To-Do, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
       spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
       italic: false, background: '', bold: false, underline: false, icon: 'fa:list-ol'}

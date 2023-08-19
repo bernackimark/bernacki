@@ -19,6 +19,7 @@ from ..Games.Mastermind import Mastermind
 from ..Games.Setback import Setback
 from ..Games.Setback.SetbackBotChallenge import SetbackBotChallenge
 from ..Games.Slots import Slots
+from ..SoundVisualizer import SoundVisualizer
 from ..ToDo import ToDo
 from ..TripBuilder import TripBuilder
 
@@ -126,7 +127,15 @@ class Base(BaseTemplate):
         else:
           o.visible = False
 
+  def link_sound_visualizer_click(self, **event_args):
+    self.cp_link_highlights(**event_args)
+    self.content_panel.clear()
+    self.content_panel.add_component(SoundVisualizer())
+  
   def link_todo_click(self, **event_args):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
     self.content_panel.add_component(ToDo())
+
+
+
