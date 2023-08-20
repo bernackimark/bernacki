@@ -293,9 +293,10 @@ def create_piece(id: int, img: str, mult: int = 1, wild: bool = False) -> Piece:
     return Piece(id, img, mult, wild)
 
 
-def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3):
-    slots.game_shapes.append(Shape(name, y_offsets, multiplier))
-    print(slots.game_shapes)
+def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:
+    shape = Shape(name, y_offsets, multiplier)
+    slots.game_shapes.append(shape)
+    return shape
 
 def create_pay_line(s: Shape, reel_window_height: int) -> list[PayLine]:
     starting_y = 0

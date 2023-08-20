@@ -65,5 +65,18 @@ class TileMatrix:
         self.status = 'submitted'
         return True
 
+    @property
+    def line_length(self) -> int:
+        return max(idx for idx, value in enumerate(self.column_trues) if value) + 1
+
+    @property
+    def transposed_checked_matrix(self) -> list[list[bool]]:
+        return [[row[i] for row in self.checked_matrix] for i in range(len(self.checked_matrix[0]))]
+
+    @property
+    def y_offsets(self) -> list[int]:
+        return [r_idx for c_idx, col in enumerate(self.transposed_checked_matrix) if c_idx <= matrix.line_length - 1
+                for r_idx, value in enumerate(col) if value]
+
 
 tile_matrix: TileMatrix
