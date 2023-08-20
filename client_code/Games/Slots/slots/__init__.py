@@ -18,12 +18,16 @@ MAX_BET = 5
 
 
 class Piece:
-    def __init__(self, id: int, text: str, mult: int = 1, wild: bool = False, img: str = ''):
-        self.id = id
+    piece_id = 0
+
+    def __init__(self, text: str, mult: int = 1, wild: bool = False, img: str = ''):
+        self.id = Piece.piece_id
         self.text = text
         self.multiplier = mult
         self.is_wild = wild
         self.img = img if img else text
+
+        Piece.piece_id += 1
 
     def __repr__(self):
         return self.text
@@ -34,9 +38,9 @@ class Piece:
 
 
 default_pieces = [
-    Piece(0, '*A*'), Piece(1, '*B*'), Piece(2, '*C*'), Piece(3, '*D*'),
-    Piece(4, '*E*'), Piece(5, '*F*'), Piece(6, '*G*', 2), Piece(7, '***', 1, True),
-    Piece(8, '*H*'), Piece(9, '*I*'),
+    Piece('*A*'), Piece('*B*'), Piece('*C*'), Piece('*D*'),
+    Piece('*E*'), Piece('*F*'), Piece('*G*', 2), Piece('***', 1, True),
+    Piece('*H*'), Piece('*I*'),
 ]
 
 
@@ -265,13 +269,7 @@ class Slots(Game):
         self.send_end_game_data_to_parent()
         self.update_player_info({'slots_balance': slots.slots_balance})
         self.write_game_to_db()
-
-
-def create_default_pieces() -> list[Piece]:
-    return [Piece(0, '*A*'), Piece(1, '*B*'), Piece(2, '*C*'), Piece(3, '*D*'),
-            Piece(4, '*E*'), Piece(5, '*F*'), Piece(6, '*G*', 2), Piece(7, '***', 1, True),
-            Piece(8, '*H*'), Piece(9, '*I*')]
-
+  
 
 def create_default_shapes() -> list[Shape]:
     return [Shape('Three Reel Straight', [0, 0, 0], 2), Shape('Four Reel Straight', [0, 0, 0, 0], 4),
@@ -290,8 +288,8 @@ def create_default_paylines() -> list[PayLine]:
 
 # --- customizations that users can make ---
 
-def create_piece(text: str, img: str, mult: int = 1, wild: bool = False) -> Piece:
-    piece = Piece(text, img, mult, wild)
+def create_piece(text: str, mult: int = 1, wild: bool = False, img: str = '') -> Piece:
+    piece = Piece(text, mult, wild, img)
     slots.pieces.append(piece)
     return piece
 
