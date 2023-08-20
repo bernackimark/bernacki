@@ -43,3 +43,7 @@ def update_player_info(user_email: str, d: dict):
         if k in user_row_info.keys():
             user_row_info[k] = v
     user_row['info'] = user_row_info
+
+@anvil.server.callable
+def get_user_info(user_email) -> dict:
+  return app_tables.users.get(email=user_email)['info']

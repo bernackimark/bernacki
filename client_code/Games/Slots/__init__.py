@@ -60,7 +60,7 @@ class Slots(SlotsTemplate):
   def btn_create_pay_line_click(self, **event_args):
     c = alert(content=CreatePayLine(), large=True, buttons=[('Close', 'Close')])
     if upl.tile_matrix.status == 'submitted':
-      pass
+      m.create_game_shape(upl.tile_matrix.name, upl.tile_matrix.checked_matrix, upl.tile_matrix.multiplier)
 
       # from here we create_game_shape & create_pay_line
 
