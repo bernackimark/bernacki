@@ -6,7 +6,8 @@ import time
 from itertools import cycle
 from copy import deepcopy
 
-from game_super_class import Game
+# from ... import game_super_class as gsc
+from ... game_super_class import Game
 
 REEL_CNT = 5
 REEL_LENGTH = 100
@@ -289,8 +290,10 @@ def create_default_paylines() -> list[PayLine]:
 
 # --- customizations that users can make ---
 
-def create_piece(id: int, img: str, mult: int = 1, wild: bool = False) -> Piece:
-    return Piece(id, img, mult, wild)
+def create_piece(text: str, img: str, mult: int = 1, wild: bool = False) -> Piece:
+    piece = Piece(text, img, mult, wild)
+    slots.pieces.append(piece)
+    return piece
 
 
 def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:

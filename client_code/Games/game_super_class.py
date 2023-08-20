@@ -30,7 +30,7 @@ class Game:
                 'player_emails': self.player_emails_list, 'game_data': self.game_data}
 
     def get_player_info(self):
-        return anvil.server.call('get_user_info', self.player_emails[0])
+        return anvil.server.call('get_user_info', self.player_emails_list[0])
 
     def write_game_to_db(self):
         self.game_end_ts = datetime.utcnow()

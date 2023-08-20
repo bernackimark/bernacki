@@ -75,7 +75,7 @@ class TileMatrix:
 
     @property
     def y_offsets(self) -> list[int]:
-        return [r_idx for c_idx, col in enumerate(self.transposed_checked_matrix) if c_idx <= matrix.line_length - 1
+        return [r_idx for c_idx, col in enumerate(self.transposed_checked_matrix) if c_idx <= self.line_length - 1
                 for r_idx, value in enumerate(col) if value]
 
 

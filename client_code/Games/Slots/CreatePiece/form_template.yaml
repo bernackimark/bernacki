@@ -1,0 +1,81 @@
+container: {type: ColumnPanel}
+components:
+- type: ColumnPanel
+  properties: {role: card, col_widths: '{"SMFYDD":40,"QGDGTB":10}'}
+  name: card_create_pay_line
+  layout_properties:
+    col_widths: {}
+    grid_position: FSLFHO,LSWMAE
+  components:
+  - type: Label
+    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Create Your Own Piece, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: headline_1
+    layout_properties: {grid_position: 'UGNNDG,UOOMJR'}
+  - type: FileLoader
+    properties: {}
+    name: fl_piece
+    layout_properties: {grid_position: 'BNXRHS,UJUIPS'}
+    event_bindings: {change: fl_piece_change}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Name Your Piece, font_size: 20, font: '', spacing_above: large,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1_copy
+    layout_properties:
+      col_widths: {}
+      grid_position: YQYIND,KCWKQF FRYZTD,YGVGTP
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Piece Multiplier, font_size: 20, font: '', spacing_above: large,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_1
+    layout_properties: {grid_position: 'YQYIND,KCWKQF KWPOSL,DOFOXO'}
+  - type: TextBox
+    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: My Face,
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false}
+    name: tb_piece_name
+    layout_properties: {grid_position: 'YQYIND,OHWZUB ESMSAZ,OPPJEU'}
+    event_bindings: {lost_focus: tb_pay_line_name_lost_focus}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: false
+    name: dd_piece_multiplier
+    layout_properties: {grid_position: 'YQYIND,OHWZUB QVAYGH,PLXLTA'}
+    event_bindings: {change: dd_winning_multiplier_change}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'JFQZBP,SMFYDD'}
+  - type: Button
+    properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: save, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: btn_create_piece
+    layout_properties: {grid_position: 'JFQZBP,QGDGTB'}
+    event_bindings: {click: btn_create_pay_line_click}
+is_package: true

@@ -9,7 +9,7 @@ from anvil.tables import app_tables
 # anvil notes: outcome was an enum but no support, no return type pipe operator allowed
 import random
 from datetime import datetime
-from .. import games_module as gm
+from .. import game_super_class as gm
 
 
 class UI:

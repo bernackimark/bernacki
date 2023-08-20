@@ -9,6 +9,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from .CreatePayLine import CreatePayLine
+from .CreatePiece import CreatePiece
 
 from .slots import user_pay_line as upl
 from . import slots as m
@@ -21,18 +22,12 @@ class Slots(SlotsTemplate):
     self.init_components(**properties)
     self.user = anvil.users.get_user()
     self.initial_setup()
-    self.tb_bet_amt.text = 0
+    self.tb_bet_amt.text = 1
     self.lbl_balance.text = m.slots.slots_balance
 
 
   def initial_setup(self) -> None:
-    [m.pieces.append(p) for p in m.default_pieces]
-    [m.spin_shapes.append(s) for s in m.default_shapes]
-    [m.create_pay_line(s, m.REEL_WINDOW_HEIGHT) for s in m.spin_shapes]
-    piece_in_cycle = cycle(m.pieces)
-    [m.reels.append(m.Reel(r, [next(piece_in_cycle) for _ in range(m.REEL_LENGTH + 1)], random.randint(5, 50))) for r in range(m.REEL_CNT)]
-    m.slots.player_emails.append(self.user['email'])
-    m.slots.slots_balance = self.user['info'].get('slots_balance')
+    m.slots = m.Slots(self.user['email'], self.user['info'].get('slots_balance'))
 
   def tb_bet_amt_change(self, **event_args):
     if self.tb_bet_amt.text in [None, '', ' ', 0]:
@@ -55,7 +50,15 @@ class Slots(SlotsTemplate):
     self.lbl_balance.text = m.slots.slots_balance - self.tb_bet_amt.text
     
   def btn_spin_click(self, **event_args):
-    m.spin_reels(self.tb_bet_amt.text)
+      # self.reel_snapshot_idx = 0  # this was in the tkinter version, might need this
+      m.slots.spin(self.tb_bet_amt)
+      # self.display_reels()  # needs to be defined
+      m.slots.check_for_winners()
+      # self.display_payout()  # needs to be defined
+      print('I am trying to end the round')
+      m.slots.end_round()
+
+  # SPINNING IS THE NEXT PLACE TO ADDRESS !!!
 
   def btn_create_pay_line_click(self, **event_args):
     c = alert(content=CreatePayLine(), large=True, buttons=[('Close', 'Close')])
@@ -63,3 +66,7 @@ class Slots(SlotsTemplate):
       shape = m.create_game_shape(upl.tile_matrix.name, upl.tile_matrix.y_offsets, upl.tile_matrix.multiplier)
       pay_lines = m.create_pay_line(shape, m.REEL_WINDOW_HEIGHT)
       print(pay_lines)
+
+  def btn_create_piece_click(self, **event_args):
+    c = alert(content=CreatePiece(), large=True, buttons=[('Close', 'Close')])
+
