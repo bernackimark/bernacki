@@ -18,4 +18,5 @@ class SoundVisualizer(SoundVisualizerTemplate):
     scales = ['major', 'minor']
     [self.fp_shape.add_component(Button(text=s)) for s in shapes]
     [self.fp_scheme.add_component(Button(text=s)) for s in schemes]
+    self.dd_instrument.items = [('Piano', 'piano')]
     self.dd_scale.items = [(str(s.title), s) for s in scales]

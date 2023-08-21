@@ -31,6 +31,17 @@ components:
     layout_properties: {grid_position: 'ERRZRX,OSXESP'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+      visible: true, text: Instrument, font_size: null, font: '', spacing_above: small,
+      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+      underline: false, icon: ''}
+    name: label_5
+    layout_properties: {grid_position: 'CMYWCJ,JIURLL'}
+  - type: DropDown
+    properties: {}
+    name: dd_instrument
+    layout_properties: {grid_position: 'CMYWCJ,MASBIL'}
+  - type: Label
+    properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: Musical Scale, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
@@ -42,13 +53,13 @@ components:
     layout_properties: {grid_position: 'ZNXSQL,KZODWZ'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Motion, font_size: null, font: '', spacing_above: small,
+      visible: true, text: Scene, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_4
     layout_properties: {grid_position: 'NKYGXQ,FYDNHG'}
   - type: DropDown
     properties: {}
-    name: dd_motion
+    name: dd_scene
     layout_properties: {grid_position: 'NKYGXQ,JMQXMT'}
 is_package: true
