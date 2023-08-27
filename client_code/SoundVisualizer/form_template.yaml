@@ -4,23 +4,23 @@ container:
 components:
 - type: ColumnPanel
   properties: {role: card, col_widths: '{}'}
-  name: card_1
+  name: card_settings
   layout_properties: {grid_position: 'GFUCXU,FIBRLU'}
   components:
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Shape, font_size: null, font: '', spacing_above: small,
+      visible: true, text: Speed, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_1
     layout_properties: {grid_position: 'SPJOMW,FTJJAI'}
   - type: FlowPanel
     properties: {}
-    name: fp_shape
+    name: fp_speed
     layout_properties: {grid_position: 'SPJOMW,BSIDPW'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Color Scheme, font_size: null, font: '', spacing_above: small,
+      visible: true, text: Scheme, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_2
@@ -31,7 +31,7 @@ components:
     layout_properties: {grid_position: 'ERRZRX,OSXESP'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Instrument, font_size: null, font: '', spacing_above: small,
+      visible: true, text: Sound, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_5
@@ -42,7 +42,7 @@ components:
     layout_properties: {grid_position: 'CMYWCJ,MASBIL'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Musical Scale, font_size: null, font: '', spacing_above: small,
+      visible: true, text: Scale, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_3
@@ -62,4 +62,29 @@ components:
     properties: {}
     name: dd_scene
     layout_properties: {grid_position: 'NKYGXQ,JMQXMT'}
+- type: Button
+  properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
+    foreground: '', visible: true, text: start, font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: ''}
+  name: btn_play
+  layout_properties: {grid_position: 'YDTBXH,UQMHWB'}
+  event_bindings: {click: btn_play_click}
+- type: Button
+  properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+    foreground: '', visible: true, text: stop, font_size: null, font: '', spacing_above: small,
+    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+    underline: false, icon: ''}
+  name: btn_stop
+  layout_properties: {grid_position: 'YDTBXH,ATIENR'}
+- type: Canvas
+  properties: {role: null, height: '430', tooltip: '', border: '', foreground: '',
+    visible: true, spacing_above: small, spacing_below: small, background: ''}
+  name: canvas
+  layout_properties: {grid_position: 'XUMAMD,YWLNWL'}
+  event_bindings: {reset: canvas_reset}
+- type: Timer
+  properties: {interval: 0.02}
+  name: timer
+  event_bindings: {tick: timer_tick}
 is_package: true

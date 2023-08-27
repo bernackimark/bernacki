@@ -30,6 +30,7 @@ unique_ids:
   modules:
     TripBuilder.trip_builder_module: '1687656236873702432528453.6282'
     Games.game_super_class: '1690229479979720117854832.387'
+    SoundVisualizer.sound_visualizer: '1693169921658341798727747.6615'
     Bets.bets_module: '1688506524394326564924332.60254'
     DiscGolf.dg_module: '1686876241945133117514449.14143'
     utils_for_anvil: '1677995945540787088599971.5822'
