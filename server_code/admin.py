@@ -14,6 +14,8 @@ from datetime import datetime
 from enum import Enum
 
 
+test_var = 'did_this_work'
+
 class SecurityLevels(Enum):
     ADMIN = 'admin'
     PRIVATE = 'private'
