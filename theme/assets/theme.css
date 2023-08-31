@@ -863,12 +863,15 @@ https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-m
 */
 
 #loadingSpinner {
-    width: 1000px;
-    height: 300px;
+    width: 500px;
+    height: 150px;
     border-radius: 0;
-    position: absolute;
-    left: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: none;
     background-color: transparent;
     background-image: url(_/theme/bernacki-logo-gif.gif) !important;
+    background-size: 500px;
 }

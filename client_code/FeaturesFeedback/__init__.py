@@ -8,13 +8,14 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+from .. import client_side_general_module as m
+
 class FeaturesFeedback(FeaturesFeedbackTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
-    my_apps = anvil.server.call('get_my_apps_as_dicts', anvil.users.get_user())
-    self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = my_apps
+    m.my_apps = m.MyApps()
+    
+    self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = m.my_apps.name_and_title_tuples
     self.tb_bug_title.placeholder, self.tb_feature_title.placeholder = 'My issue title', 'My feature/idea title'
     self.ta_bug_description.placeholder = self.ta_new_description.placeholder = 'My description.  Please enter as much information as possible.'
     
