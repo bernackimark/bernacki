@@ -123,11 +123,12 @@ components:
   properties:
     role: null
     columns:
-    - {id: UNTZPI, title: '', data_key: column_1, width: 66, expand: false}
-    - {id: TENEDR, title: '', data_key: column_, width: 41, expand: false}
-    - {id: GDOAXH, title: Todo, data_key: todo_name, width: '90', expand: true}
-    - {id: VNYDAB, title: Group, data_key: todo_group, width: '90', expand: true}
-    - {id: PBVETU, title: Added, data_key: date_added, width: 86, expand: false}
+    - {id: UNTZPI, title: '', data_key: column_1, width: 66, expand: false, $$hashKey: 'object:346'}
+    - {id: TENEDR, title: '', data_key: column_, width: 41, expand: false, $$hashKey: 'object:347'}
+    - {id: GDOAXH, title: Todo, data_key: todo_name, width: '90', expand: true, $$hashKey: 'object:348'}
+    - {id: VNYDAB, title: Group, data_key: todo_group, width: '90', expand: false,
+      $$hashKey: 'object:349'}
+    - {id: PBVETU, title: Added, data_key: date_added, width: 86, expand: false, $$hashKey: 'object:350'}
     auto_header: true
     tooltip: ''
     border: ''
