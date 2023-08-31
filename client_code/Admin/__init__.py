@@ -97,12 +97,7 @@ class Admin(AdminTemplate):
   def btn_run_mohegan_click(self, **event_args):
     anvil.server.call('run_mohegan_scrape')
 
-
-
-
-
-
-
-
+  def btn_update_app_click(self, **event_args):
+    anvil.server.call('update_app', self.tb_app_name.text, self.tb_key.text, self.tb_value.text)
 
 

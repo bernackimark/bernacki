@@ -13,7 +13,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    my_apps = anvil.server.call('get_my_apps', anvil.users.get_user())
+    my_apps = anvil.server.call('get_my_apps_as_dicts', anvil.users.get_user())
     self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = my_apps
     self.tb_bug_title.placeholder, self.tb_feature_title.placeholder = 'My issue title', 'My feature/idea title'
     self.ta_bug_description.placeholder = self.ta_new_description.placeholder = 'My description.  Please enter as much information as possible.'

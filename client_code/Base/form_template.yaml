@@ -33,9 +33,10 @@ components:
   layout_properties: {slot: title}
   event_bindings: {click: go_home_link_click}
 - type: ColumnPanel
-  properties: {}
+  properties: {col_widths: '{}'}
   name: content_panel
   layout_properties: {slot: default}
+  components: []
 - type: ColumnPanel
   properties: {col_widths: '{}'}
   name: cp_links
@@ -43,9 +44,10 @@ components:
   components:
   - type: Link
     properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Games, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '{}', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:play-circle-o'}
+      visible: true, text: Example Menu Group, font_size: 18, wrap_on: mobile, font: '',
+      col_spacing: medium, spacing_above: small, icon_align: top, col_widths: '{}',
+      spacing_below: small, italic: false, background: '', bold: false, underline: false,
+      icon: 'fa:play-circle-o'}
     name: link_games
     layout_properties: {grid_position: 'KLHXEF,XIQXSU'}
     event_bindings: {click: link_games_click}
@@ -76,79 +78,3 @@ components:
       name: link_mastermind
       layout_properties: {grid_position: 'YMWUAX,EIQQQB'}
       event_bindings: {click: link_mastermind_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Disc Golf, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:database'}
-    name: link_dg
-    layout_properties: {grid_position: 'HNNYYJ,RBMALC'}
-    event_bindings: {click: link_dg_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Trip Builder, font_size: 18, wrap_on: mobile, font: '',
-      col_spacing: medium, spacing_above: small, icon_align: top, col_widths: '',
-      spacing_below: small, italic: false, background: '', bold: false, underline: false,
-      icon: 'fa:map-signs'}
-    name: link_trip_builder
-    layout_properties: {grid_position: 'KIFUSW,UDMXKZ'}
-    event_bindings: {click: link_trip_builder_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Bets, font_size: 20, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '{}', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:money'}
-    name: link_bets
-    layout_properties: {grid_position: 'NUXBTC,FHWFHT'}
-    event_bindings: {click: link_bets_click}
-    components:
-    - type: Link
-      properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',
-        visible: false, text: Propose, font_size: 14, wrap_on: mobile, font: '', col_spacing: medium,
-        spacing_above: small, icon_align: left, col_widths: '', spacing_below: small,
-        italic: false, background: '', bold: false, underline: false, icon: 'fa:pencil-square-o'}
-      name: link_bets_propose_bet
-      layout_properties: {grid_position: 'XXZANJ,TXCYRQ'}
-      event_bindings: {click: link_bets_propose_bet_click}
-    - type: Link
-      properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',
-        visible: false, text: Self Bet, font_size: 14, wrap_on: mobile, font: '',
-        col_spacing: medium, spacing_above: small, icon_align: left, col_widths: '',
-        spacing_below: small, italic: false, background: '', bold: false, underline: false,
-        icon: 'fa:pencil-square-o'}
-      name: link_self_bet
-      layout_properties: {grid_position: 'YAHXGS,RUZIJE'}
-      event_bindings: {click: link_self_bet_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Sound Visualizer, font_size: 18, wrap_on: mobile, font: '',
-      col_spacing: medium, spacing_above: small, icon_align: top, col_widths: '',
-      spacing_below: small, italic: false, background: '', bold: false, underline: false,
-      icon: 'fa:tasks'}
-    name: link_sound_visualizer
-    layout_properties: {grid_position: 'APHIVI,KNXEXE'}
-    event_bindings: {click: link_sound_visualizer_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: To-Do, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:list-ol'}
-    name: link_todo
-    layout_properties: {grid_position: 'ZDPCSQ,PWUYFQ'}
-    event_bindings: {click: link_todo_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Feedback, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:users'}
-    name: link_feedback
-    layout_properties: {grid_position: 'PMGFMY,VNWFCF'}
-    event_bindings: {click: link_feedback_click}
-  - type: Link
-    properties: {role: null, url: '', align: center, tooltip: '', border: '', foreground: '',
-      visible: true, text: Admin, font_size: 18, wrap_on: mobile, font: '', col_spacing: medium,
-      spacing_above: small, icon_align: top, col_widths: '', spacing_below: small,
-      italic: false, background: '', bold: false, underline: false, icon: 'fa:user-secret'}
-    name: link_admin
-    layout_properties: {grid_position: 'PDDRLE,WQULSQ'}
-    event_bindings: {click: link_admin_click}

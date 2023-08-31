@@ -210,26 +210,6 @@ db_schema:
       admin_ui: {order: 3.125, width: 200}
       type: string
     title: bugs_features
-  stuff:
-    title: stuff
-    client: search
-    server: search
-    columns:
-    - name: id
-      admin_ui: {width: 200}
-      type: number
-    - name: id_name
-      admin_ui: {width: 200}
-      type: string
-    - name: description
-      admin_ui: {width: 200}
-      type: string
-    - name: stuff_image
-      admin_ui: {width: 318}
-      type: media
-    - name: lmt
-      admin_ui: {width: 200}
-      type: date
   users:
     title: Users
     client: none
