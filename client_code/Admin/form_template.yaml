@@ -344,46 +344,6 @@ components:
     event_bindings: {click: btn_known_points_add_click}
 - type: ColumnPanel
   properties: {role: card, col_widths: '{}'}
-  name: card_2
-  layout_properties: {grid_position: 'LLVPYW,AXNSOQ'}
-  components:
-  - type: Label
-    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Baseball, font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
-    name: headline_4
-    layout_properties: {grid_position: 'RDSKRB,PJSZAP'}
-  - type: Button
-    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: manually run baseball, font_size: null,
-      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-      background: '', bold: false, underline: false, icon: ''}
-    name: btn_run_baseball
-    layout_properties: {grid_position: 'RDSKRB,NHILYB'}
-    event_bindings: {click: button_1_click}
-- type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
-  name: card_5
-  layout_properties: {grid_position: 'WSVTKD,BOPACM'}
-  components:
-  - type: Label
-    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Mohegan, font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
-    name: headline_7
-    layout_properties: {grid_position: 'DTIXKS,ESCERO'}
-  - type: Button
-    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: manually run mohegan, font_size: null,
-      font: '', spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-      background: '', bold: false, underline: false, icon: ''}
-    name: btn_run_mohegan
-    layout_properties: {grid_position: 'DTIXKS,XZDQVL'}
-    event_bindings: {click: btn_run_mohegan_click}
-- type: ColumnPanel
-  properties: {role: card, col_widths: '{}'}
   name: card_3
   layout_properties: {grid_position: 'EOHMGV,JYZIPT'}
   components:
@@ -436,6 +396,13 @@ components:
       background: '', bold: false, underline: false}
     name: tb_new_app_title
     layout_properties: {grid_position: 'IMQIJI,MWSSSB'}
+  - type: TextBox
+    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: group,
+      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+      font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
+      background: '', bold: false, underline: false}
+    name: tb_new_app_group
+    layout_properties: {grid_position: 'IMQIJI,WAUONK'}
   - type: TextBox
     properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: 'icon
         (e.g. fa:adjust)', border: '', enabled: true, foreground: '', visible: true,
