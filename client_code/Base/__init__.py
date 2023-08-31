@@ -37,39 +37,33 @@ class Base(BaseTemplate):
     self.go_home_link.icon = '_/theme/bernacki_logo.png'    
     self.user = anvil.users.get_user()
     self.show_app_links()
-  
-  def go_to_base(self):
-    self.content_panel.clear()
 
   def go_home_link_click(self, **event_args):
     self.cp_link_highlights(**event_args)
-    self.go_to_base()  
+    self.content_panel.clear()
     
   def sign_in_click(self, **event_args):
-    self.user = anvil.users.get_user()
     if self.user:
       logout = confirm("Logout?")
       if logout:
         anvil.users.logout()
-        self.go_to_base()
-    else:
-      anvil.users.login_with_form()
-      self.show_app_links()
+        self.content_panel.clear()
+      return
+    anvil.users.login_with_form()
+    self.user = anvil.users.get_user()
+    self.show_app_links()
     self.change_sign_in_text()
 
   def show_app_links(self):
     self.cp_links.clear()
     my_apps = anvil.server.call('get_my_apps_as_dicts', self.user)
     for a in my_apps:
-      print(a)
       a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
       link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
       link.tag = a['name']
       link.add_event_handler('click', self.app_link_click)
       self.cp_links.add_component(link)
 
-
-  
   def app_link_click(self, **e):
     app_name = e['sender'].tag
     self.cp_link_highlights(**e)
@@ -79,93 +73,24 @@ class Base(BaseTemplate):
       return
     self.content_panel.add_component(app_form_dict[app_name]())
 
-
-
-  
   def change_sign_in_text(self):
-    self.user = anvil.users.get_user()
     if self.user:
       self.sign_in.text = self.user['email']
       self.sign_in.width = len(self.user['email']) * 10
     else:
       self.sign_in.text = "Sign In"
 
-  def link_dg_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(DiscGolf())
-
-  def link_admin_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Admin())
-
-  def link_trip_builder_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(TripBuilder())
-
   def cp_link_highlights(self, **e):
     for l in self.cp_links.get_components():
       if type(l) is Link:
         l.role = ''
     e['sender'].role = 'selected'
-  
-  def link_bets_click(self, **event_args):
-    for o in self.link_bets.get_components():
+
+  def link_example_group_click(self, **event_args):
+    for o in self.link_example_group.get_components():
       if type(o) is Link:
         if o.visible == False:
           o.visible = True
         else:
           o.visible = False
-
-  def link_bets_propose_bet_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(ProposeBet())
-
-  def link_self_bet_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(SelfBet())
-
-  def link_feedback_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(FeaturesFeedback())
-
-  def link_mastermind_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Mastermind())
-
-  def link_slots_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Slots())
-    
-  def link_setback_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(Setback())
-
-  def link_games_click(self, **event_args):
-    for o in self.link_games.get_components():
-      if type(o) is Link:
-        if o.visible == False:
-          o.visible = True
-        else:
-          o.visible = False
-
-  def link_sound_visualizer_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(SoundVisualizer())
-  
-  def link_todo_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
-    self.content_panel.add_component(ToDo())
-
-
 

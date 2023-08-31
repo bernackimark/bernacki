@@ -48,9 +48,9 @@ components:
       col_spacing: medium, spacing_above: small, icon_align: top, col_widths: '{}',
       spacing_below: small, italic: false, background: '', bold: false, underline: false,
       icon: 'fa:play-circle-o'}
-    name: link_games
-    layout_properties: {grid_position: 'KLHXEF,XIQXSU'}
-    event_bindings: {click: link_games_click}
+    name: link_example_group
+    layout_properties: {grid_position: 'DSMYBR,QPKQHK'}
+    event_bindings: {click: link_example_group_click}
     components:
     - type: Link
       properties: {role: null, url: '', align: left, tooltip: '', border: '', foreground: '',
