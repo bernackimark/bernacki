@@ -410,6 +410,15 @@ db_schema:
       admin_ui: {order: 1, width: 200}
       type: simpleObject
     title: parms
-secrets: {}
+secrets:
+  ORS_KEY:
+    value: {JQQ347LVBQSQAQKC: t4kus1cVuTadcsP/Ico4POh8bl3jxc3Axk2d1Vcw4oO2m7y/+0niMBLJFCcbD+PsCcfOEnwTn4uLJiS7maRTiCZUjT+qMutE8RbgsLrJuDORmCqxfVXeAeNlQtJ/tZr0FUYmQQ8qw8J/1rcRnGuGBwUXwBHDSxdnjEvDk4V0zOCQuU0xUEBUuKL/Lg4YqNHHVBxtybSKHajf}
+    type: secret
+  NOMINATIM_USER_KEY:
+    value: {JQQ347LVBQSQAQKC: 2sAvHlJwNdXBbN3VWBxjMrjI/y3w759oLFolSfoQsOR97X/dcuRgT1ojaZwWKpcp7KsnFTt5iWXxQx0LxN+fTntNh9wPnutJW+sUbhJnW7bSqgE7Kg53HBLRAtO0qZtSCuNwXldUbgjwMA==}
+    type: secret
+  GEOAPIFY_KEY:
+    value: {JQQ347LVBQSQAQKC: zbXmdp87l/rjcXtHB4D1N273Nht3WxdPaU3tTocPKS3BG1BXSMzYAdH409soeh7I+dSGZLm0RcLNujCGnAxU4NMbc1k435biCm9GHiY8sWSuuugzzMiol2psrnM1rWLfYht7AHORLubnRrmaE9Cc9Qy8J7V1wTLy6NLfD0Lkymsu}
+    type: secret
 uplink_visible: true
 renamed: true

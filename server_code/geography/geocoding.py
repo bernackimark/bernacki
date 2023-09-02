@@ -4,7 +4,7 @@ import requests
 
 BASE_URL_1 = "https://api.geoapify.com/v1/geocode/search?text="
 BASE_URL_2 = "&format=json&apiKey="
-API_KEY = '8e11b4f1b14242409377a74e14aec790'
+API_KEY = anvil.secrets.get_secret("GEOAPIFY_KEY")
 
 
 def get_lat_long(locations: tuple[str, tuple]) -> list[tuple[float, float]]:
