@@ -37,7 +37,7 @@ class App:
     @property
     def history_record(self):
         return {'name': self.name, 'title': self.title, 'group': self.group, 'icon_str': self.icon_str,
-                'is_prod': self.is_prod, 'security': self.security}
+                'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow()}
 
 
 @dataclass
@@ -91,7 +91,7 @@ def get_my_apps_as_dicts(user=None):
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
 def write_new_app(name: str, title: str, group: str, user, icon_str: str, security: str):
-      
+
     # probably need to accept "group"
     
     app = App(name=name, title=title, group=group, icon_str=icon_str, created_by=user['email'], security=security)
