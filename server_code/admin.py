@@ -40,6 +40,7 @@ class App:
                 'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow()}
 
 
+
 @dataclass
 class Apps:
     apps: list[App] = field(default_factory=list)
