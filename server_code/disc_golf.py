@@ -94,17 +94,11 @@ def convert_photo_url_to_anvil_media(photo_url: str):
 
 
 @anvil.server.background_task
-def update_all_dg_player_photo_urls() -> None:
-  for r in app_tables.dg_players.search():
-    current_online_image, found = get_player_image_url(r['pdga_id'])
-    if found:  # if there is no image found, don't update it ... still provides an image for a player who took down an image
-      if r['photo_url'] != current_online_image:
-        print(f"Updating image for {r['full_name']}")
-        r['photo_url'] = current_online_image
+def update_all_dg_player_photos() -> None:
     for r in app_tables.dg_players.search():
         current_online_image, found = get_player_image_url(r['pdga_id'])
-        if found:  # if no image found, don't update it ... still provides an image for a player who took down an image
+        if found:  # if there is no image found, don't update it ... still provides an image for a player who took down an image
             if r['photo_url'] != current_online_image:
-                print(f"Updating image for {r['full_name']}")
                 r['photo_url'] = current_online_image
                 r['url'] = convert_photo_url_to_anvil_media(r['photo_url'])
+                print(f"Updated image for {r['full_name']}")
