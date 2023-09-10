@@ -87,6 +87,7 @@ def update_app(app_name, key, value):
     app[key] = value
     app['history'].append(app_snapshot)
     row['value'] = list_of_dicts
+    print(f'Updated app: {app_name}')
 
 
 @anvil.server.callable
