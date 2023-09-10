@@ -48,7 +48,7 @@ class Apps:
         self.apps = [App(**a) for a in app_tables.parms.get(what='app_list')['value']]
 
     def sort_apps(self, key):
-        return sorted(self.apps, key=key)
+        self.apps.sort(key=lambda x: getattr(x, key))
 
 
 def get_all_apps() -> list[App]:
