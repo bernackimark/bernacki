@@ -47,18 +47,21 @@ class Apps:
     def __post_init__(self):
         self.apps = [App(**a) for a in app_tables.parms.get(what='app_list')['value']]
 
-    def sort_apps(self, key):
+    def sort_apps(self, *attribute_names):
         def key_function(items):
-            # Sort by the attribute, but place None values at the end
-            value = getattr(items, key)
-            return value is None, value
+            # Sort by the attributes, but place None values at the end
+            key_values = []
+            for attribute_name in attribute_names:
+                value = getattr(items, attribute_name)
+                key_values.append((value is None, value))
+            return key_values
 
         self.apps.sort(key=key_function)
 
 
 def get_all_apps() -> list[App]:
     apps = Apps()
-    apps.sort_apps(key='group')
+    apps.sort_apps('group', 'name')
     return apps.apps
 
 
