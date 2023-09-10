@@ -1,12 +1,11 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{"JSNBYB":40,"DJFOQV":20,"VNEEUW":15}'}
+  properties: {col_widths: '{"JSNBYB":40,"DJFOQV":20}'}
 components:
 - type: Image
-  properties: {height: 110}
+  properties: {height: 56}
   name: img_player
-  layout_properties: {grid_position: 'DIUTKA,VNEEUW'}
-  data_bindings: []
+  layout_properties: {grid_position: 'DIUTKA,XWOTZC'}
 - type: Label
   properties: {}
   name: lbl_leaderboard_value
