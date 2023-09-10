@@ -9,15 +9,17 @@ from anvil.tables import app_tables
 import anvil.server
 import anvil.media
 
-import xlrd
-import openpyxl
+
 import pandas as pd
 from datetime import date, datetime
 import requests
 from bs4 import BeautifulSoup as soup
+from PIL import Image, ImageDraw
+from io import BytesIO
 
 BASE_URL = 'https://www.pdga.com/player/'
 PLAYER_IMG_DEFAULT_URL = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+
 
 @anvil.server.callable
 def load_spreadsheet(file) -> None:
@@ -65,6 +67,32 @@ def get_player_image_url(pdga_id: int) -> (str, bool):
   
     return img_url, found
 
+def manipulate_image(image_url) -> Image:
+    response = requests.get(image_url)
+    if response.status_code != 200:
+        raise Exception(f"Failed to download image from {image_url}")
+
+    img = Image.open(BytesIO(response.content))
+    img = img.convert("RGBA")
+    img = img.resize((150, 150), Image.LANCZOS)
+
+    # Create a mask for the circular crop
+    mask = Image.new("L", (150, 150), 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0, 150, 150), fill=255)
+
+    # Apply the circular mask to the image
+    img = Image.composite(img, Image.new("RGBA", img.size, (255, 255, 255, 0)), mask)
+
+    return img
+
+
+def convert_photo_url_to_anvil_media(photo_url: str):
+    img: Image = manipulate_image(photo_url)
+    img.save('/tmp/image.png')
+    return anvil.media.from_file('/tmp/image.png', 'image/png')
+
+
 @anvil.server.background_task
 def update_all_dg_player_photo_urls() -> None:
   for r in app_tables.dg_players.search():
@@ -73,3 +101,10 @@ def update_all_dg_player_photo_urls() -> None:
       if r['photo_url'] != current_online_image:
         print(f"Updating image for {r['full_name']}")
         r['photo_url'] = current_online_image
+    for r in app_tables.dg_players.search():
+        current_online_image, found = get_player_image_url(r['pdga_id'])
+        if found:  # if no image found, don't update it ... still provides an image for a player who took down an image
+            if r['photo_url'] != current_online_image:
+                print(f"Updating image for {r['full_name']}")
+                r['photo_url'] = current_online_image
+                r['url'] = convert_photo_url_to_anvil_media(r['photo_url'])
