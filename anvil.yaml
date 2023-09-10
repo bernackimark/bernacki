@@ -4,13 +4,7 @@ scheduled_tasks:
     n: 1
     every: day
     at: {minute: 0, hour: 12}
-  job_id: UJCVWFFM
-- task_name: update_all_dg_player_photo_urls
-  time_spec:
-    n: 1
-    every: day
-    at: {minute: 3, hour: 22}
-  job_id: BMAPLCDN
+  job_id: SCACDWBO
 dependencies: []
 services:
 - source: /runtime/services/tables.yml
