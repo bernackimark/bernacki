@@ -25,7 +25,8 @@ from ..SoundVisualizer import SoundVisualizer
 from ..ToDo import ToDo
 from ..TripBuilder import TripBuilder
 
-app_form_dict = {'admin': Admin, 'bets': SelfBet, 'disc_golf': DiscGolf, 'feedback': FeaturesFeedback,
+app_form_dict = {'admin': Admin, 'propose_bet': ProposeBet, 'self_bet': SelfBet, 'disc_golf': DiscGolf,
+                 'feedback': FeaturesFeedback,
                  'cribbage': Cribbage, 'mastermind': Mastermind, 'setback': Setback, 'slots': Slots,
                  'sound_visualizer': SoundVisualizer, 'todo': ToDo, 'trip_builder': TripBuilder}
 
