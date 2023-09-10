@@ -58,6 +58,7 @@ class Base(BaseTemplate):
   def show_app_links(self):
     self.cp_links.clear()
     my_apps = anvil.server.call('get_my_apps_as_dicts', self.user)
+    print(my_apps)
     for a in my_apps:
       a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
       link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
