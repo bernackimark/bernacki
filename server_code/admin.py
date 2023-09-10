@@ -40,7 +40,6 @@ class App:
                 'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow()}
 
 
-
 @dataclass
 class Apps:
     apps: list[App] = field(default_factory=list)
@@ -48,9 +47,14 @@ class Apps:
     def __post_init__(self):
         self.apps = [App(**a) for a in app_tables.parms.get(what='app_list')['value']]
 
+    def sort_apps(self, key):
+        return sorted(self.apps, key=key)
+
 
 def get_all_apps() -> list[App]:
-    return Apps().apps
+    apps = Apps()
+    apps.sort_apps(key='group')
+    return apps.apps
 
 
 @anvil.server.callable
