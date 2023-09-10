@@ -58,14 +58,27 @@ class Base(BaseTemplate):
   def show_app_links(self):
     self.cp_links.clear()
     my_apps = anvil.server.call('get_my_apps_as_dicts', self.user)
-    print(my_apps)
-    for a in my_apps:
-      a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
-      link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
-      link.tag = a['name']
-      link.add_event_handler('click', self.app_link_click)
-      self.cp_links.add_component(link)
+    my_app_groups = self.get_app_groups(my_apps)
+    for ag in my_app_groups:
+      link_group = Link(text=ag if ag else 'Uncategorized', align='center', font_size=18)
+      link_group.add_event_handler('click', lambda **e: self.link_group_click(**e))
+      self.cp_links.add_component(link_group)
+      for a in my_apps:
+        if a['group'] == ag:
+          a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
+          link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
+          link.tag = a['name']
+          link.add_event_handler('click', self.app_link_click)
+          link.visible = False
+          link_group.add_component(link)
 
+  def get_app_groups(self, my_apps) -> list:
+    my_app_groups = []
+    for a in my_apps:
+        if a['group'] not in my_app_groups:
+            my_app_groups.append(a['group'])
+    return my_app_groups
+  
   def app_link_click(self, **e):
     app_name = e['sender'].tag
     self.cp_link_highlights(**e)
@@ -88,11 +101,8 @@ class Base(BaseTemplate):
         l.role = ''
     e['sender'].role = 'selected'
 
-  def link_example_group_click(self, **event_args):
-    for o in self.link_example_group.get_components():
+  def link_group_click(self, **e):
+    for o in e['sender'].get_components():
       if type(o) is Link:
-        if o.visible == False:
-          o.visible = True
-        else:
-          o.visible = False
+        o.visible = False if o.visible else True
 
