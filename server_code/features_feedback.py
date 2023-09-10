@@ -8,7 +8,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
-from . import AdminSM as a
+from . import admin as a
 
 from dataclasses import dataclass, field, asdict
 import uuid

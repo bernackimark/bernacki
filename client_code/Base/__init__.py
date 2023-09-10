@@ -27,7 +27,7 @@ from ..TripBuilder import TripBuilder
 
 app_form_dict = {'admin': Admin, 'bets': SelfBet, 'disc_golf': DiscGolf, 'feedback': FeaturesFeedback,
                  'cribbage': Cribbage, 'mastermind': Mastermind, 'setback': Setback, 'slots': Slots,
-                 'sound_visualizer': SoundVisualizer, 'to_do': ToDo, 'trip_builder': TripBuilder}
+                 'sound_visualizer': SoundVisualizer, 'todo': ToDo, 'trip_builder': TripBuilder}
 
 
 class Base(BaseTemplate):
@@ -48,6 +48,7 @@ class Base(BaseTemplate):
       if logout:
         anvil.users.logout()
         self.content_panel.clear()
+        self.show_app_links()
       return
     anvil.users.login_with_form()
     self.user = anvil.users.get_user()

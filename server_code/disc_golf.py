@@ -47,7 +47,7 @@ def get_most_recent_event() -> tuple[str, datetime]:
 
 @anvil.server.callable
 def write_disc_golfer(pdga_id: int, first_name: str, last_name: str, division: str):
-  img_url = get_player_image_url(pdga_id=pdga_id)
+  img_url, _ = get_player_image_url(pdga_id=pdga_id)
   app_tables.dg_players.add_row(pdga_id=pdga_id, first_name=first_name, last_name=last_name, full_name=f'{first_name} {last_name}', division=division, photo_url=img_url)
 
 

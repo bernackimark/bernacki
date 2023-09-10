@@ -6,9 +6,8 @@ import openrouteservice
 from openrouteservice import distance_matrix
 
 
-# geo_locator = Nominatim(user_agent="bernacki3")
-ORS_CLIENT = openrouteservice.Client(key='5b3ce3597851110001cf62485381e55ad54747b7bf1c25343a66d01d')
-
+# geo_locator = Nominatim(user_agent=anvil.secrets.get_secret("NOMINATIM_USER_KEY"))
+ORS_CLIENT = openrouteservice.Client(key=anvil.secrets.get_secret("ORS_KEY"))
 
 def calculate_distance_miles(a: tuple[float, float], b: tuple[float, float]) -> int:
     return round(distance.distance(a, b).miles)

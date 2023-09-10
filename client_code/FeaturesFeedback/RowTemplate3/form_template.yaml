@@ -6,4 +6,8 @@ components:
   layout_properties: {column: VTKDGT}
   data_bindings:
   - {property: text, code: 'f"{self.item[''submitted_ts'']:%m.%d.%Y}"'}
+- type: Label
+  properties: {}
+  name: lbl_app_title
+  layout_properties: {column: LVZCBG}
 is_package: true
