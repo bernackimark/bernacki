@@ -9,6 +9,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from .IntentionalBlankForm import IntentionalBlankForm
+from .PostCard import PostCard
 
 from ..Admin import Admin
 from ..Bets.ProposeBet import ProposeBet
@@ -38,6 +39,7 @@ class Base(BaseTemplate):
     self.go_home_link.icon = '_/theme/bernacki_logo.png'    
     self.user = anvil.users.get_user()
     self.show_app_links()
+    self.show_posts()
 
   def go_home_link_click(self, **event_args):
     self.cp_link_highlights(**event_args)
@@ -107,3 +109,13 @@ class Base(BaseTemplate):
       if type(o) is Link:
         o.visible = False if o.visible else True
 
+  def show_posts(self):
+    self.rp_posts.items = [{'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': '1h ago', 
+                            'body': ['Lorem ipsum dolor ' * 10], 'like_cnt': 5, 'comment_cnt': 7, 'has_user_liked': True,
+                            'title': 'Post #3', 'comments': [{'avatar': '_/theme/maroon_tile.png', 'handle': 'Micky Maroon', 'text': 'My son says your website stinks!', 'time_ago': '1s ago'}]},
+                          {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two weeks ago', 
+                            'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
+                            'title': 'Post #2: The One About the Thing', 'comments': [{'avatar': '_/theme/gold_tile.png', 'handle': 'Glenda Golden', 'text': '0 out of 5 stars. Would not recommend ...', 'time_ago': '2h ago'}]},
+                          {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two months ago', 
+                            'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
+                            'title': 'Announcing the Bernacki Website!!!', 'comments': []}]

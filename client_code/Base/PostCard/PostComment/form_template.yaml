@@ -1,0 +1,40 @@
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{}'}
+components:
+- type: ColumnPanel
+  properties: {col_widths: '{"LGJYEG":5,"BANGPX":55,"AJREWJ":5,"DKUXYH":55}'}
+  name: cp_comment
+  layout_properties: {grid_position: 'WINFAJ,BQGRHX'}
+  components:
+  - type: Image
+    properties: {height: 45}
+    name: img_avatar
+    layout_properties: {grid_position: 'GRBBYV,LGJYEG', row_background: ''}
+  - type: ColumnPanel
+    properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+      spacing_below: small, background: 'theme:Secondary 500'}
+    name: cp_handle_and_text
+    layout_properties: {grid_position: 'GRBBYV,BANGPX', row_background: ''}
+    components:
+    - type: Label
+      properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
+        visible: true, text: '', font_size: 16, font: '', spacing_above: small, icon_align: left,
+        spacing_below: small, italic: false, background: '', bold: true, underline: false,
+        icon: ''}
+      name: lbl_handle
+      layout_properties: {grid_position: 'XNWKCL,USLMEK'}
+    - type: Label
+      properties: {}
+      name: lbl_text
+      layout_properties: {grid_position: 'KFDBCA,MZGVAH'}
+  - type: Spacer
+    properties: {height: 32}
+    name: spacer_1
+    layout_properties: {grid_position: 'XYBFFD,AJREWJ'}
+  - type: Label
+    properties: {}
+    name: lbl_time_ago
+    layout_properties: {grid_position: 'XYBFFD,DKUXYH'}
+is_package: true

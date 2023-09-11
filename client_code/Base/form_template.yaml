@@ -37,10 +37,24 @@ components:
   name: content_panel
   layout_properties: {slot: default}
   components:
-  - type: form:Base.PostCard
-    properties: {}
-    name: custom_2
-    layout_properties: {grid_position: 'ROHGFG,KNBJVE'}
+  - type: ColumnPanel
+    properties: {col_widths: '{}'}
+    name: cp_header
+    layout_properties: {grid_position: 'YEKJJE,CTYGPH'}
+    components:
+    - type: Label
+      properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
+        visible: true, text: Welcome to the Bernacki Website, font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: ''}
+      name: headline_1
+      layout_properties: {grid_position: 'VMYVOW,HWAPOY'}
+  - type: RepeatingPanel
+    properties: {role: null, tooltip: '', border: '', foreground: '', items: null,
+      visible: true, spacing_above: small, spacing_below: small, item_template: Base.PostCard,
+      background: ''}
+    name: rp_posts
+    layout_properties: {grid_position: 'IGWYMU,AVQAPH'}
 - type: ColumnPanel
   properties: {col_widths: '{}'}
   name: cp_links

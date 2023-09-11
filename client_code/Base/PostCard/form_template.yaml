@@ -15,34 +15,33 @@ components:
   properties: {role: card, tooltip: '', border: '', foreground: '', visible: true,
     wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
     spacing_below: small, background: ''}
-  name: card_1
+  name: card_post
   layout_properties: {grid_position: 'JXFLLA,STNMLU', full_width_row: true}
   components:
   - type: ColumnPanel
-    properties: {col_widths: '{"DKPUDH":10,"QGZBTI":50}'}
+    properties: {col_widths: '{"DKPUDH":5,"QGZBTI":55}'}
     name: cp_header
     layout_properties: {grid_position: 'PXDJDX,HVYWCQ'}
     components:
     - type: Image
       properties: {role: null, vertical_align: center, height: 49, tooltip: '', border: '',
         foreground: '', visible: true, display_mode: shrink_to_fit, spacing_above: small,
-        source: 'data:image/png;base64,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',
-        spacing_below: small, background: '', horizontal_align: center}
+        source: '', spacing_below: small, background: '', horizontal_align: center}
       name: img_user
       layout_properties: {grid_position: 'IZKNYE,DKPUDH'}
     - type: Label
       properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: Bernacki, font_size: 18, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: true,
-        underline: false, icon: ''}
+        visible: true, text: '', font_size: 18, font: '', spacing_above: small, icon_align: left,
+        spacing_below: small, italic: false, background: '', bold: true, underline: false,
+        icon: ''}
       name: lbl_handle
       layout_properties: {grid_position: 'IZKNYE,QGZBTI TOOAWE,ZJQRBV'}
     - type: Label
       properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: One hour ago, font_size: null, font: '', spacing_above: small,
+        visible: true, text: '', font_size: null, font: '', spacing_above: small,
         icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
         underline: false, icon: ''}
-      name: lbl_ts
+      name: lbl_time_ago
       layout_properties: {grid_position: 'IZKNYE,QGZBTI IARVRS,TGMMBV'}
   - type: ColumnPanel
     properties: {col_widths: '{}'}
@@ -51,9 +50,9 @@ components:
     components:
     - type: Label
       properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: Sample Post Headline/Title, font_size: null, font: '',
-        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
-        background: '', bold: false, underline: false, icon: ''}
+        visible: true, text: '', font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+        underline: false, icon: ''}
       name: lbl_title
       layout_properties: {grid_position: 'VCLXLR,ZJFIKU'}
   - type: ColumnPanel
@@ -63,27 +62,20 @@ components:
     components:
     - type: Label
       properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-          ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-          cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.', font_size: null, font: '', spacing_above: small, icon_align: left,
-        spacing_below: small, italic: false, background: '', bold: false, underline: false,
-        icon: ''}
+        visible: true, text: '', font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+        underline: false, icon: ''}
       name: lbl_body
       layout_properties: {grid_position: 'SFBWJX,OXQADM'}
     - type: Image
-      properties: {role: null, vertical_align: center, height: 78, tooltip: '', border: '',
+      properties: {role: null, vertical_align: center, height: 5, tooltip: '', border: '',
         foreground: '', visible: true, display_mode: shrink_to_fit, spacing_above: small,
-        source: _/theme/bernacki-logo-gif.gif, spacing_below: small, background: '',
-        horizontal_align: center}
+        source: '', spacing_below: small, background: '', horizontal_align: center}
       name: img_body
       layout_properties: {grid_position: 'MSEHSX,YERCXW'}
       data_bindings: []
   - type: ColumnPanel
-    properties: {col_widths: '{"OKLGFC":5,"EEVQRB":55}'}
+    properties: {col_widths: '{"OKLGFC":3,"EEVQRB":57}'}
     name: cp_existing_reactions
     layout_properties: {grid_position: 'GYDLUJ,HORWEH'}
     components:
@@ -91,23 +83,21 @@ components:
       properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
         visible: true, text: '', font_size: null, font: '', spacing_above: small,
         icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: 'fa:thumbs-up'}
-      name: label_1
+        underline: false, icon: 'fa:thumbs-o-up'}
+      name: lbl_liked
       layout_properties: {grid_position: 'HPCDSQ,OKLGFC'}
     - type: Label
       properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: '5', font_size: null, font: '', spacing_above: small,
+        visible: true, text: '', font_size: null, font: '', spacing_above: small,
         icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
         underline: false, icon: ''}
       name: lbl_like_cnt
       layout_properties: {grid_position: 'HPCDSQ,EEVQRB'}
-    - type: Label
-      properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-        visible: true, text: 7 comments, font_size: null, font: '', spacing_above: small,
-        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-        underline: false, icon: ''}
-      name: lbl_comments
-      layout_properties: {grid_position: 'HPCDSQ,JGLXMO'}
+    - type: Link
+      properties: {}
+      name: link_comments
+      layout_properties: {grid_position: 'HPCDSQ,KUTVED'}
+      event_bindings: {click: link_comments_click}
   - type: Spacer
     properties: {visible: true, spacing_above: small, spacing_below: small, height: 0,
       tooltip: ''}
@@ -130,13 +120,33 @@ components:
     name: btn_comment
     layout_properties: {grid_position: 'OVFHZF,RWMIJX'}
     event_bindings: {click: btn_comment_click}
-  - type: TextBox
-    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: reply,
-      border: '', enabled: true, foreground: '', visible: false, text: '', font_size: null,
-      font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
-      background: '', bold: false, underline: false}
-    name: tb_comment
-    layout_properties: {grid_position: 'RQQJSN,PVQUHA'}
+  - type: ColumnPanel
+    properties: {role: null, tooltip: '', border: '', foreground: '', visible: false,
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"ASNTPD":55,"AUXSLM":5}',
+      spacing_below: small, background: ''}
+    name: cp_create_comment
+    layout_properties: {grid_position: 'UFVIID,MTEUFO'}
+    components:
+    - type: RepeatingPanel
+      properties: {role: null, tooltip: '', border: '', foreground: '', items: null,
+        visible: true, spacing_above: small, spacing_below: small, item_template: Base.PostCard.PostComment,
+        background: ''}
+      name: rp_comments
+      layout_properties: {grid_position: 'SGIGMV,ZLJTSN'}
+    - type: TextBox
+      properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: comment,
+        border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
+        font: '', spacing_above: small, type: text, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false}
+      name: tb_comment
+      layout_properties: {grid_position: 'MKJDOS,ASNTPD'}
+    - type: Button
+      properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+        foreground: '', visible: true, text: '', font_size: null, font: '', spacing_above: small,
+        icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
+        underline: false, icon: 'fa:paper-plane'}
+      name: btn_write_comment
+      layout_properties: {grid_position: 'MKJDOS,AUXSLM'}
 container:
   type: ColumnPanel
   properties: {col_widths: '{}'}
