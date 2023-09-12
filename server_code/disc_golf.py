@@ -58,6 +58,12 @@ def write_disc_golfer(pdga_id: int, first_name: str, last_name: str, division: s
   app_tables.dg_players.add_row(pdga_id=pdga_id, first_name=first_name, last_name=last_name, full_name=f'{first_name} {last_name}', division=division, photo_url=img_url)
 
 
+@anvil.server.callable
+def write_new_tourney_name(name: str):
+  if not app_tables.dg_event_names.get(name=name):
+    app_tables.dg_event_names.add_row(name=name)
+
+
 def get_player_image_url(pdga_id: int) -> (str, bool):
     url = BASE_URL + str(pdga_id)
     r = requests.get(url).content

@@ -14,9 +14,10 @@ class Admin(AdminTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
     dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+    dgm.dg_event_names = [_ for _ in app_tables.dg_event_names.search()]
     self.dd_governing_body.items = dgm.filter_sort_unique_column('governing_body')
     self.dd_designation.items = dgm.filter_sort_unique_column('designation')
-    self.dd_event_name.items = sorted(list({(n['name'], n['name']) for n in dgm.dg_events}))
+    self.dd_event_name.items = sorted(list((n['name'], n['name']) for n in dgm.dg_event_names))
     self.get_most_recent_loaded_event()
     self.dd_security.items = [('Admin', 'admin'), ('Private', 'private') , ('Public', 'public'), ('Testing', 'testing')]
 
@@ -100,5 +101,9 @@ class Admin(AdminTemplate):
 
   def btn_update_app_click(self, **event_args):
     anvil.server.call('update_app', self.tb_app_name.text, self.tb_key.text, self.tb_value.text)
+
+  def btn_save_new_tourney_name_click(self, **event_args):
+    anvil.server.call('write_new_tourney_name', self.tb_new_tourney_name.text)
+
 
 

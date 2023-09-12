@@ -11,6 +11,7 @@ from datetime import date, timedelta
 
 dg_events = []  # [_ for _ in app_tables.dg_events.search()]  I'm now loading this from the Form intializer, so that it doesn't run upon App startup
 dg_players = []  # ditto
+dg_event_names = []  # note: i only load this on the Admin page, not the DiscGolf Form
 leaderboard_groupers = [('MPO Winner', 'mpo_champion'), ('FPO Winner', 'fpo_champion'), ('Event', 'name'), ('Year', 'year')]
 
 def sort_dg_events(column_name, reverse=False):
