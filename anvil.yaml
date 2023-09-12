@@ -340,7 +340,7 @@ db_schema:
       type: simpleObject
   dg_events:
     title: dg_events
-    client: full
+    client: search
     server: full
     columns:
     - name: id
@@ -370,11 +370,11 @@ db_schema:
     - name: country
       admin_ui: {width: 102}
       type: string
-    - name: mpo_champion
-      admin_ui: {width: 200}
+    - name: mpo_champion_obj
+      admin_ui: {order: 9, width: 200}
       type: simpleObject
-    - name: fpo_champion
-      admin_ui: {width: 200}
+    - name: fpo_champion_obj
+      admin_ui: {order: 10, width: 200}
       type: simpleObject
     - name: created_ts
       admin_ui: {width: 200}
@@ -385,6 +385,14 @@ db_schema:
     - name: name
       admin_ui: {width: 200}
       type: string
+    - name: fpo_champ
+      admin_ui: {width: 200}
+      type: link_single
+      target: dg_players
+    - name: mpo_champ
+      admin_ui: {width: 200}
+      type: link_single
+      target: dg_players
   geo_known_collections:
     client: none
     server: full
