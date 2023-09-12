@@ -30,6 +30,7 @@ def load_spreadsheet(file) -> None:
       df = pd.read_excel(f, header=None)
   write_records(df.to_dict('records'))
 
+
 def write_records(list_of_dicts: list[dict]):
   for d in list_of_dicts:
     app_tables.dg_events.add_row(city=d[6], country=d[8], 
@@ -39,13 +40,17 @@ def write_records(list_of_dicts: list[dict]):
                                  lmt=datetime.now(), mpo_champion=d[9], name=d[5] , start_date=d[3].date(),
                                  state=d[7], year=d[0])
 
+
 @anvil.server.callable
 def write_dg_event(**kwargs):
-  app_tables.dg_events.add_row(id=len(app_tables.dg_events.search())+1, created_ts=datetime.now(), lmt=datetime.now(), **kwargs)
+    kwargs['year'] = kwargs['end_date'].year  # i appended this on 9/12/23, not sure if it works
+    app_tables.dg_events.add_row(id=len(app_tables.dg_events.search())+1, created_ts=datetime.now(), lmt=datetime.now(), **kwargs)
+
 
 @anvil.server.callable
 def get_most_recent_event() -> tuple[str, datetime]:
   return [(r['name'], r['created_ts']) for r in app_tables.dg_events.search(tables.order_by('end_date', ascending=False))][0]
+
 
 @anvil.server.callable
 def write_disc_golfer(pdga_id: int, first_name: str, last_name: str, division: str):
@@ -66,6 +71,7 @@ def get_player_image_url(pdga_id: int) -> (str, bool):
         found = False
   
     return img_url, found
+
 
 def manipulate_image(image_url) -> Image:
     response = requests.get(image_url)

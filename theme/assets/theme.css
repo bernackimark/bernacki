@@ -633,7 +633,7 @@ body>div[data-notify="container"].alert-warning>span[data-notify="title"]{
 
 .anvil-role-card {
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 5px;
   background-color: white;
   padding: 8px 12px;
   /* 2dp */  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -874,4 +874,8 @@ https://stackoverflow.com/questions/30533055/calculating-shadow-values-for-all-m
     background-color: transparent;
     background-image: url(_/theme/bernacki-logo-gif.gif) !important;
     background-size: 500px;
+}
+
+.anvil-role-post-comment {
+    border-radius: 5px;
 }
