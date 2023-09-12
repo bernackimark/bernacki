@@ -29,7 +29,7 @@ class Admin(AdminTemplate):
       if (type(o) is TextBox and not o.text) or (type(o) is DatePicker and not o.date) or (type(o) is DropDown and not o.selected_value):
         alert('You missed some data')
         return
-    anvil.server.call('write_dg_event', year=self.tb_year.text, governing_body=self.dd_governing_body.selected_value,
+    anvil.server.call('write_dg_event', governing_body=self.dd_governing_body.selected_value,
                       designation=self.dd_designation.selected_value, start_date=self.dp_start.date, end_date=self.dp_end.date,
                       city=self.tb_city.text, state=self.tb_state.text, country=self.tb_country.text,
                       mpo_champion=self.tb_mpo_champion.text, fpo_champion=self.tb_fpo_champion.text, name=self.dd_event_name.selected_value)
