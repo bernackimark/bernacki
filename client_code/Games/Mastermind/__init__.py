@@ -11,7 +11,7 @@ class Mastermind(MastermindTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    self.email = user['email'] if user else None
+    self.email = user.user['email'] if user.logged_in else None
     # print(f'The email is: {email}')
     
     self.prompt_1_lbl.text = m.UI.prompt_datatype_answers[0]['prompt']

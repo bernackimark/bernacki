@@ -57,7 +57,7 @@ class Base(BaseTemplate):
         self.content_panel.clear()
         self.show_app_links()
       return
-    anvil.users.login_with_form()
+    anvil.users.login_with_form(allow_cancel=True)
     user.login()
     self.show_app_links()
     self.change_sign_in_text()
