@@ -1,27 +1,22 @@
 from ._anvil_designer import TripBuilderTemplate
 from anvil import *
 import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from . import trip_builder_module as m
+from ..user import user
 
 class TripBuilder(TripBuilderTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
     self.display_trip_builder()
     self.rp_build_trip.set_event_handler('x-refresh-trip-builder', self.display_trip_builder)
 
-    if not anvil.users.get_user():
+    if not user.logged_in:
       self.dd_known_collections.items = anvil.server.call('get_user_known_collections', None)
     else:
-      self.dd_known_collections.items = anvil.server.call('get_user_known_collections', anvil.users.get_user()['email'])
+      self.dd_known_collections.items = anvil.server.call('get_user_known_collections', user.user['email'])
   
   def btn_build_trip_click(self, **event_args):
     for row in self.rp_build_trip.items:
@@ -78,10 +73,10 @@ class TripBuilder(TripBuilderTemplate):
     self.display_trip_builder()
 
   def btn_save_collection_click(self, **event_args):
-    if not anvil.users.get_user():
+    if not user.logged_in:
       alert("You must be signed in to save a collection.  It's free to do so.")
       return
-    if not anvil.users.get_user()['confirmed_email']:
+    if not user.user['confirmed_email']:
       alert("Please perform the e-mail verification step in order to complete the sign-up process.")
       return
     for p in m.trip_builder_items:
@@ -94,5 +89,5 @@ class TripBuilder(TripBuilderTemplate):
     tb_new_coll = TextBox(placeholder='Enter the name for your collection here')
     c = confirm(content=tb_new_coll, large=True, title='Save Your Collection?')
     if c:
-      anvil.server.call('create_known_collection_and_points', coll_name=tb_new_coll.text, email=anvil.users.get_user()['email'], points=m.trip_builder_items)
+      anvil.server.call('create_known_collection_and_points', coll_name=tb_new_coll.text, email=user.user['email'], points=m.trip_builder_items)
     

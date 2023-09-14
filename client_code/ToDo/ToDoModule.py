@@ -1,10 +1,4 @@
 import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 group_color_palate = ['LightBlue', 'LightPink', 'LemonChiffon', 'LightSalmon', 'Gainsboro', 'Aquamarine']
 gc_row_list = ['A', 'A', 'A', 'B', 'B', 'B']

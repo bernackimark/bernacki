@@ -1,5 +1,3 @@
-import anvil.server
-
 import random
 from datetime import datetime
 import time

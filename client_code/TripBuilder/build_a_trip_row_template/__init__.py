@@ -1,12 +1,5 @@
 from ._anvil_designer import build_a_trip_row_templateTemplate
 from anvil import *
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 from ... import trip_builder_module as m
 
@@ -19,7 +12,6 @@ next_placeholder = cycle(POINT_NAME_PLACEHOLDERS)
 
 class build_a_trip_row_template(build_a_trip_row_templateTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
     self.tb_point_name.placeholder = next(next_placeholder)

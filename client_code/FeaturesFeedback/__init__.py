@@ -9,6 +9,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 
 from .. import client_side_general_module as m
+from ..user import user
 
 class FeaturesFeedback(FeaturesFeedbackTemplate):
   def __init__(self, **properties):
@@ -19,7 +20,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     self.tb_bug_title.placeholder, self.tb_feature_title.placeholder = 'My issue title', 'My feature/idea title'
     self.ta_bug_description.placeholder = self.ta_new_description.placeholder = 'My description.  Please enter as much information as possible.'
     
-    if anvil.users.get_user():
+    if user.logged_in:
       self.card_feature_requests.visible = True
       self.lbl_log_in_to_see_feature_requests.visible = False
       self.get_existing_requests()
@@ -35,13 +36,13 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
       alert('Please provide a fuller description.')
       return
     msg = anvil.server.call('write_to_features_feedback', cat='bug', app=self.dd_report_bug_apps.selected_value,
-                        user=anvil.users.get_user(), screenshot=self.fl_bug_screenshot.file, title=self.tb_bug_title.text, desc=self.ta_bug_description.text)
+                        user=user, screenshot=self.fl_bug_screenshot.file, title=self.tb_bug_title.text, desc=self.ta_bug_description.text)
     if self.fl_bug_screenshot.file:
       self.fl_bug_screenshot.clear()
     Notification(msg).show()
 
   def btn_new_request_click(self, **event_args):
-    if not anvil.users.get_user():
+    if not user.logged_in:
       alert("Please create an account.  I promise it's quick.")
       return
     if not self.rb_existing_app.get_group_value():
@@ -58,12 +59,12 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     screenshot = self.fl_bug_screenshot.file if self.fl_bug_screenshot.file else None
     cat = 'enhancement' if self.rb_existing_app.selected else 'new'
     msg = anvil.server.call('write_to_features_feedback', cat=cat, app=app,
-                        user=anvil.users.get_user(), title=self.tb_feature_title.text, desc=self.ta_new_description.text)
+                        user=user, title=self.tb_feature_title.text, desc=self.ta_new_description.text)
     self.get_existing_requests()
     Notification(msg).show()
     
   def get_existing_requests(self):
-    self.rp_feature_requests.items = anvil.server.call_s('get_feature_requests', anvil.users.get_user())
+    self.rp_feature_requests.items = anvil.server.call_s('get_feature_requests', user)
 
   def dd_new_feature_apps_change(self, **event_args):
     self.rb_existing_app.selected = True

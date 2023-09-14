@@ -1,9 +1,10 @@
 import anvil.server
-import anvil.users
+
+from .user import user
 
 class MyApps:
   def __init__(self):
-    self.my_apps_as_dict = anvil.server.call('get_my_apps_as_dicts', anvil.users.get_user())
+    self.my_apps_as_dict = anvil.server.call('get_my_apps_as_dicts', user)
 
   @property
   def name_and_title_tuples(self):
@@ -17,7 +18,7 @@ my_apps: MyApps
 # my_apps_as_dict: list[dict]
 
 # def get_my_apps_as_dict():
-#   my_apps_as_dict = anvil.server.call('get_my_apps_as_dicts', anvil.users.get_user())
+#   my_apps_as_dict = anvil.server.call('get_my_apps_as_dicts', user)
 
 
 

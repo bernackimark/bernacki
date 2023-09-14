@@ -1,11 +1,6 @@
 from ._anvil_designer import DiscGolfTemplate
 from anvil import *
 import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
 from anvil.tables import app_tables
 from . import dg_module as dgm
 from .. import utils
@@ -14,7 +9,6 @@ class DiscGolf(DiscGolfTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
     dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
     dgm.dg_players = [_ for _ in app_tables.dg_players.search()]
     

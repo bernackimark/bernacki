@@ -1,4 +1,3 @@
-import anvil.server
 # import pygame
 # pygame.mixer.init()
 

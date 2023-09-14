@@ -26,18 +26,20 @@ from ..SoundVisualizer import SoundVisualizer
 from ..ToDo import ToDo
 from ..TripBuilder import TripBuilder
 
+from ..user import user
+
 app_form_dict = {'admin': Admin, 'propose_bet': ProposeBet, 'self_bet': SelfBet, 'disc_golf': DiscGolf,
                  'feedback': FeaturesFeedback,
                  'cribbage': Cribbage, 'mastermind': Mastermind, 'setback': Setback, 'slots': Slots,
                  'sound_visualizer': SoundVisualizer, 'todo': ToDo, 'trip_builder': TripBuilder}
 
 
+from datetime import datetime
+
 class Base(BaseTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.go_home_link.icon = '_/theme/bernacki_logo.png'    
-    self.user = anvil.users.get_user()
+    self.go_home_link.icon = '_/theme/bernacki_logo.png' 
     self.show_app_links()
     self.show_posts()
 
@@ -46,22 +48,24 @@ class Base(BaseTemplate):
     self.content_panel.clear()
     
   def sign_in_click(self, **event_args):
-    if self.user:
+    if user.logged_in:
       logout = confirm("Logout?")
       if logout:
+        user.logout()
         anvil.users.logout()
+        self.change_sign_in_text()
         self.content_panel.clear()
         self.show_app_links()
       return
     anvil.users.login_with_form()
-    self.user = anvil.users.get_user()
+    user.login()
     self.show_app_links()
     self.change_sign_in_text()
 
   def show_app_links(self):
     self.cp_links.clear()
-    my_apps = anvil.server.call('get_my_apps_as_dicts', self.user)
-    my_app_groups = self.get_app_groups(my_apps)
+    my_apps = anvil.server.call('get_my_apps_as_dicts', user.user)
+    my_app_groups = sorted({a['group'] for a in my_apps})
     for ag in my_app_groups:
       link_group = Link(text=ag if ag else 'Uncategorized', align='center', font_size=18)
       link_group.add_event_handler('click', lambda **e: self.link_group_click(**e))
@@ -74,13 +78,6 @@ class Base(BaseTemplate):
           link.add_event_handler('click', self.app_link_click)
           link.visible = False
           link_group.add_component(link)
-
-  def get_app_groups(self, my_apps) -> list:
-    my_app_groups = []
-    for a in my_apps:
-        if a['group'] not in my_app_groups:
-            my_app_groups.append(a['group'])
-    return my_app_groups
   
   def app_link_click(self, **e):
     app_name = e['sender'].tag
@@ -92,9 +89,9 @@ class Base(BaseTemplate):
     self.content_panel.add_component(app_form_dict[app_name]())
 
   def change_sign_in_text(self):
-    if self.user:
-      self.sign_in.text = self.user['email']
-      self.sign_in.width = len(self.user['email']) * 10
+    if user.logged_in:
+      self.sign_in.text = user.user['email']
+      self.sign_in.width = len(user.user['email']) * 10
     else:
       self.sign_in.text = "Sign In"
 

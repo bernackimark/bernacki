@@ -1,5 +1,3 @@
-import anvil.email
-import anvil.secrets
 from dataclasses import dataclass
 from geography.point import Point
 

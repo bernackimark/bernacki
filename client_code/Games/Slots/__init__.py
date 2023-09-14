@@ -1,18 +1,12 @@
 from ._anvil_designer import SlotsTemplate
 from anvil import *
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 from .CreatePayLine import CreatePayLine
 from .CreatePiece import CreatePiece
 
 from .slots import user_pay_line as upl
 from . import slots as m
+from ...user import user
 import random
 from itertools import cycle
 
@@ -20,7 +14,7 @@ class Slots(SlotsTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.user = anvil.users.get_user()
+    self.user = user
     self.initial_setup()
     self.tb_bet_amt.text = 1
     self.lbl_balance.text = m.slots.slots_balance

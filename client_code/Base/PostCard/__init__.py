@@ -10,7 +10,6 @@ from anvil.tables import app_tables
 
 class PostCard(PostCardTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
     
     self.img_user.source = self.item['avatar']

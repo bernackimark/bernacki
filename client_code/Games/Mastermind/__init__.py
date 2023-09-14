@@ -1,15 +1,9 @@
 from ._anvil_designer import MastermindTemplate
 from anvil import *
-import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 
 from . import mastermind_module as m
 from ... import utils_for_anvil as util
+from ...user import user
 # import anvil.image
 
 class Mastermind(MastermindTemplate):
@@ -17,7 +11,6 @@ class Mastermind(MastermindTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    user = anvil.users.get_user()
     self.email = user['email'] if user else None
     # print(f'The email is: {email}')
     

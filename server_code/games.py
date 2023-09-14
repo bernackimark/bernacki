@@ -1,9 +1,3 @@
-import anvil.email
-import anvil.secrets
-import anvil.google.auth, anvil.google.drive, anvil.google.mail
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
@@ -47,3 +41,6 @@ def update_player_info(user_email: str, d: dict):
 @anvil.server.callable
 def get_user_info(user_email) -> dict:
   return app_tables.users.get(email=user_email)['info']
+
+##### getting the user row again seems inefficient.
+##### should probably just be sending the entire user record from client to server

@@ -32,7 +32,7 @@ services:
 
           <p>Thanks,
 
-          <p>Bernacki', subject: Confirm your email address}
+          <p>Bernacki', subject: 'Bernacki: Confirm your email address'}
       reset_password: {html: '<p>Hi,
 
 
@@ -46,7 +46,7 @@ services:
           <p>This link will expire in ten minutes.
 
 
-          <p>Bernacki', subject: Reset your password}
+          <p>Bernacki', subject: Bernacki Password Reset}
       token_login: {html: '<p>Hi there,
 
 

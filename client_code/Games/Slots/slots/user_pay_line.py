@@ -1,4 +1,3 @@
-import anvil.server
 class Tile:
     def __init__(self):
         self.is_checked: bool = False

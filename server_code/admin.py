@@ -1,9 +1,3 @@
-import anvil.email
-import anvil.secrets
-import anvil.google.auth, anvil.google.drive, anvil.google.mail
-from anvil.google.drive import app_files
-import anvil.users
-import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
@@ -71,11 +65,10 @@ def get_my_apps(user=None):
     if not user:
         return [a for a in app_list if a.is_prod and a.security == SecurityLevels.PUBLIC.value]
     if user:
-        user_row = app_tables.users.get(email=user['email'])
-        if user_row['is_admin']:
+        # user_row = app_tables.users.get(email=user['email'])
+        if user['is_admin']:
             return app_list
-        else:
-            return [a for a in app_list if a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
+        return [a for a in app_list if a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
 
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
@@ -96,12 +89,10 @@ def get_my_apps_as_dicts(user=None):
     if not user:
         return [a.__dict__ for a in app_list if a.is_prod and a.security == SecurityLevels.PUBLIC.value]
     if user:
-        user_row = app_tables.users.get(email=user['email'])
-        if user_row['is_admin']:
+        if user['is_admin']:
             return [a.__dict__ for a in app_list]
-        else:
-            return [a.__dict__ for a in app_list if a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
-
+        return [a.__dict__ for a in app_list if a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
+  
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
 def write_new_app(name: str, title: str, group: str, user, icon_str: str, security: str):

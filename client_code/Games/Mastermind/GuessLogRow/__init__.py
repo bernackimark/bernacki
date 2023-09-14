@@ -1,10 +1,8 @@
 from ._anvil_designer import GuessLogRowTemplate
 from anvil import *
-import anvil.server
 
 class GuessLogRow(GuessLogRowTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
       
     for idx, c in enumerate(self.item['guess']):
