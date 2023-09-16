@@ -267,7 +267,7 @@ components:
     layout_properties: {grid_position: 'EIEVUX,DMKCBK'}
     event_bindings: {change: dd_leaderboard_grouper_change}
   - type: RepeatingPanel
-    properties: {item_template: DiscGolf.ItemTemplate1}
+    properties: {item_template: DiscGolf.LeaderboardRow}
     name: rp_leaderboard
     layout_properties: {grid_position: 'TGEASO,NMZIGK'}
 - type: DataGrid
