@@ -18,9 +18,9 @@ class Slots(SlotsTemplate):
         self.initial_setup()
         self.tb_bet_amt.text = 1
         self.lbl_balance.text = m.slots.slots_balance
-        self.reels = [[None for piece in row] for row in m.slots.transposed_reels]
+        self.reels = [[None for piece in row] for row in m.slots.reels.transposed_visible_reels]
         self.populate_gp_reels()
-        self.display_reels(m.slots.transposed_reels)
+        self.display_reels(m.slots.reels.transposed_visible_reels)
     
     def initial_setup(self) -> None:
         m.slots = m.Slots(self.user['email'], self.user['info'].get('slots_balance'))
@@ -48,8 +48,9 @@ class Slots(SlotsTemplate):
     def btn_spin_click(self, **event_args):
         # self.reel_snapshot_idx = 0  # this was in the tkinter version, might need this
         m.slots.spin(self.tb_bet_amt.text)
-        for snapshot in m.slots.reels_snapshots:
-            self.display_reels(snapshot)
+        for snapshot in m.slots.reels.snapshots:
+            transposed_snapshot = m.slots.reels.transposed_visible_snapshot(snapshot)
+            self.display_reels(transposed_snapshot)
         # self.display_reels()  # needs to be defined
         m.slots.check_for_winners()
         # self.display_payout()  # needs to be defined
@@ -63,9 +64,9 @@ class Slots(SlotsTemplate):
                 self.reels[r_idx][c_idx] = lbl
                 self.gp_reels.add_component(lbl, row=r_idx, col_xs=c_idx, width_xs=2)        
 
-    def display_reels(self, reels: list[m.Reel]):
+    def display_reels(self, reels: list[list[m.Piece]]):
         for r_idx, reel in enumerate(reels):
-            for c_idx, piece in enumerate(reel.pieces):
+            for c_idx, piece in enumerate(reel):
                 self.reels[r_idx][c_idx].text = piece.text
                 
                 

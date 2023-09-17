@@ -77,7 +77,7 @@ class Reels:
     def __init__(self, reel_cnt: int = 5):
         self.reel_cnt = reel_cnt
         self.reels: list[Reel] = [Reel(i, random.randint(0, 50)) for i in range(self.reel_cnt)]
-        self.snapshots: list[list[Reel]] = [[]]
+        self.snapshots: list[list[Reel]] = []
         self.rotation_counts: list[int] = []
 
     def __repr__(self):
@@ -102,6 +102,8 @@ class Reels:
     def transposed_visible_reels(self):  # this is used during the evaluation of pay_lines
         return [[self.reels[j].pieces[i] for j in range(self.reel_cnt)] for i in range(self.reels[0].window_height)]
 
+    def transposed_visible_snapshot(self, snapshot):
+        return [[snapshot[j].pieces[i] for j in range(self.reel_cnt)] for i in range(self.reels[0].window_height)]
 
 class Shape:
     def __init__(self, name: str, y_offsets: list, multiplier: int = 3):
