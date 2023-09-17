@@ -66,4 +66,8 @@ components:
     name: btn_spin
     layout_properties: {grid_position: 'AQMXMI,WRHHTR'}
     event_bindings: {click: btn_spin_click}
+- type: GridPanel
+  properties: {}
+  name: gp_reels
+  layout_properties: {grid_position: 'WFNGVI,KIZNSW'}
 is_package: true

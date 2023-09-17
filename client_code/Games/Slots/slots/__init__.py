@@ -176,7 +176,7 @@ class PayoutSummary:
 
 
 class Slots(Game):
-    def __init__(self, player_emails: list[str] = [], slots_balance: float = 0):
+    def __init__(self, player_emails: list[str] = [], slots_balance: float = 0.0):
         super().__init__(game_name='slots', player_emails=player_emails)
         self.state = 'betting'
         self.slots_balance = slots_balance
@@ -220,12 +220,20 @@ class Slots(Game):
     # this needs to be the IDs, not the full pieces
 
     @property
+    def transposed_reels_from_reel_list(self, reels: list[Reel]):
+        return [[piece for piece in row] for row in reels]
+
+    @property
     def transposed_reels(self):  # this is used during the evaluation of pay_lines
         return [[self.reels[j].pieces[i] for j in range(self.reel_cnt)] for i in range(REEL_WINDOW_HEIGHT)]
 
     @property
     def reels_pieces_desc(self):
         return [[self.reels[j].pieces[i].description for j in range(self.reel_cnt)] for i in range(REEL_WINDOW_HEIGHT)]
+
+    @property
+    def reels_visible_rows(self):
+        return [r.visible_rows for r in self.reels]
 
     @property
     def spin_payout(self):
