@@ -43,10 +43,13 @@ default_pieces = [
 
 
 class Reel:
-    def __init__(self, pos: int, pieces: list[Piece], window_height: int, random_offset: int):
+    def __init__(self, pos: int, random_offset: int, window_height: int = 5, reel_len: int = 100,
+                 available_pieces: list[Piece] = default_pieces):
         self.pos = pos
-        self.pieces = pieces
         self.window_height = window_height
+
+        piece_in_cycle = cycle(available_pieces)
+        self.pieces: list[Piece] = [next(piece_in_cycle) for _ in range(reel_len + 1)]
 
         Reel.rotate(self, random_offset)
 
@@ -70,23 +73,34 @@ class Reel:
         return f'{self.visible_rows}'
 
 
-# class Reels:
-#     def __init__(self):
-#         self.reels: list[Reel] = []
-#         self.snapshots: list[list[Reel]] = []
-#
-#     def __repr__(self):
-#         return f'{self.reels}'
-#
-#     def __iter__(self):
-#         return iter(self.reels)
-#
-#     def take_reels_snapshot(self):
-#         self.snapshots.append(self.reels)
-#
-#     @property
-#     def resting_reels(self) -> list[Reel]:
-#         return self.snapshots[-1]
+class Reels:
+    def __init__(self, reel_cnt: int = 5):
+        self.reel_cnt = reel_cnt
+        self.reels: list[Reel] = [Reel(i, random.randint(0, 50)) for i in range(self.reel_cnt)]
+        self.snapshots: list[list[Reel]] = [[]]
+        self.rotation_counts: list[int] = []
+
+    def __repr__(self):
+        return f'{self.reels}'
+
+    def __iter__(self):
+        return iter(self.reels)
+
+    def set_rotation_counts(self):
+        rotations: list[tuple[int, int]] = [(i * 100 + 1, i * 100 + 100) for i in range(1, self.reel_cnt + 1)]
+        self.rotation_counts = [random.randint(rotations[i][0], rotations[i][1]) for i in range(self.reel_cnt)]
+
+    def spin(self):
+        self.set_rotation_counts()
+        for i in range(max(self.rotation_counts)):
+            for r in self.reels:
+                if i <= self.rotation_counts[r.pos]:
+                    r.rotate()
+            self.snapshots.append(deepcopy(self.reels))
+
+    @property
+    def transposed_visible_reels(self):  # this is used during the evaluation of pay_lines
+        return [[self.reels[j].pieces[i] for j in range(self.reel_cnt)] for i in range(self.reels[0].window_height)]
 
 
 class Shape:
@@ -182,20 +196,13 @@ class Slots(Game):
         self.slots_balance = slots_balance
         self.min_same_line_match = MIN_SAME_LINE_MATCH
         self.max_bet = MAX_BET
-        self.pieces: list[Piece] = default_pieces
         self.game_shapes: list[Shape] = default_shapes
         self.pay_lines: list[PayLine] = create_default_paylines()
         self.winning_pay_lines: list[PayLine] = []
-        self.reel_cnt = REEL_CNT
-        self.reel_len = REEL_LENGTH
         self.spin_bet: int = 0
         self.balance_before_spin: float = 0
         self.rotation_counts = []
-
-        piece_in_cycle = cycle(self.pieces)
-        self.reels: list[Reel] = [(Reel(i, [next(piece_in_cycle) for _ in range(self.reel_len + 1)],
-                                  REEL_WINDOW_HEIGHT, random.randint(5, 50))) for i in range(self.reel_cnt)]
-        self.reels_snapshots: list[list[Reel]] = []
+        self.reels: Reels = Reels()
 
         self.payout_summary: PayoutSummary = PayoutSummary(0, [], self.slots_balance)
 
@@ -214,28 +221,6 @@ class Slots(Game):
         self.game_data = self.game_data_dict
 
     @property
-    def spun_reels(self):
-        return self.reels_snapshots[-1]
-
-    # this needs to be the IDs, not the full pieces
-
-    @property
-    def transposed_reels_from_reel_list(self, reels: list[Reel]):
-        return [[piece for piece in row] for row in reels]
-
-    @property
-    def transposed_reels(self):  # this is used during the evaluation of pay_lines
-        return [[self.reels[j].pieces[i] for j in range(self.reel_cnt)] for i in range(REEL_WINDOW_HEIGHT)]
-
-    @property
-    def reels_pieces_desc(self):
-        return [[self.reels[j].pieces[i].description for j in range(self.reel_cnt)] for i in range(REEL_WINDOW_HEIGHT)]
-
-    @property
-    def reels_visible_rows(self):
-        return [r.visible_rows for r in self.reels]
-
-    @property
     def spin_payout(self):
         return sum([pl.winning_multiplier for pl in self.winning_pay_lines])
 
@@ -249,13 +234,7 @@ class Slots(Game):
 
         # spin the reels
         slots.state = 'spinning'
-        self.set_rotation_counts()
-        for i in range(max(self.rotation_counts)):
-            for r in self.reels:
-                if i <= self.rotation_counts[r.pos]:
-                    r.rotate()
-            self.reels_snapshots.append(deepcopy(self.reels))
-        return
+        self.reels.spin()
 
     def check_for_winners(self):
         self.state = 'paying'
@@ -263,7 +242,7 @@ class Slots(Game):
         # probably an odd way to do this. for each pay_line, feed in the actual values and then do the comparison ...
         # ... wholly in the PayLine class
         for pl in self.pay_lines:
-            pl.update_pieces([self.transposed_reels[coord[1]][coord[0]] for coord in pl.coordinates])
+            pl.update_pieces([self.reels.transposed_visible_reels[coord[1]][coord[0]] for coord in pl.coordinates])
         self.winning_pay_lines: list[PayLine] = [pl for pl in self.pay_lines if pl.is_winner]
         self.slots_balance += self.spin_payout
         self.payout_summary = PayoutSummary(self.spin_payout,
@@ -296,14 +275,18 @@ def create_default_paylines() -> list[PayLine]:
 
 def create_piece(text: str, mult: int = 1, wild: bool = False, img: str = '') -> Piece:
     piece = Piece(text, mult, wild, img)
-    slots.pieces.append(piece)
     return piece
+
+
+def add_piece_to_reels(piece):
+    raise NotImplementedError
 
 
 def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:
     shape = Shape(name, y_offsets, multiplier)
     slots.game_shapes.append(shape)
     return shape
+
 
 def create_pay_line(s: Shape, reel_window_height: int) -> list[PayLine]:
     starting_y = 0
