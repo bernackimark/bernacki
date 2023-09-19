@@ -266,6 +266,30 @@ db_schema:
     - name: info
       admin_ui: {order: 15, width: 200}
       type: simpleObject
+  posts:
+    client: none
+    server: full
+    columns:
+    - name: id
+      type: string
+      admin_ui: {width: 200, order: 0}
+    - name: title
+      type: string
+      admin_ui: {width: 200, order: 1}
+    - name: body_media
+      type: media
+      admin_ui: {width: 200, order: 2}
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_ts
+      type: datetime
+      admin_ui: {width: 200, order: 4}
+    - name: body_text
+      admin_ui: {order: 1.5, width: 200}
+      type: string
+    title: posts
   bots:
     title: bots
     client: search
@@ -416,6 +440,47 @@ db_schema:
       admin_ui: {order: 3, width: 200}
       type: string
     title: geo_known_collections
+  post_likes:
+    client: none
+    server: full
+    columns:
+    - name: id
+      type: string
+      admin_ui: {width: 200, order: 0}
+    - name: created_ts
+      admin_ui: {width: 200}
+      type: datetime
+    - name: created_by
+      admin_ui: {order: 1, width: 200}
+      type: link_single
+      target: users
+    - name: post_id
+      admin_ui: {width: 200}
+      type: link_single
+      target: posts
+    title: post_likes
+  post_comments:
+    client: none
+    server: full
+    columns:
+    - name: id
+      type: string
+      admin_ui: {width: 200, order: 0}
+    - name: created_by
+      admin_ui: {width: 200}
+      type: link_single
+      target: users
+    - name: created_ts
+      admin_ui: {width: 200}
+      type: datetime
+    - name: text
+      type: string
+      admin_ui: {width: 200, order: 3}
+    - name: post_id
+      admin_ui: {width: 200}
+      type: link_single
+      target: posts
+    title: post_comments
   parms:
     client: none
     server: full

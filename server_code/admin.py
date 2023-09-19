@@ -96,6 +96,9 @@ def get_my_apps_as_dicts(user=None):
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
 def write_new_app(name: str, title: str, group: str, user, icon_str: str, security: str):
+    if name in [a.name for a in get_all_apps(user)]:
+        print('That app name already exists')
+        return
     app = App(name=name, title=title, group=group, icon_str=icon_str, created_by=user['email'], security=security)
     row = app_tables.parms.get(what='app_list')
     if not row['value']:
