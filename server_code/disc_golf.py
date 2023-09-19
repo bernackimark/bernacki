@@ -116,6 +116,3 @@ def get_dg_data():
                                                            'created_ts', 'tourney_link',
                                                            mpo_champ_link=q.fetch_only('full_name', 'photo'),
                                                            fpo_champ_link=q.fetch_only('full_name', 'photo')))
-    # return app_tables.dg_events.search(q.fetch_only('tourney_link',
-    #                                                        mpo_champ_link=q.fetch_only('full_name'),
-    #                                                        fpo_champ_link=q.fetch_only('full_name')))
