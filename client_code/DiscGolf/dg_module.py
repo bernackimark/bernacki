@@ -14,8 +14,10 @@ def get_dg_data() -> list[dict]:
                       'city': r['tourney_link']['city'], 'state': r['tourney_link']['state'], 'country': r['tourney_link']['country']}
         if r['mpo_champ_link']:
             event['mpo_champion'] = r['mpo_champ_link']['full_name']
+            event['mpo_champ_photo'] = r['mpo_champ_link']['photo']
         if r['fpo_champ_link']:
             event['fpo_champion'] = r['fpo_champ_link']['full_name']
+            event['fpo_champ_photo'] = r['fpo_champ_link']['photo']
         dg_data.append(event)
     return dg_data
 
@@ -23,8 +25,8 @@ def sort_dg_data(column_name, reverse=False):
   return sorted(dg_data, key=lambda x: x[column_name], reverse=reverse)
 
 def filter_sort_unique_column(column_name, reverse=False):
-  column = {r[column_name] for r in dg_data if r[column_name] is not None}
-  return sorted(column, key=lambda x: x[0], reverse=reverse)
+    column = {r[column_name] for r in dg_data if r.get(column_name)}
+    return sorted(column, key=lambda x: x[0], reverse=reverse)
 
 def filter_sort_by_date_desc(column_name, value):
   filtered = [e for e in dg_data if e[column_name] == value]
@@ -37,8 +39,8 @@ def filter_by_time_period(time_period_id):
   return sorted(filtered, key=lambda x: x['end_date'], reverse=True)
 
 def group_sort_by_column(records: list[dict], grouper_column, reverse=True) -> list[dict]:
-  unique_values = {r[grouper_column] for r in records if r[grouper_column] is not None}
-  all_values = [r[grouper_column] for r in records if r[grouper_column] is not None]
+  unique_values = {r[grouper_column] for r in records if r.get(grouper_column)}
+  all_values = [r[grouper_column] for r in records if r.get(grouper_column)]
   list_of_dicts = [{'value': v, 'count': all_values.count(v)} for v in unique_values]
   return sorted(list_of_dicts, key=lambda x: [x['count'], x['value']], reverse=reverse)
 
