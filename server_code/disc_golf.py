@@ -109,3 +109,13 @@ def update_all_dg_player_photos() -> None:
                 r['photo_url'] = current_online_image
                 r['url'] = convert_photo_url_to_anvil_media(r['photo_url'])
                 print(f"Updated image for {r['full_name']}")
+
+@anvil.server.callable
+def get_dg_data() -> list[dict]:
+    return app_tables.dg_events.search(q.fetch_only('year', 'governing_body', 'designation', 'end_date',
+                                                           'created_ts', 'tourney_link',
+                                                           mpo_champ_link=q.fetch_only('full_name'),
+                                                           fpo_champ_link=q.fetch_only('full_name')))
+    # return app_tables.dg_events.search(q.fetch_only('tourney_link',
+    #                                                        mpo_champ_link=q.fetch_only('full_name'),
+    #                                                        fpo_champ_link=q.fetch_only('full_name')))

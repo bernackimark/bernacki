@@ -7,15 +7,16 @@ from .. import utils
 
 class DiscGolf(DiscGolfTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
-    dgm.dg_players = [_ for _ in app_tables.dg_players.search()]
-    dgm.dg_event_names = [_ for _ in app_tables.dg_tournaments.search()]
-    for e in dgm.dg_events:
-        print(e)
+    # dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+    # dgm.dg_players = [_ for _ in app_tables.dg_players.search()]
+    # dgm.dg_event_names = [_ for _ in app_tables.dg_tournaments.search()]
+
     
-    self.repeating_panel_1.items = dgm.sort_dg_events('end_date', True)
+    dgm.dg_data = dgm.get_dg_data()
+      
+    
+    self.repeating_panel_1.items = dgm.sort_dg_data('end_date', True)
     self.dd_mpo_champions.items = dgm.filter_sort_unique_column('mpo_champion')
     self.dd_fpo_champions.items = dgm.filter_sort_unique_column('fpo_champion')
     self.dd_events.items = dgm.filter_sort_unique_column('name')

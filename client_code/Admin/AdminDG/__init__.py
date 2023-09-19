@@ -15,7 +15,7 @@ from ... import utils_for_anvil as ua
 class AdminDG(AdminDGTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)
-        dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
+        dgm.dg_data = [_ for _ in app_tables.dg_data.search()]
         dgm.dg_event_names = [{'id': r['id'], 'name': r['name'], 'city': r['city'], 'state': r['state'], 'country': r['country']} for r in app_tables.dg_tournaments.search()]
         self.dd_event_name.items = [(f"{r['name']} ({r['city']}, {r['state']}, {r['country']})", r['id']) for r in dgm.dg_event_names]
         self.dd_governing_body.items = dgm.filter_sort_unique_column('governing_body')
@@ -23,8 +23,8 @@ class AdminDG(AdminDGTemplate):
         self.get_most_recent_loaded_event()
 
     def get_most_recent_loaded_event(self):
-        max_created_ts = max(r['created_ts'] for r in dgm.dg_events)
-        last_created_event_name, last_created_event_ts = [(r['name'], r['created_ts']) for r in dgm.dg_events if r['created_ts'] == max_created_ts][0]
+        max_created_ts = max(r['created_ts'] for r in dgm.dg_data)
+        last_created_event_name, last_created_event_ts = [(r['name'], r['created_ts']) for r in dgm.data if r['created_ts'] == max_created_ts][0]
         self.lbl_last_event_added.text = f'Last Event Added:{chr(10)}{last_created_event_name} ({last_created_event_ts:%m.%d.%Y %H:%M:%S})' 
     
     def btn_add_new_dg_event_click(self, **event_args):
