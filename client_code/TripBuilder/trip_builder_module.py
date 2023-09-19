@@ -1,3 +1,4 @@
+import anvil.server
 default_point: dict = {'name': '', 'orig': False, 'dest': False, 'lat_long': ()}
 default_table: list[dict] = [{'name': '', 'orig': True, 'dest': False, 'lat_long': ()},
                  {'name': '', 'orig': False, 'dest': False, 'lat_long': ()},

@@ -1,3 +1,4 @@
+import anvil.server
 import random
 
 deck_unshuffled = [[1, 1, '2', 'hearts', '2h', '🂲'], [2, 2, '3', 'hearts', '3h', '🂳'], [3, 3, '4', 'hearts', '4h', '🂴'],

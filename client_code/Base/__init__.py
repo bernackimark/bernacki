@@ -12,7 +12,9 @@ from .IntentionalBlankForm import IntentionalBlankForm
 from .PostCard import PostCard
 
 from ..Admin import Admin
+from ..Admin.AdminApps import AdminApps
 from ..Admin.AdminDG import AdminDG
+from ..Admin.AdminPosts import AdminPosts
 from ..Bets.ProposeBet import ProposeBet
 from ..Bets.SelfBet import SelfBet
 from ..DiscGolf import DiscGolf
@@ -29,7 +31,8 @@ from ..TripBuilder import TripBuilder
 
 from ..user import user
 
-app_form_dict = {'admin': Admin, 'admin_dg': AdminDG, 'propose_bet': ProposeBet, 'self_bet': SelfBet, 'disc_golf': DiscGolf,
+app_form_dict = {'admin': Admin, 'admin_apps': AdminApps, 'admin_dg': AdminDG, 'admin_posts': AdminPosts,
+                 'propose_bet': ProposeBet, 'self_bet': SelfBet, 'disc_golf': DiscGolf,
                  'feedback': FeaturesFeedback,
                  'cribbage': Cribbage, 'mastermind': Mastermind, 'setback': Setback, 'slots': Slots,
                  'sound_visualizer': SoundVisualizer, 'todo': ToDo, 'trip_builder': TripBuilder}

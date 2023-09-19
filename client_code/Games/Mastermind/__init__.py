@@ -1,5 +1,6 @@
 from ._anvil_designer import MastermindTemplate
 from anvil import *
+import anvil.server
 
 from . import mastermind_module as m
 from ... import utils_for_anvil as util

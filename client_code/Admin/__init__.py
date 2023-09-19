@@ -41,22 +41,6 @@ class Admin(AdminTemplate):
   def btn_write_test_bet_click(self, **event_args):
     anvil.server.call('write_test_bet')
 
-  def btn_add_new_app_click(self, **event_args):
-    if not self.tb_new_app_name.text or not self.tb_new_app_title.text:
-      alert('Enter a name and title, dumbass')
-      return
-    anvil.server.call_s('write_new_app', name=self.tb_new_app_name.text, title=self.tb_new_app_title.text,
-                        group=self.tb_new_app_group.text,
-                        user=user.user, icon_str=self.tb_icon_str.text, security=self.dd_security.selected_value)
-
   def btn_run_mohegan_click(self, **event_args):
     anvil.server.call('run_mohegan_scrape')
-
-  def btn_update_app_click(self, **event_args):
-    anvil.server.call('update_app', self.tb_app_name.text, self.tb_key.text, self.tb_value.text)
-
-  def btn_save_new_tourney_name_click(self, **event_args):
-    anvil.server.call('write_new_tourney_name', self.tb_new_tourney_name.text)
-
-
 

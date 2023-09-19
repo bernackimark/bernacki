@@ -1,5 +1,6 @@
 from ._anvil_designer import CribbageTemplate
 from anvil import *
+import anvil.server
 
 class Cribbage(CribbageTemplate):
   def __init__(self, **properties):

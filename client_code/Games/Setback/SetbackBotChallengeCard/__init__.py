@@ -1,5 +1,6 @@
 from ._anvil_designer import SetbackBotChallengeCardTemplate
 from anvil import *
+import anvil.server
 from .. import Setback
 from ..SetbackBotChallenge import SetbackBotChallenge
 from anvil.tables import app_tables

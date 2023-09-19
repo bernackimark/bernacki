@@ -1,3 +1,4 @@
+import anvil.server
 # anvil notes: outcome was an enum but no support, no return type pipe operator allowed
 import random
 from datetime import datetime

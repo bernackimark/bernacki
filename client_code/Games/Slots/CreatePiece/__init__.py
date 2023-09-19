@@ -1,5 +1,6 @@
 from ._anvil_designer import CreatePieceTemplate
 from anvil import *
+import anvil.server
 
 from .. import slots as m
 

@@ -1,5 +1,6 @@
 from ._anvil_designer import CreatePayLineTemplate
 from anvil import *
+import anvil.server
 
 from ..slots import user_pay_line as m
 
