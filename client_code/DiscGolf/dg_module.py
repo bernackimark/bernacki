@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 dg_events = []  # [_ for _ in app_tables.dg_events.search()]  I'm now loading this from the Form intializer, so that it doesn't run upon App startup
 dg_players = []  # ditto
-dg_event_names = []  # note: i only load this on the Admin page, not the DiscGolf Form
+dg_event_names = []  # ditto
 leaderboard_groupers = [('MPO Winner', 'mpo_champion'), ('FPO Winner', 'fpo_champion'), ('Event', 'name'), ('Year', 'year')]
 
 def sort_dg_events(column_name, reverse=False):
@@ -36,3 +36,6 @@ def get_image_url_from_name(scoreboard_value: str) -> str:
     if p['full_name'] == scoreboard_value:
       return p['photo_url']
   return ''
+
+def get_tourney_names_from_id(id: int) -> dict:
+    return [t for t in dg_event_names if t['id'] == id][0]

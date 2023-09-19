@@ -14,4 +14,3 @@ def color_rows(rp: anvil.RepeatingPanel):
   for i, r in enumerate(rp.get_components()):
     if not i%2:
       r.background='theme:Gray 200'
-    

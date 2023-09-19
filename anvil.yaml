@@ -14,7 +14,7 @@ scheduled_tasks:
 dependencies: []
 services:
 - source: /runtime/services/tables.yml
-  client_config: {}
+  client_config: {enable_v2: true}
   server_config: {auto_create_missing_columns: false}
 - source: /runtime/services/anvil/users.yml
   client_config: {email_from_address: bernackimark@gmail.com, require_secure_passwords: true,
@@ -128,7 +128,7 @@ db_schema:
     title: bets_bets
   dg_players:
     title: dg_players
-    client: search
+    client: full
     server: full
     columns:
     - name: pdga_id
@@ -213,14 +213,6 @@ db_schema:
       admin_ui: {order: 3.125, width: 194}
       type: string
     title: bugs_features
-  dg_event_names:
-    client: search
-    server: full
-    columns:
-    - name: name
-      type: string
-      admin_ui: {width: 200, order: 0}
-    title: dg_event_names
   users:
     title: Users
     client: none
@@ -323,6 +315,26 @@ db_schema:
     - name: user_email
       admin_ui: {width: 200}
       type: string
+  dg_tournaments:
+    client: full
+    server: full
+    columns:
+    - name: name
+      type: string
+      admin_ui: {width: 200, order: 0}
+    - name: city
+      type: string
+      admin_ui: {width: 200, order: 1}
+    - name: state
+      type: string
+      admin_ui: {width: 200, order: 2}
+    - name: country
+      type: string
+      admin_ui: {width: 200, order: 3}
+    - name: id
+      admin_ui: {order: -1, width: 111}
+      type: number
+    title: dg_tournaments
   games_log:
     title: games_log
     client: none
@@ -348,7 +360,7 @@ db_schema:
       type: simpleObject
   dg_events:
     title: dg_events
-    client: search
+    client: full
     server: full
     columns:
     - name: id
@@ -370,7 +382,7 @@ db_schema:
       admin_ui: {width: 132}
       type: date
     - name: city
-      admin_ui: {width: 200}
+      admin_ui: {order: 6, width: 129}
       type: string
     - name: state
       admin_ui: {width: 99}
@@ -378,12 +390,6 @@ db_schema:
     - name: country
       admin_ui: {width: 102}
       type: string
-    - name: mpo_champion
-      admin_ui: {order: 9, width: 200}
-      type: simpleObject
-    - name: fpo_champion
-      admin_ui: {order: 10, width: 200}
-      type: simpleObject
     - name: created_ts
       admin_ui: {width: 200}
       type: datetime
@@ -393,6 +399,24 @@ db_schema:
     - name: name
       admin_ui: {width: 200}
       type: string
+    - name: mpo_champion
+      admin_ui: {order: 14, width: 200}
+      type: string
+    - name: fpo_champion
+      admin_ui: {order: 15, width: 200}
+      type: string
+    - name: mpo_champ_link
+      admin_ui: {width: 200}
+      type: link_single
+      target: dg_players
+    - name: fpo_champ_link
+      admin_ui: {width: 200}
+      type: link_single
+      target: dg_players
+    - name: tourney_link
+      admin_ui: {width: 200}
+      type: link_single
+      target: dg_tournaments
   geo_known_collections:
     client: none
     server: full
