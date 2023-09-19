@@ -68,7 +68,7 @@ def get_my_apps(user=None):
         # user_row = app_tables.users.get(email=user['email'])
         if user['is_admin']:
             return app_list
-        return [a for a in app_list if a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
+        return [a for a in app_list if a.is_prod and a.security in [SecurityLevels.PUBLIC.value, SecurityLevels.PRIVATE.value]]
 
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
@@ -96,9 +96,6 @@ def get_my_apps_as_dicts(user=None):
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
 def write_new_app(name: str, title: str, group: str, user, icon_str: str, security: str):
-
-    # probably need to accept "group"
-    
     app = App(name=name, title=title, group=group, icon_str=icon_str, created_by=user['email'], security=security)
     row = app_tables.parms.get(what='app_list')
     if not row['value']:
