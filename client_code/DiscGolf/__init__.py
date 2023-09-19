@@ -8,11 +8,7 @@ from .. import utils
 class DiscGolf(DiscGolfTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
-    # dgm.dg_events = [_ for _ in app_tables.dg_events.search()]
-    # dgm.dg_players = [_ for _ in app_tables.dg_players.search()]
-    # dgm.dg_event_names = [_ for _ in app_tables.dg_tournaments.search()]
 
-    
     dgm.dg_data = dgm.get_dg_data()
       
     

@@ -15,27 +15,26 @@ from ... import utils_for_anvil as ua
 class AdminDG(AdminDGTemplate):
     def __init__(self, **properties):
         self.init_components(**properties)
-        dgm.dg_data = [_ for _ in app_tables.dg_data.search()]
+        dgm.dg_data = dgm.get_dg_data()
         dgm.dg_event_names = [{'id': r['id'], 'name': r['name'], 'city': r['city'], 'state': r['state'], 'country': r['country']} for r in app_tables.dg_tournaments.search()]
         self.dd_event_name.items = [(f"{r['name']} ({r['city']}, {r['state']}, {r['country']})", r['id']) for r in dgm.dg_event_names]
         self.dd_governing_body.items = dgm.filter_sort_unique_column('governing_body')
         self.dd_designation.items = dgm.filter_sort_unique_column('designation')
+        self.dd_mpo_champ.items = dgm.filter_sort_unique_column('mpo_champion')
+        self.dd_fpo_champ.items = dgm.filter_sort_unique_column('fpo_champion')
         self.get_most_recent_loaded_event()
 
     def get_most_recent_loaded_event(self):
         max_created_ts = max(r['created_ts'] for r in dgm.dg_data)
-        last_created_event_name, last_created_event_ts = [(r['name'], r['created_ts']) for r in dgm.data if r['created_ts'] == max_created_ts][0]
+        last_created_event_name, last_created_event_ts = [(r['name'], r['created_ts']) for r in dgm.dg_data if r['created_ts'] == max_created_ts][0]
         self.lbl_last_event_added.text = f'Last Event Added:{chr(10)}{last_created_event_name} ({last_created_event_ts:%m.%d.%Y %H:%M:%S})' 
     
     def btn_add_new_dg_event_click(self, **event_args):
-        tourney_info = dgm.get_tourney_names_from_id(id=self.dd_event_name.selected_value)
-        mpo_champ_row = app_tables.dg_players.get(full_name=self.tb_mpo_champion.text)
-        fpo_champ_row = app_tables.dg_players.get(full_name=self.tb_fpo_champion.text)
+        mpo_champ_row = app_tables.dg_players.get(full_name=self.dd_mpo_champ.selected_value)
+        fpo_champ_row = app_tables.dg_players.get(full_name=self.dd_fpo_champ.selected_value)
         tourney_row = app_tables.dg_tournaments.get(id=self.dd_event_name.selected_value)
         anvil.server.call('write_dg_event', governing_body=self.dd_governing_body.selected_value,
                         designation=self.dd_designation.selected_value, start_date=self.dp_start.date, end_date=self.dp_end.date,
-                        mpo_champion=self.tb_mpo_champion.text, fpo_champion=self.tb_fpo_champion.text,
-                        name=tourney_info['name'], city=tourney_info['city'], state=tourney_info['state'], country=tourney_info['country'],
                         mpo_champ_link=mpo_champ_row, fpo_champ_link=fpo_champ_row, tourney_link=tourney_row)
         self.get_most_recent_loaded_event()
     

@@ -1,7 +1,7 @@
 container: {type: ColumnPanel}
 components:
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{"QFNPPR":15,"MUKHDV":45,"AFRVWO":15,"LGWRAV":45,"ZCDXHC":15,"WTKYVN":45,"DXRJIJ":15,"KETLWK":45,"SYQDLB":15,"DZYTMT":15,"PAFUDP":45,"WRZRCY":15,"HYJBXM":45,"OTYQUM":15,"LOTRZA":45,"KTAGJS":45}'}
+  properties: {role: card, col_widths: '{"QFNPPR":15,"MUKHDV":45,"AFRVWO":15,"LGWRAV":45,"ZCDXHC":15,"WTKYVN":45,"DXRJIJ":15,"KETLWK":45,"SYQDLB":15,"WRZRCY":12,"OTYQUM":15,"LOTRZA":45,"KTAGJS":45,"SMZHPI":15,"EXFSEZ":45,"ERTDXT":39}'}
   name: card_add_new_dg_event
   layout_properties:
     col_widths: {}
@@ -136,11 +136,29 @@ components:
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: label_10
-    layout_properties: {grid_position: 'SVSYAR,DZYTMT'}
-  - type: TextBox
-    properties: {}
-    name: tb_mpo_champion
-    layout_properties: {grid_position: 'SVSYAR,PAFUDP'}
+    layout_properties: {grid_position: 'DZBNLC,SMZHPI'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_mpo_champ
+    layout_properties: {grid_position: 'DZBNLC,EXFSEZ'}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
       visible: true, text: FPO Winner, font_size: null, font: '', spacing_above: small,
@@ -148,10 +166,28 @@ components:
       underline: false, icon: ''}
     name: label_11
     layout_properties: {grid_position: 'JAVBXY,WRZRCY'}
-  - type: TextBox
-    properties: {}
-    name: tb_fpo_champion
-    layout_properties: {grid_position: 'JAVBXY,HYJBXM'}
+  - type: DropDown
+    properties:
+      role: null
+      align: full
+      tooltip: ''
+      placeholder: ''
+      border: ''
+      enabled: true
+      foreground: ''
+      items: []
+      visible: true
+      font_size: null
+      font: ''
+      spacing_above: small
+      spacing_below: small
+      italic: false
+      background: ''
+      bold: false
+      underline: false
+      include_placeholder: true
+    name: dd_fpo_champ
+    layout_properties: {grid_position: 'JAVBXY,ERTDXT'}
   - type: Button
     properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: clear, font_size: null, font: '', spacing_above: small,

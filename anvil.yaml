@@ -320,19 +320,19 @@ db_schema:
     server: full
     columns:
     - name: name
+      admin_ui: {order: 0, width: 232}
       type: string
-      admin_ui: {width: 200, order: 0}
     - name: city
+      admin_ui: {order: 1, width: 158}
       type: string
-      admin_ui: {width: 200, order: 1}
     - name: state
+      admin_ui: {order: 2, width: 121}
       type: string
-      admin_ui: {width: 200, order: 2}
     - name: country
+      admin_ui: {order: 3, width: 106}
       type: string
-      admin_ui: {width: 200, order: 3}
     - name: id
-      admin_ui: {order: -1, width: 111}
+      admin_ui: {order: -1, width: 93}
       type: number
     title: dg_tournaments
   games_log:
@@ -367,7 +367,7 @@ db_schema:
       admin_ui: {width: 58}
       type: number
     - name: year
-      admin_ui: {width: 83}
+      admin_ui: {order: 1, width: 55}
       type: number
     - name: governing_body
       admin_ui: {width: 97}
@@ -376,45 +376,27 @@ db_schema:
       admin_ui: {order: 3, width: 139}
       type: string
     - name: start_date
-      admin_ui: {width: 139}
+      admin_ui: {order: 4, width: 93}
       type: date
     - name: end_date
-      admin_ui: {width: 132}
+      admin_ui: {order: 5, width: 90}
       type: date
-    - name: city
-      admin_ui: {order: 6, width: 129}
-      type: string
-    - name: state
-      admin_ui: {width: 99}
-      type: string
-    - name: country
-      admin_ui: {width: 102}
-      type: string
     - name: created_ts
-      admin_ui: {width: 200}
+      admin_ui: {order: 11, width: 190}
       type: datetime
     - name: lmt
-      admin_ui: {width: 200}
+      admin_ui: {order: 12, width: 190}
       type: datetime
-    - name: name
-      admin_ui: {width: 200}
-      type: string
-    - name: mpo_champion
-      admin_ui: {order: 14, width: 200}
-      type: string
-    - name: fpo_champion
-      admin_ui: {order: 15, width: 200}
-      type: string
     - name: mpo_champ_link
-      admin_ui: {width: 200}
+      admin_ui: {order: 16, width: 137}
       type: link_single
       target: dg_players
     - name: fpo_champ_link
-      admin_ui: {width: 200}
+      admin_ui: {order: 17, width: 129}
       type: link_single
       target: dg_players
     - name: tourney_link
-      admin_ui: {width: 200}
+      admin_ui: {order: 18, width: 108}
       type: link_single
       target: dg_tournaments
   geo_known_collections:

@@ -29,7 +29,7 @@ def filter_sort_unique_column(column_name, reverse=False):
     return sorted(column, key=lambda x: x[0], reverse=reverse)
 
 def filter_sort_by_date_desc(column_name, value):
-  filtered = [e for e in dg_data if e[column_name] == value]
+  filtered = [e for e in dg_data if e.get(column_name) and e[column_name] == value]
   return sorted(filtered, key=lambda x: x['end_date'], reverse=True)
 
 def filter_by_time_period(time_period_id):
@@ -50,6 +50,3 @@ def get_image_url_from_name(scoreboard_value: str) -> str:
     if p['mpo_champion'] == scoreboard_value or p['fpo_champion'] == scoreboard_value:
       return p['photo_url']
   return ''
-
-def get_tourney_names_from_id(id: int) -> dict:
-    return [t for t in dg_event_names if t['id'] == id][0]
