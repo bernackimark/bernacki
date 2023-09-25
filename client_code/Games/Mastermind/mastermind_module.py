@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 import anvil.server
 # anvil notes: outcome was an enum but no support, no return type pipe operator allowed
 import random

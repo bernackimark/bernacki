@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 import anvil.email
 import anvil.secrets
 import anvil.users
@@ -9,7 +10,7 @@ import anvil.media
 
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
-def create_post(title: str, body_text: text, user, media: anvil.media = None):
+def create_post(title: str, body_text: str, user, media: anvil.media = None):
     pass
 
     # refer back to testing3 in PyCharm

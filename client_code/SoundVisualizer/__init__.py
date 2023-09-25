@@ -1,5 +1,6 @@
 from ._anvil_designer import SoundVisualizerTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 from . import sound_visualizer as sv

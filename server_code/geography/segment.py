@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 from dataclasses import dataclass
 from geography.point import Point
 

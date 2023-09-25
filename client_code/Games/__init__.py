@@ -1,5 +1,6 @@
 from ._anvil_designer import GamesTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 from .Cribbage import Cribbage
 from .Mastermind import Mastermind

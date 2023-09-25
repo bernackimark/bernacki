@@ -1,5 +1,6 @@
 from ._anvil_designer import LeaderboardRowTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 from .. import dg_module as m

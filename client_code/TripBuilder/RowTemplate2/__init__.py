@@ -1,5 +1,6 @@
 from ._anvil_designer import RowTemplate2Template
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 class RowTemplate2(RowTemplate2Template):

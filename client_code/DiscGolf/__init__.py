@@ -1,5 +1,6 @@
 from ._anvil_designer import DiscGolfTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 from anvil.tables import app_tables
 from . import dg_module as dgm

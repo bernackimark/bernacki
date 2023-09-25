@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 import anvil.server
 import anvil.email
 from bs4 import BeautifulSoup as bs

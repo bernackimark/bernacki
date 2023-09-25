@@ -1,5 +1,6 @@
 from ._anvil_designer import ToDoTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 from anvil.tables import app_tables
 

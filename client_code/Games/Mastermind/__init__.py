@@ -1,5 +1,6 @@
 from ._anvil_designer import MastermindTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 from . import mastermind_module as m

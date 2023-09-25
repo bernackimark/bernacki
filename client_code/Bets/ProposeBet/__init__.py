@@ -1,5 +1,6 @@
 from ._anvil_designer import ProposeBetTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 from .. import bets_module as m

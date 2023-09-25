@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 import anvil.server
 
 group_color_palate = ['LightBlue', 'LightPink', 'LemonChiffon', 'LightSalmon', 'Gainsboro', 'Aquamarine']

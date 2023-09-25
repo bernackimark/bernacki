@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 from geography.segment import Segment
 from dataclasses import dataclass
 

@@ -1,5 +1,6 @@
 from ._anvil_designer import GuessLogRowTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 
 class GuessLogRow(GuessLogRowTemplate):

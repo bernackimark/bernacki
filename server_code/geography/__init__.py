@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 # from fake_front_end import incoming_data
 from geography.geocoding import get_lat_long
 from geography.point import Point

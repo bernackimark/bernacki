@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 from dataclasses import dataclass, field
 from datetime import date, datetime
 import uuid

@@ -18,8 +18,9 @@ services:
   server_config: {auto_create_missing_columns: false}
 - source: /runtime/services/anvil/users.yml
   client_config: {email_from_address: bernackimark@gmail.com, require_secure_passwords: true,
-    use_token: true, use_email: true, allow_remember_me: true, allow_signup: true,
-    enable_automatically: true, confirm_email: true, remember_me_days: 30, use_google: true}
+    use_token: false, use_email: false, allow_remember_me: false, allow_signup: true,
+    enable_automatically: true, confirm_email: true, remember_me_days: 30, use_google: true,
+    use_facebook: true}
   server_config:
     user_table: users
     email_content:
@@ -70,6 +71,9 @@ services:
 - source: /runtime/services/anvil/email.yml
   client_config: {}
   server_config: {test_mode: true}
+- source: /runtime/services/facebook.yml
+  client_config: {}
+  server_config: {}
 startup: {type: form, module: Base}
 package_name: Bernacki
 allow_embedding: false
@@ -227,15 +231,9 @@ db_schema:
     - name: signed_up
       admin_ui: {width: 200}
       type: datetime
-    - name: password_hash
-      admin_ui: {width: 200}
-      type: string
     - name: confirmed_email
       admin_ui: {width: 200}
       type: bool
-    - name: email_confirmation_key
-      admin_ui: {width: 200}
-      type: string
     - name: last_login
       admin_ui: {width: 200}
       type: datetime

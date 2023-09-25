@@ -1,5 +1,6 @@
 from ._anvil_designer import SetbackTemplate
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 from . import SetbackModule as s
 

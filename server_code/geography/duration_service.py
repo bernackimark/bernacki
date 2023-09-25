@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 import anvil.secrets
 # from geopy.geocoders import Nominatim
 from geopy import distance
