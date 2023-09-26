@@ -1,15 +1,11 @@
 from ._anvil_designer import FeaturesFeedbackTemplate
 from anvil import *
-import anvil.facebook.auth
 import anvil.server
-import anvil.google.auth, anvil.google.drive
-from anvil.google.drive import app_files
 import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-from .. import client_side_general_module as m
 from ..user import user
 
 class FeaturesFeedback(FeaturesFeedbackTemplate):
@@ -17,7 +13,7 @@ class FeaturesFeedback(FeaturesFeedbackTemplate):
     self.init_components(**properties)
     m.my_apps = m.MyApps()
     
-    self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = m.my_apps.name_and_title_tuples
+    self.dd_new_feature_apps.items = self.dd_report_bug_apps.items = [(a['title'], a['name']) for a in user.my_apps]
     self.tb_bug_title.placeholder, self.tb_feature_title.placeholder = 'My issue title', 'My feature/idea title'
     self.ta_bug_description.placeholder = self.ta_new_description.placeholder = 'My description.  Please enter as much information as possible.'
     

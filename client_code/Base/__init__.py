@@ -94,16 +94,13 @@ class Base(BaseTemplate):
     
     def show_app_links(self):
         self.cp_links.clear()
-        my_apps = anvil.server.call('get_my_apps_as_dicts', user.user)
-        my_app_groups = sorted({a['group'] for a in my_apps})
-        for ag in my_app_groups:
+        for ag in user.my_app_groups:
             link_group = Link(text=ag if ag else 'Uncategorized', align='center', font_size=18)
             link_group.add_event_handler('click', lambda **e: self.link_group_click(**e))
             self.cp_links.add_component(link_group)
-            for a in my_apps:
+            for a in user.my_apps:
                 if a['group'] == ag:
-                    a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
-                    link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
+                    link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=None if a['icon_str'] == '' else a['icon_str'])
                     link.tag = a['name']
                     link.add_event_handler('click', self.app_link_click)
                     link.visible = False
