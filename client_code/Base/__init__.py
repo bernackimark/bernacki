@@ -8,6 +8,7 @@ import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+import anvil.media
 
 from .IntentionalBlankForm import IntentionalBlankForm
 from .PostCard import PostCard
@@ -43,98 +44,99 @@ app_form_dict = {'admin': Admin, 'admin_apps': AdminApps, 'admin_dg': AdminDG, '
 from datetime import datetime
 
 class Base(BaseTemplate):
-  def __init__(self, **properties):
-    self.init_components(**properties)
-    self.go_home_link.icon = '_/theme/bernacki_logo.png' 
-    self.show_user_links()
-    self.show_app_links()
-    self.show_posts()
+    def __init__(self, **properties):
+        self.init_components(**properties)
+        self.go_home_link.icon = '_/theme/bernacki_logo.png' 
+        self.show_user_links()
+        self.show_app_links()
+        self.show_posts()
 
-  def go_home_link_click(self, **event_args):
-    self.cp_link_highlights(**event_args)
-    self.content_panel.clear()
+    def go_home_link_click(self, **event_args):
+        self.cp_link_highlights(**event_args)
+        self.content_panel.clear()
 
-  def show_user_links(self, **event_args):
-      if user.logged_in:
-          self.sign_in.icon = user.user['avatar']
-          self.btn_register.visible = False
-      else:
-          self.sign_in.icon = 'fa:user'
-          self.sign_in.text = "Sign In"
-          self.btn_register.visible = True
+    def show_user_links(self, **event_args):
+        if user.logged_in:
+            if user.user['avatar']:
+                self.link_signinup.text = ''
+                self.link_signinup.font_size = 30
+                # if this is expensive, consider a system wherein user avatars are stored in Assets like: username_wer523412e1wdq.png
+                with anvil.media.TempUrl(user.user['avatar']) as file:
+                    self.link_signinup.icon = file
+                    return
+            # self.link_signinup.text = user.user['handle']
+            self.link_signinup.text = ''
+            return
+        self.link_signinup.icon = 'fa:user'
+        self.link_signinup.text = "Sign In/Up"
     
-  def sign_in_click(self, **event_args):
-      if user.logged_in:
-          if confirm("Logout?"):
-              self.logout()
-      else:
-          anvil.users.login_with_form(allow_cancel=True)
-          self.login()
-    
-  def btn_register_click(self, **event_args):
-      if anvil.users.signup_with_form(allow_cancel=True):
-          self.login()
+    def link_signinup_click(self, **event_args):
+        if user.logged_in:
+            if confirm("Logout?"):
+                self.logout()
+        else:
+            anvil.users.login_with_form(allow_cancel=True)
+            self.login()
 
-  def login(self):
-      user.login()
-      if not user.user['is_confirmed']:
-          handle, avatar = alert(CompleteRegistration(), large=True, buttons=[], dismissible=False)
-          user.update_handle(handle, avatar)
-          
-      self.show_app_links()
-      self.show_user_links()
+    def login(self):
+        user.login()
+        if not user.user['is_confirmed']:
+            handle, avatar = alert(CompleteRegistration(), large=True, buttons=[], dismissible=False)
+            user.update_handle_and_avatar(handle, avatar)
+        self.show_app_links()
+        self.show_user_links()
 
-  def logout(self):
-      user.logout()
-      self.show_app_links()
-      self.show_user_links()
-      self.content_panel.clear()
+    def logout(self):
+        user.logout()
+        self.show_app_links()
+        self.show_user_links()
+        self.content_panel.clear()
     
-  def show_app_links(self):
-    self.cp_links.clear()
-    my_apps = anvil.server.call('get_my_apps_as_dicts', user.user)
-    my_app_groups = sorted({a['group'] for a in my_apps})
-    for ag in my_app_groups:
-      link_group = Link(text=ag if ag else 'Uncategorized', align='center', font_size=18)
-      link_group.add_event_handler('click', lambda **e: self.link_group_click(**e))
-      self.cp_links.add_component(link_group)
-      for a in my_apps:
-        if a['group'] == ag:
-          a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
-          link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
-          link.tag = a['name']
-          link.add_event_handler('click', self.app_link_click)
-          link.visible = False
-          link_group.add_component(link)
+    def show_app_links(self):
+        self.cp_links.clear()
+        my_apps = anvil.server.call('get_my_apps_as_dicts', user.user)
+        my_app_groups = sorted({a['group'] for a in my_apps})
+        for ag in my_app_groups:
+            link_group = Link(text=ag if ag else 'Uncategorized', align='center', font_size=18)
+            link_group.add_event_handler('click', lambda **e: self.link_group_click(**e))
+            self.cp_links.add_component(link_group)
+            for a in my_apps:
+                if a['group'] == ag:
+                    a['icon_str'] = None if a['icon_str'] == '' else a['icon_str']
+                    link = Link(text=a['title'], align='center', font_size=18, icon_align='top', icon=a['icon_str'])
+                    link.tag = a['name']
+                    link.add_event_handler('click', self.app_link_click)
+                    link.visible = False
+                    link_group.add_component(link)
   
-  def app_link_click(self, **e):
-    app_name = e['sender'].tag
-    self.cp_link_highlights(**e)
-    self.content_panel.clear()
-    if app_name not in app_form_dict.keys():
-      self.content_panel.add_component(IntentionalBlankForm())
-      return
-    self.content_panel.add_component(app_form_dict[app_name]())
+    def app_link_click(self, **e):
+        app_name = e['sender'].tag
+        self.cp_link_highlights(**e)
+        self.content_panel.clear()
+        if app_name not in app_form_dict.keys():
+            self.content_panel.add_component(IntentionalBlankForm())
+            return
+        self.content_panel.add_component(app_form_dict[app_name]())
 
-  def cp_link_highlights(self, **e):
-    for l in self.cp_links.get_components():
-      if type(l) is Link:
-        l.role = ''
-    e['sender'].role = 'selected'
+    def cp_link_highlights(self, **e):
+        for l in self.cp_links.get_components():
+            if type(l) is Link:
+                l.role = ''
+        e['sender'].role = 'selected'
 
-  def link_group_click(self, **e):
-    for o in e['sender'].get_components():
-      if type(o) is Link:
-        o.visible = False if o.visible else True
+    def link_group_click(self, **e):
+        for o in e['sender'].get_components():
+            if type(o) is Link:
+                o.visible = False if o.visible else True
 
-  def show_posts(self):
-    self.rp_posts.items = [{'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': '1h ago', 
-                            'body': ['Lorem ipsum dolor ' * 10], 'like_cnt': 5, 'comment_cnt': 7, 'has_user_liked': True,
-                            'title': 'Post #3', 'comments': [{'avatar': '_/theme/maroon_tile.png', 'handle': 'Micky Maroon', 'text': 'My son says your website stinks!', 'time_ago': '1s ago'}]},
-                          {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two weeks ago', 
-                            'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
-                            'title': 'Post #2: The One About the Thing', 'comments': [{'avatar': '_/theme/gold_tile.png', 'handle': 'Glenda Golden', 'text': '0 out of 5 stars. Would not recommend ...', 'time_ago': '2h ago'}]},
-                          {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two months ago', 
-                            'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
-                            'title': 'Announcing the Bernacki Website!!!', 'comments': []}]
+    def show_posts(self):
+        self.rp_posts.items = [{'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': '1h ago', 
+                                'body': ['Lorem ipsum dolor ' * 10], 'like_cnt': 5, 'comment_cnt': 7, 'has_user_liked': True,
+                                'title': 'Post #3', 'comments': [{'avatar': '_/theme/maroon_tile.png', 'handle': 'Micky Maroon', 'text': 'My son says your website stinks!', 'time_ago': '1s ago'}]},
+                            {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two weeks ago', 
+                                'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
+                                'title': 'Post #2: The One About the Thing', 'comments': [{'avatar': '_/theme/gold_tile.png', 'handle': 'Glenda Golden', 'text': '0 out of 5 stars. Would not recommend ...', 'time_ago': '2h ago'}]},
+                            {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two months ago', 
+                                'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
+                                'title': 'Announcing the Bernacki Website!!!', 'comments': []}]
 

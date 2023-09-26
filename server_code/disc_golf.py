@@ -83,7 +83,7 @@ def update_all_dg_player_photos() -> None:
         if found:  # if there is no image found, don't update it ... still provides an image for a player who took down an image
             if r['photo_url'] != current_online_image:
                 r['photo_url'] = current_online_image
-                r['url'] = convert_photo_url_to_anvil_media(r['photo_url'])
+                r['photo'] = convert_photo_url_to_anvil_media(r['photo_url'])
                 print(f"Updated image for {r['full_name']}")
 
 @anvil.server.callable
