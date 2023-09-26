@@ -231,8 +231,8 @@ db_schema:
     - name: signed_up
       admin_ui: {width: 200}
       type: datetime
-    - name: confirmed_email
-      admin_ui: {width: 200}
+    - name: is_confirmed
+      admin_ui: {order: 4, width: 200}
       type: bool
     - name: last_login
       admin_ui: {width: 200}
@@ -264,6 +264,9 @@ db_schema:
     - name: info
       admin_ui: {order: 15, width: 200}
       type: simpleObject
+    - name: avatar
+      admin_ui: {width: 200, order: 16}
+      type: media
   posts:
     client: none
     server: full

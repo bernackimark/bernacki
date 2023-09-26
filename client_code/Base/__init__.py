@@ -11,6 +11,7 @@ from anvil.tables import app_tables
 
 from .IntentionalBlankForm import IntentionalBlankForm
 from .PostCard import PostCard
+from .CompleteRegistration import CompleteRegistration
 
 from ..Admin import Admin
 from ..Admin.AdminApps import AdminApps
@@ -45,28 +46,50 @@ class Base(BaseTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
     self.go_home_link.icon = '_/theme/bernacki_logo.png' 
+    self.show_user_links()
     self.show_app_links()
     self.show_posts()
 
   def go_home_link_click(self, **event_args):
     self.cp_link_highlights(**event_args)
     self.content_panel.clear()
+
+  def show_user_links(self, **event_args):
+      if user.logged_in:
+          self.sign_in.icon = user.user['avatar']
+          self.btn_register.visible = False
+      else:
+          self.sign_in.icon = 'fa:user'
+          self.sign_in.text = "Sign In"
+          self.btn_register.visible = True
     
   def sign_in_click(self, **event_args):
-    if user.logged_in:
-      logout = confirm("Logout?")
-      if logout:
-        user.logout()
-        anvil.users.logout()
-        self.change_sign_in_text()
-        self.content_panel.clear()
-        self.show_app_links()
-      return
-    anvil.users.login_with_form(allow_cancel=True)
-    user.login()
-    self.show_app_links()
-    self.change_sign_in_text()
+      if user.logged_in:
+          if confirm("Logout?"):
+              self.logout()
+      else:
+          anvil.users.login_with_form(allow_cancel=True)
+          self.login()
+    
+  def btn_register_click(self, **event_args):
+      if anvil.users.signup_with_form(allow_cancel=True):
+          self.login()
 
+  def login(self):
+      user.login()
+      if not user.user['is_confirmed']:
+          handle, avatar = alert(CompleteRegistration(), large=True, buttons=[], dismissible=False)
+          user.update_handle(handle, avatar)
+          
+      self.show_app_links()
+      self.show_user_links()
+
+  def logout(self):
+      user.logout()
+      self.show_app_links()
+      self.show_user_links()
+      self.content_panel.clear()
+    
   def show_app_links(self):
     self.cp_links.clear()
     my_apps = anvil.server.call('get_my_apps_as_dicts', user.user)
@@ -93,13 +116,6 @@ class Base(BaseTemplate):
       return
     self.content_panel.add_component(app_form_dict[app_name]())
 
-  def change_sign_in_text(self):
-    if user.logged_in:
-      self.sign_in.text = user.user['email']
-      self.sign_in.width = len(user.user['email']) * 10
-    else:
-      self.sign_in.text = "Sign In"
-
   def cp_link_highlights(self, **e):
     for l in self.cp_links.get_components():
       if type(l) is Link:
@@ -121,3 +137,4 @@ class Base(BaseTemplate):
                           {'avatar': '_/theme/cat_cropped.png', 'handle': 'Bernacki', 'time_ago': 'Two months ago', 
                             'body': ['Lorem ipsum dolor ' * 25], 'like_cnt': 0, 'comment_cnt': 0, 'has_user_liked': False,
                             'title': 'Announcing the Bernacki Website!!!', 'comments': []}]
+

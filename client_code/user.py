@@ -19,5 +19,8 @@ class User:
         self.user = None
         self.logged_in = False
 
+    def update_handle_and_avatar(self, handle, avatar):
+        anvil.server.call('update_handle', handle, avatar)
+        self.user = anvil.users.get_user()
 
 user = User()
