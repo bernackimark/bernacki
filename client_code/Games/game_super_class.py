@@ -2,6 +2,7 @@ import anvil.facebook.auth
 import anvil.server
 from datetime import datetime
 
+from typing import Protocol
 
 class Game:
     def __new__(cls, *args, **kwargs):
