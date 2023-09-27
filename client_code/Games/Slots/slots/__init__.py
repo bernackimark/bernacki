@@ -194,8 +194,8 @@ class PayoutSummary:
 
 
 class Slots(Game):
-    def __init__(self, player_emails: list[str] = [], slots_balance: float = 0.0):
-        super().__init__(game_name='slots', player_emails=player_emails)
+    def __init__(self):
+        super().__init__(game_name='slots')
         self.state = 'betting'
         self.slots_balance = slots_balance
         self.min_same_line_match = MIN_SAME_LINE_MATCH
@@ -256,6 +256,7 @@ class Slots(Game):
     def end_round(self):
         self.state = 'game_over'
         self.send_end_game_data_to_parent()
+\\
         self.update_player_info({'slots_balance': slots.slots_balance})
         self.write_game_to_db()
   

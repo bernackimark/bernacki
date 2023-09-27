@@ -39,9 +39,3 @@ def update_player_info(user_email: str, d: dict):
             user_row_info[k] = v
     user_row['info'] = user_row_info
 
-@anvil.server.callable
-def get_user_info(user_email) -> dict:
-  return app_tables.users.get(email=user_email)['info']
-
-##### getting the user row again seems inefficient.
-##### should probably just be sending the entire user record from client to server

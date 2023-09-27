@@ -8,7 +8,6 @@ from .CreatePiece import CreatePiece
 
 from .slots import user_pay_line as upl
 from . import slots as m
-from ...user import user
 import random
 from itertools import cycle
 
@@ -16,7 +15,6 @@ class Slots(SlotsTemplate):
     def __init__(self, **properties):
     # Set Form properties and Data Bindings.
         self.init_components(**properties)
-        self.user = user.user
         self.initial_setup()
         self.tb_bet_amt.text = 1
         self.lbl_balance.text = m.slots.slots_balance
@@ -25,7 +23,7 @@ class Slots(SlotsTemplate):
         self.display_reels(m.slots.reels.transposed_visible_reels)
     
     def initial_setup(self) -> None:
-        m.slots = m.Slots(self.user['email'], self.user['info'].get('slots_balance'))
+        m.slots = m.Slots()
     
     def tb_bet_amt_change(self, **event_args):
         if self.tb_bet_amt.text in [None, '', ' ', 0]:
