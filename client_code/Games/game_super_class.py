@@ -13,10 +13,6 @@ class Game:
         self.player_email = user.user['email']
         self.player_info = user.user['info']
         self.game_data = {}  # this is an empty dict which will get populated by the child game
-        
-    @property
-    def as_dictionary(self) -> dict:
-        return self.__dict__
 
     @property
     def parent_class_dict(self) -> dict:

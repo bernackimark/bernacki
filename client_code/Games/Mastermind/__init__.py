@@ -5,16 +5,10 @@ import anvil.server
 
 from . import mastermind_module as m
 from ... import utils_for_anvil as util
-from ...user import user
-# import anvil.image
 
 class Mastermind(MastermindTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
-    self.email = user.user['email'] if user.logged_in else None
-    # print(f'The email is: {email}')
     
     self.prompt_1_lbl.text = m.UI.prompt_datatype_answers[0]['prompt']
     self.prompt_2_lbl.text = m.UI.prompt_datatype_answers[1]['prompt']
@@ -26,7 +20,7 @@ class Mastermind(MastermindTemplate):
     self.rt_instructions.content = m.UI.instructions_text
   
   def new_game_btn_click(self, **event_args):
-    m.mastermind = m.Mastermind(self.email, self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
+    m.mastermind = m.Mastermind(self.prompt_1_dd.selected_value, self.prompt_2_dd.selected_value, self.prompt_3_dd.selected_value)
     self.display_available_colors()
     self.card_new_game.visible = self.card_play_again.visible = False
     self.card_round_number.visible = self.card_available_colors.visible = self.card_your_guess.visible = self.card_guess_log.visible = True

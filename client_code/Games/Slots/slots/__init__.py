@@ -8,6 +8,7 @@ from copy import deepcopy
 
 # from ... import game_super_class as gsc
 from ... game_super_class import Game
+from ....user import user
 
 REEL_CNT = 5
 REEL_LENGTH = 100
@@ -197,7 +198,7 @@ class Slots(Game):
     def __init__(self):
         super().__init__(game_name='slots')
         self.state = 'betting'
-        self.slots_balance = slots_balance
+        self.slots_balance = self.get_slots_balance()
         self.min_same_line_match = MIN_SAME_LINE_MATCH
         self.max_bet = MAX_BET
         self.game_shapes: list[Shape] = default_shapes
@@ -223,6 +224,11 @@ class Slots(Game):
 
     def send_end_game_data_to_parent(self):
         self.game_data = self.game_data_dict
+
+    def get_slots_balance(self):
+        if user.user['info'].get('slots_balance'):
+            return user.user['info']['slots_balance']
+        return 100
 
     @property
     def spin_payout(self):
@@ -256,8 +262,7 @@ class Slots(Game):
     def end_round(self):
         self.state = 'game_over'
         self.send_end_game_data_to_parent()
-\\
-        self.update_player_info({'slots_balance': slots.slots_balance})
+        self.update_player_info({'slots_balance': self.slots_balance})
         self.write_game_to_db()
   
 

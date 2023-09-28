@@ -13,7 +13,6 @@ from itertools import cycle
 
 class Slots(SlotsTemplate):
     def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
         self.init_components(**properties)
         self.initial_setup()
         self.tb_bet_amt.text = 1

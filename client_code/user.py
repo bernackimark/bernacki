@@ -1,7 +1,6 @@
 import anvil.server
 import anvil.users
 
-
 # important to have this in a module because having anvil.users.get_user() is an expensive server call
 # don't forget to use user.user (not just user) to get the user row dictionary
 class User:

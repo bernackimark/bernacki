@@ -79,8 +79,8 @@ class Guess:
 
 
 class Mastermind(gm.Game):
-    def __init__(self, player_emails: list[str], color_set_cnt: int, answer_len: int, max_guess_cnt: int):
-        super().__init__('mastermind', player_emails)
+    def __init__(self, color_set_cnt: int, answer_len: int, max_guess_cnt: int):
+        super().__init__('mastermind')
         self.color_set_cnt = color_set_cnt
         self.color_bank = ColorBank(color_set_cnt)
         self.answer_len = answer_len
@@ -119,16 +119,15 @@ class Mastermind(gm.Game):
     def check_for_end_game(self):
         if self.is_winner:
             self.outcome = 'win'
-            self.state = 'game_over'
-            self.send_end_game_data_to_parent()
-            self.write_game_to_db()
-            return
+            self.end_round()
         if self.guess_number == self.max_guess_cnt:
             self.outcome = 'loss'
-            self.state = 'game_over'
-            self.send_end_game_data_to_parent()
-            self.write_game_to_db()
-            return
+            self.end_round()
+
+    def end_round(self):
+        self.state = 'game_over'
+        self.send_end_game_data_to_parent()
+        self.write_game_to_db()
 
     def send_end_game_data_to_parent(self):
         self.game_data = self.game_data_dict
