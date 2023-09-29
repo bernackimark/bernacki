@@ -88,7 +88,7 @@ def update_app(app_name, key, value):
 
 @anvil.server.callable(require_user=lambda u: u['is_admin'])
 def update_app_test(app_name, key, value):
-    row = app_tables.parms.get(what='app_list')
+    row = app_tables.parms.get(what='test_list')
     list_of_dicts = [_ for _ in row['value']]
     app = [app for app in list_of_dicts if app['name'] == app_name][0]
     app_snapshot = App(**app).history_record
