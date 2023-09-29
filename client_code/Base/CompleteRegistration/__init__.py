@@ -20,4 +20,4 @@ class CompleteRegistration(CompleteRegistrationTemplate):
     def btn_save_completed_registration_click(self, **event_args):
         self.raise_event("x-close-alert", value=[self.tb_complete_reg_handle.text, self.fl_complete_reg_avatar.file])
         # it seems the when using the built-in x-close-alert, the return value's
-        # variable name must be "value" ... so how do i save the avatar?
+        # variable name must be "value"

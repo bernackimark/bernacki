@@ -11,7 +11,7 @@ class User:
 
     @property
     def my_app_groups(self) -> list[str]:
-        return sorted({a['group'] for a in self.my_apps})
+        return sorted({a['group'] for a in self.my_apps})   
 
     def login(self):
         self.user = anvil.users.get_user()
@@ -25,6 +25,10 @@ class User:
 
     def update_handle_and_avatar(self, handle, avatar):
         anvil.server.call('update_handle_and_avatar', handle, avatar)
+        self.user = anvil.users.get_user()
+
+    def update_avatar(self, avatar):
+        anvil.server.call('update_avatar', avatar)
         self.user = anvil.users.get_user()
 
 

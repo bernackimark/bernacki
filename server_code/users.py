@@ -8,6 +8,14 @@ import anvil.media
 from PIL import Image, ImageDraw
 import io
 
+
+@anvil.server.callable(require_user=True)
+def update_avatar(avatar):
+    row = anvil.users.get_user()
+    img = create_circle_cropped_image(avatar)
+    row['avatar'] = img_to_media_obj(img)
+
+
 @anvil.server.callable(require_user=True)
 def update_handle_and_avatar(handle, avatar):
     row = anvil.users.get_user()

@@ -13,6 +13,7 @@ import anvil.media
 from .IntentionalBlankForm import IntentionalBlankForm
 from .PostCard import PostCard
 from .CompleteRegistration import CompleteRegistration
+from .UserAccount import UserAccount
 
 from ..Admin import Admin
 from ..Admin.AdminApps import AdminApps
@@ -57,26 +58,22 @@ class Base(BaseTemplate):
 
     def show_user_links(self, **event_args):
         if user.logged_in:
+            self.link_signinup.text = user.user['handle']
             if user.user['avatar']:
-                self.link_signinup.text = ''
-                self.link_signinup.font_size = 30
-                # if this is expensive, consider a system wherein user avatars are stored in Assets like: username_wer523412e1wdq.png
                 with anvil.media.TempUrl(user.user['avatar']) as file:
                     self.link_signinup.icon = file
-                    return
-            # self.link_signinup.text = user.user['handle']
-            self.link_signinup.text = ''
             return
         self.link_signinup.icon = 'fa:user'
         self.link_signinup.text = "Sign In/Up"
     
     def link_signinup_click(self, **event_args):
-        if user.logged_in:
-            if confirm("Logout?"):
-                self.logout()
-        else:
+        if not user.logged_in:
             anvil.users.login_with_form(allow_cancel=True)
             self.login()
+            return
+        alert(UserAccount())
+        self.show_user_links()
+            
 
     def login(self):
         user.login()
