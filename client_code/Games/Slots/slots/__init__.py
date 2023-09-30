@@ -231,7 +231,7 @@ class Slots(Game):
 
     def get_slots_balance(self):
         if user.user['info']:
-            if user.user['info'].get('slots_balance'):
+            if self.has_played_this_game:
                 return user.user['info']['slots_balance']
         return 100
 
