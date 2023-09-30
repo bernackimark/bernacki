@@ -16,8 +16,9 @@ class CreatePiece(CreatePieceTemplate):
       alert('Please upload an image')
       return
 
-    media_obj = anvil.server.call('image_to_media_obj_w_resize', m.PIECE_HEIGHT, m.PIECE_WIDTH)
-    # img = Image(height=m.PIECE_HEIGHT, width=m.PIECE_WIDTH, source=self.fl_piece.file)
+    '''FileLoader.file is a media object.
+    anvil.image.generate_thumbnail generates an unusably poor pixelated image.'''      
+    media_obj = anvil.server.call('resize_media_obj_image', self.fl_piece.file, m.PIECE_HEIGHT, m.PIECE_WIDTH)
+
     m.create_piece(self.tb_piece_name.text, self.dd_piece_multiplier.selected_value, self.cb_wild.checked, media_obj)
-    # m.create_piece(self.tb_piece_name.text, self.dd_piece_multiplier.selected_value, self.cb_wild.checked, self.fl_piece.file)
     self.raise_event("x-close-alert")

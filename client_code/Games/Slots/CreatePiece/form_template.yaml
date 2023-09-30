@@ -1,19 +1,12 @@
 container: {type: ColumnPanel}
 components:
 - type: ColumnPanel
-  properties: {role: card, col_widths: '{"SMFYDD":40,"QGDGTB":10}'}
+  properties: {role: card, col_widths: '{"NDXPYL":30,"LWCXZM":15,"IAUYGX":15}'}
   name: card_create_pay_line
   layout_properties:
     col_widths: {}
     grid_position: FSLFHO,LSWMAE
   components:
-  - type: Label
-    properties: {role: headline, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Create Your Own Piece, font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
-    name: headline_1
-    layout_properties: {grid_position: 'UGNNDG,UOOMJR'}
   - type: FileLoader
     properties:
       role: null
@@ -26,7 +19,7 @@ components:
       files: []
       foreground: ''
       visible: true
-      text: Upload
+      text: add my own piece
       font_size: null
       font: ''
       spacing_above: small
@@ -105,16 +98,12 @@ components:
       bold: false, checked: false, underline: false}
     name: cb_wild
     layout_properties: {grid_position: 'ODYZTB,LWCXZM'}
-  - type: Spacer
-    properties: {height: 32}
-    name: spacer_1
-    layout_properties: {grid_position: 'JFQZBP,SMFYDD'}
   - type: Button
     properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: save, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: btn_create_piece
-    layout_properties: {grid_position: 'JFQZBP,QGDGTB'}
+    layout_properties: {grid_position: 'ODYZTB,IAUYGX'}
     event_bindings: {click: btn_create_pay_line_click}
 is_package: true

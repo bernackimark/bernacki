@@ -1,10 +1,11 @@
 import anvil.server
 from PIL import Image, ImageDraw
-
+from io import BytesIO
 
 @anvil.server.callable
-def image_to_media_obj_w_resize(media_obj, h=-1, w=-1):
-    img = Image.open(img)
+def resize_media_obj_image(media_obj, h=-1, w=-1):
+    bytes_io = BytesIO(media_obj.get_bytes())
+    img = Image.open(bytes_io)
     img = img.convert("RGBA")
     if h != -1 or w != -1:
         img = img.resize((h, w), Image.LANCZOS)

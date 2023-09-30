@@ -96,6 +96,7 @@ class Reels:
         self.rotation_counts = [random.randint(rotations[i][0], rotations[i][1]) for i in range(self.reel_cnt)]
 
     def spin(self):
+        self.snapshots.clear()
         self.set_rotation_counts()
         for i in range(max(self.rotation_counts)):
             for r in self.reels:
@@ -234,6 +235,11 @@ class Slots(Game):
                 return user.user['info']['slots_balance']
         return 100
 
+    def handle_bet(self, bet_amt: int):
+        self.balance_before_spin = self.slots_balance
+        self.spin_bet = bet_amt
+        self.slots_balance -= self.spin_bet
+
     @property
     def spin_payout(self):
         return sum([pl.winning_multiplier for pl in self.winning_pay_lines])
@@ -241,13 +247,9 @@ class Slots(Game):
     def set_rotation_counts(self):
         self.rotation_counts = [random.randint(ROTATIONS[i][0], ROTATIONS[i][1]) for i in range(REEL_CNT)]
 
-    def spin(self, spin_bet: int):
-        self.balance_before_spin = self.slots_balance  # does this actually copy it at that point?
-        self.spin_bet = spin_bet
-        self.slots_balance -= self.spin_bet
-
-        # spin the reels
+    def spin(self):
         slots.state = 'spinning'
+        # do i need to disable the UI buttons?
         self.reels.spin()
 
     def check_for_winners(self):
@@ -266,8 +268,14 @@ class Slots(Game):
     def end_round(self):
         self.state = 'game_over'
         self.send_end_game_data_to_parent()
-        self.update_player_info({'slots_balance': self.slots_balance})
-        self.write_game_to_db()
+
+        # the two server calls improve readability but anvil is just too slow to bear this cost
+        print(f'a {datetime.now()}')
+        # self.update_player_info({'slots_balance': self.slots_balance})
+        print(f'b {datetime.now()}')
+        # self.write_game_to_db()
+        self.write_game_data_and_player_info_to_db(player_info={'slots_balance': self.slots_balance})
+        print(f'c {datetime.now()}')
   
 
 def create_default_shapes() -> list[Shape]:
@@ -295,9 +303,10 @@ def create_piece(text: str, mult: int = 1, wild: bool = False, media_obj = '') -
 
 
 def add_piece_to_reels(piece):
-    for reel in slots.reels.reels:
-        i = random.randint(1, len(reel.pieces))
-        reel.pieces.insert(i, piece)
+    for _ in range(10):
+        for reel in slots.reels.reels:
+            i = random.randint(1, len(reel.pieces))
+            reel.pieces.insert(i, piece)
 
 
 def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:

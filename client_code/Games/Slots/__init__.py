@@ -19,7 +19,7 @@ class Slots(SlotsTemplate):
         self.lbl_bet_amt.text = 1
         self.lbl_balance.text = m.slots.slots_balance
         self.reels = [[None for piece in row] for row in m.slots.reels.transposed_visible_reels]
-        self.populate_gp_reels()
+        self.populate_ui_reels()
         self.display_reels(m.slots.reels.transposed_visible_reels)
     
     def initial_setup(self) -> None:
@@ -34,9 +34,10 @@ class Slots(SlotsTemplate):
         self.lbl_bet_amt.text += 1
     
     def btn_spin_click(self, **event_args):
-        print(m.slots.slots_balance)
-        
-        m.slots.spin(self.lbl_bet_amt.text)
+        print(f'Pre-spin balance: {m.slots.slots_balance}')
+        m.slots.handle_bet(self.lbl_bet_amt.text)
+        m.slots.spin()
+
         for snapshot in m.slots.reels.snapshots:
             transposed_snapshot = m.slots.reels.transposed_visible_snapshot(snapshot)
             self.display_reels(transposed_snapshot)
@@ -44,12 +45,17 @@ class Slots(SlotsTemplate):
             '''Sleep is required else the browser won't show any changes'''
 
         m.slots.check_for_winners()
+        print(f'Payout Summary: {m.slots.payout_summary.line_text_w_new_line}')
 
-        print(m.slots.slots_balance)
+        print(f'Post-spin balance: {m.slots.slots_balance}')
+
         # self.display_payout()  # needs to be defined
+        self.lbl_balance.text = m.slots.slots_balance
+        
         m.slots.end_round()
+        print('I have ended the round')
 
-    def populate_gp_reels(self):
+    def populate_ui_reels(self):
         for r_idx, row in enumerate(self.reels):
             for c_idx, piece in enumerate(row):
                 img = Image(align='center', height=m.PIECE_HEIGHT, width=m.PIECE_WIDTH)

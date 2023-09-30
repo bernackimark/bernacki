@@ -23,5 +23,9 @@ class Game:
         self.game_end_ts = datetime.utcnow()
         anvil.server.call('write_game_data', self.parent_class_dict)
 
+    def write_game_data_and_player_info_to_db(self, player_info):
+        self.game_end_ts = datetime.utcnow()
+        anvil.server.call('write_game_data_and_player_info', self.parent_class_dict, player_info)
+
     def update_player_info(self, d: dict):
         anvil.server.call('update_player_info', self.player_email, d)
