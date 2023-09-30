@@ -85,9 +85,7 @@ runtime_options:
   server_spec: {base: python310-standard}
 metadata: {logo_img: 'asset:bernacki_logo-logo.png'}
 startup_form: Cribbage
-native_deps: {head_html: '<script defer src="/your-path-to-fontawesome/js/solid.js"></script>
-
-    <script defer src="/your-path-to-fontawesome/js/fontawesome.js"></script>'}
+native_deps: {head_html: ''}
 db_schema:
   bets_bets:
     client: none

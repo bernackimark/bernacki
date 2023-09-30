@@ -221,7 +221,6 @@ class Slots(Game):
 
     @property
     def game_data_dict(self) -> dict:
-        slots.game_end_ts = datetime.utcnow()
         return {'starting_bal': self.balance_before_spin, 'spin_bet': self.spin_bet,
                 # 'ending_reels': self.reels_pieces_desc,
                 'payout': self.spin_payout, 'ending_bal': slots.slots_balance}
@@ -266,10 +265,10 @@ class Slots(Game):
         self.state = 'game_over'
         self.send_end_game_data_to_parent()
         print(f'a {datetime.now()}')
-        # self.update_player_info({'slots_balance': self.slots_balance})
 
-        # where is the the slots_balance being stored?
-        self.write_game_data_and_player_info_to_db(self.game_data, self.player_game_info)
+        
+        self.write_game_to_db(self.game_data)
+
         
         print(f'b {datetime.now()}')
   

@@ -26,13 +26,13 @@ class App:
     is_prod: bool = False
     security: str = SecurityLevels.ADMIN.value
     id: str = str(uuid.uuid4())
-    created_ts: str = datetime.now().isoformat()
+    created_ts: str = datetime.utcnow().isoformat()
     history: list = field(default_factory=list)
 
     @property
     def history_record(self):
         return {'name': self.name, 'title': self.title, 'group': self.group, 'icon_str': self.icon_str,
-                'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow()}
+                'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow().isoformat}
 
 
 @dataclass
