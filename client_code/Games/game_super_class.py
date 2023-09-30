@@ -16,19 +16,16 @@ class Game:
         self.game_data = {}  # this is an empty dict which will get populated by the child game
 
     @property
-    # this could be useful to see if we want to display some intstructions
+    # this could be useful to see if we want to display some instructions
     def has_played_this_game(self) -> bool:
         if self.user_info and [1 for game_dict in self.user_info if self.game_name in game_dict.keys()]:
             return True
         return False
 
-    def get_player_game_info(self):
+    def get_player_game_info(self) -> dict:
         if not self.has_played_this_game:
-
-            # the app should have a default dict !!!!
-            return ['slots', {'balance': 100}]
-            
-        return [g for g in self.user_info if g[0] == self.game_name][0]
+            return [a['default_info'] for a in user.my_apps if a['name'] == self.game_name][0]      
+        return [v for game_dict in self.user_info for k, v in game_dict.items() if k == self.game_name][0]
         
     
     @property

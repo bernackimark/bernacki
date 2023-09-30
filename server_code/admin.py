@@ -23,6 +23,7 @@ class App:
     group: str
     icon_str: str
     created_by: str
+    default_info: dict = field(default_factory=dict)
     is_prod: bool = False
     security: str = SecurityLevels.ADMIN.value
     id: str = str(uuid.uuid4())
@@ -32,6 +33,7 @@ class App:
     @property
     def history_record(self):
         return {'name': self.name, 'title': self.title, 'group': self.group, 'icon_str': self.icon_str,
+                'default_info': self.default_info,
                 'is_prod': self.is_prod, 'security': self.security, 'history_date': datetime.utcnow().isoformat}
 
 
@@ -82,25 +84,6 @@ def update_app(app_name, key, value):
     app['history'].append(app_snapshot)
     row['value'] = list_of_dicts
     print(f'Updated app: {app_name}')
-
-
-
-
-@anvil.server.callable(require_user=lambda u: u['is_admin'])
-def update_app_test(app_name, key, value):
-    row = app_tables.parms.get(what='test_list')
-    list_of_dicts = [_ for _ in row['value']]
-    app = [app for app in list_of_dicts if app['name'] == app_name][0]
-    app_snapshot = App(**app).history_record
-    app[key] = value
-    app['history'].append(app_snapshot)
-    row['value'] = list_of_dicts
-    print(f'Updated app: {app_name}')
-
-
-
-
-
 
 
 @anvil.server.callable

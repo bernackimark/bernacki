@@ -33,6 +33,8 @@ def write_game_data(d: dict):
 def update_player_info(app_name: str, d: dict):  # does accepting a user here avoid another look-up?
     user_row = anvil.users.get_user()
     
+    print(app_name, d)
+    
     # brand new user
     if not user_row['info']:
         user_row['info'] = {app_name: d}
@@ -41,7 +43,9 @@ def update_player_info(app_name: str, d: dict):  # does accepting a user here av
     game_dict = [d.get(app_name) for d in user_row['info'] if d.get(app_name)]
     # user hasn't played game before
     if not game_dict:
-        user_row['info'].append({app_name: d})
+        new_info = user_row['info']
+        new_info.append({app_name: d})
+        user_row['info'] = new_info
         return
 
     # user has played game before

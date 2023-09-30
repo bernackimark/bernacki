@@ -45,18 +45,16 @@ default_pieces = [
     Piece('*E*', img='_/theme/slots/orange.png'), Piece('*F*', img='_/theme/slots/watermelon.png'),
     Piece('*G*', mult=2, img='_/theme/slots/coin.png'), Piece('***', mult=1, wild=True, img='_/theme/slots/diamond.png'),
     Piece('*H*', img='_/theme/slots/bar.png'), Piece('*I*', img='_/theme/slots/grapes.png'),
+    Piece('*J*', img='_/theme/slots/heart.png'), Piece('*K*', img='_/theme/slots/horsehoe.png'),
 ]
 
 
 class Reel:
-    def __init__(self, pos: int, random_offset: int, window_height: int = 5, reel_len: int = 100,
+    def __init__(self, pos: int, random_offset: int, window_height: int = 5, reel_len: int = 120,
                  available_pieces: list[Piece] = default_pieces):
         self.pos = pos
         self.window_height = window_height
-
-        piece_in_cycle = cycle(available_pieces)
-        self.pieces: list[Piece] = [next(piece_in_cycle) for _ in range(reel_len + 1)]
-
+        self.pieces: list[Piece] = [random.choice(available_pieces) for _ in range(reel_len + 1)]
         Reel.rotate(self, random_offset)
 
     @property
@@ -92,7 +90,7 @@ class Reels:
         return iter(self.reels)
 
     def set_rotation_counts(self):
-        rotations: list[tuple[int, int]] = [(i * 100 + 1, i * 100 + 100) for i in range(1, self.reel_cnt + 1)]
+        rotations: list[tuple[int, int]] = [(i * 50 + 10, i * 50 + 50) for i in range(1, self.reel_cnt + 1)]
         self.rotation_counts = [random.randint(rotations[i][0], rotations[i][1]) for i in range(self.reel_cnt)]
 
     def spin(self):
@@ -229,7 +227,7 @@ class Slots(Game):
         self.game_data = self.game_data_dict
 
     def get_slots_balance(self):
-        return self.get_player_game_info()[1].get('slots_balance')
+        return self.get_player_game_info().get('balance')
 
     def handle_bet(self, bet_amt: int):
         self.balance_before_spin = self.slots_balance
@@ -263,14 +261,8 @@ class Slots(Game):
 
     def end_round(self):
         self.state = 'game_over'
-        self.send_end_game_data_to_parent()
-        print(f'a {datetime.now()}')
-
-        
-        self.write_game_to_db(self.game_data)
-
-        
-        print(f'b {datetime.now()}')
+        self.send_end_game_data_to_parent()  
+        self.write_game_to_db()
   
 
 def create_default_shapes() -> list[Shape]:
@@ -298,8 +290,11 @@ def create_piece(text: str, mult: int = 1, wild: bool = False, media_obj = '') -
 
 
 def add_piece_to_reels(piece):
-    for _ in range(10):
+    '''Remove X (currently hard-coded) random pieces; insert user piece at random positions on each reel.
+    This is currently not saved beyond this game session.'''
+    for _ in range(8):
         for reel in slots.reels.reels:
+            reel.pieces.pop()
             i = random.randint(1, len(reel.pieces))
             reel.pieces.insert(i, piece)
 
