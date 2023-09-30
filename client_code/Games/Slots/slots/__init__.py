@@ -287,20 +287,17 @@ def create_default_paylines() -> list[PayLine]:
 
 # --- customizations that users can make ---
 
-def create_piece(text: str, mult: int = 1, wild: bool = False, img: str = '') -> Piece:
-    img_str = anvil.
-    piece = Piece(text, mult, wild, img)
+def create_piece(text: str, mult: int = 1, wild: bool = False, media_obj = '') -> Piece:
+    '''this gives the media object a temp URL, likening it to the location of an asset'''
+    temp_url = anvil.media.TempUrl(media_obj).url
+    piece = Piece(text, mult, wild, temp_url)
     add_piece_to_reels(piece)
 
 
 def add_piece_to_reels(piece):
     for reel in slots.reels.reels:
-        reel.pieces.append(piece)
-    for p in slots.reels.reels[0].pieces:
-        print(p)
-
-
-
+        i = random.randint(1, len(reel.pieces))
+        reel.pieces.insert(i, piece)
 
 
 def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:

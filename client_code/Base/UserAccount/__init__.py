@@ -1,5 +1,6 @@
 from ._anvil_designer import UserAccountTemplate
 from anvil import *
+import anvil.server
 
 from ...user import user
 

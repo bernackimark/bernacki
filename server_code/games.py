@@ -41,4 +41,3 @@ def update_player_info(user_email: str, d: dict):
         user_row['info'] = user_row_info
     else:  # user_row['info'] is blank
         user_row['info'] = d
-

@@ -1,3 +1,4 @@
+import anvil.server
 # anvil requires dropdown items to be either a list of strings or tuples.  if tuples, it needs ('label', value)
 def convert_list_of_ints_to_tuples_for_dd(list_of_int: list[int]) -> list[tuple]:
   return [(str(i), i) for i in list_of_int]
