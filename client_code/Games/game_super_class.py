@@ -11,12 +11,24 @@ class Game:
         self.game_start_ts = datetime.utcnow()
         self.game_end_ts = None
         self.player_email = user.user['email']
-        self.player_info = user.user['info']
+        self.user_info = user.user.get('info')
+        self.player_game_info = self.get_player_game_info()
         self.game_data = {}  # this is an empty dict which will get populated by the child game
 
     @property
+    # this could be useful to see if we want to display some intstructions
     def has_played_this_game(self) -> bool:
-        return True if [1 for d in self.player_info if d.get(self.game_name)] else False
+        if self.user_info and [g for g in self.user_info if g[0] == self.game_name]:
+            return True
+        return False
+
+    def get_player_game_info(self):
+        if not self.has_played_this_game:
+            
+            return ['slots', {'slots_balance': 100}]
+            
+        return [g for g in self.user_info if g[0] == self.game_name][0]
+        
     
     @property
     def parent_class_dict(self) -> dict:
@@ -29,7 +41,10 @@ class Game:
 
     def write_game_data_and_player_info_to_db(self, player_info=None):
         self.game_end_ts = datetime.utcnow()
-        anvil.server.call('write_game_data_and_player_info', self.parent_class_dict, player_info)
+        anvil.server.call('write_game_data_and_player_info',
+                          game_data=self.parent_class_dict, player_info=self.player_game_info)
+        # am i updating the slots balance anywhere here ?!?!?!
+        # am i just passing around way too much data for no reason ?!?!?!
 
     def update_player_info(self, d: dict):
         anvil.server.call('update_player_info', self.game_name, d)

@@ -230,10 +230,7 @@ class Slots(Game):
         self.game_data = self.game_data_dict
 
     def get_slots_balance(self):
-        if user.user['info']:
-            if self.has_played_this_game:
-                return user.user['info']['slots_balance']
-        return 100
+        return self.get_player_game_info()[1].get('slots_balance')
 
     def handle_bet(self, bet_amt: int):
         self.balance_before_spin = self.slots_balance
@@ -268,14 +265,13 @@ class Slots(Game):
     def end_round(self):
         self.state = 'game_over'
         self.send_end_game_data_to_parent()
-
-        # the two server calls improve readability but anvil is just too slow to bear this cost
         print(f'a {datetime.now()}')
         # self.update_player_info({'slots_balance': self.slots_balance})
+
+        # where is the the slots_balance being stored?
+        self.write_game_data_and_player_info_to_db(self.game_data, self.player_game_info)
+        
         print(f'b {datetime.now()}')
-        # self.write_game_to_db()
-        self.write_game_data_and_player_info_to_db(player_info={'slots_balance': self.slots_balance})
-        print(f'c {datetime.now()}')
   
 
 def create_default_shapes() -> list[Shape]:

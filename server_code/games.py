@@ -31,10 +31,11 @@ def write_game_data(d: dict, updated_player_data: dict = {}):
 
 
 @anvil.server.callable
-def write_game_data_and_player_info(d: dict, updated_player_data: dict = {}):
-    game_class = GamesLog(**d)
-    record = game_class.as_dict()
-    app_tables.games_log.add_row(**record)
+def write_game_data_and_player_info(*, game_data: dict = {}, updated_player_data: dict = {}):
+    if game_data:
+        game_class = GamesLog(**game_data)
+        record = game_class.as_dict()
+        app_tables.games_log.add_row(**record)
 
     if updated_player_data:
         update_player_info(d['game_name'], updated_player_data)
