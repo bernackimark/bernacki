@@ -15,7 +15,30 @@ components:
     name: headline_1
     layout_properties: {grid_position: 'UGNNDG,UOOMJR'}
   - type: FileLoader
-    properties: {}
+    properties:
+      role: null
+      show_state: true
+      align: center
+      tooltip: ''
+      border: ''
+      file_types: .png,.jpg,.jpeg
+      enabled: true
+      files: []
+      foreground: ''
+      visible: true
+      text: Upload
+      font_size: null
+      font: ''
+      spacing_above: small
+      icon_align: left
+      spacing_below: small
+      italic: false
+      file: null
+      background: ''
+      bold: false
+      underline: false
+      multiple: true
+      icon: fa:upload
     name: fl_piece
     layout_properties: {grid_position: 'BNXRHS,UJUIPS'}
     event_bindings: {change: fl_piece_change}

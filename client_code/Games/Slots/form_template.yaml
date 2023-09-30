@@ -43,31 +43,32 @@ components:
     properties: {height: 18}
     name: spacer_1
     layout_properties: {grid_position: 'INESKR,OGSDQC'}
+  - type: Button
+    properties: {role: null, align: center, tooltip: '', border: '', enabled: true,
+      foreground: '', visible: true, text: Increase Bet, font_size: null, font: '',
+      spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+      background: 'theme:Secondary 500', bold: false, underline: false, icon: ''}
+    name: btn_increase_bet
+    layout_properties: {grid_position: 'AQMXMI,OJJNHB', row_background: ''}
+    event_bindings: {click: btn_increase_bet_click}
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',
-      visible: true, text: Bet Amt, font_size: null, font: '', spacing_above: large,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: ''}
-    name: label_1
-    layout_properties: {grid_position: 'AQMXMI,XMRSMW'}
-  - type: TextBox
-    properties: {role: null, align: left, hide_text: false, tooltip: '', placeholder: '',
-      border: '', enabled: true, foreground: '', visible: true, text: '', font_size: null,
-      font: '', spacing_above: small, type: number, spacing_below: small, italic: false,
-      background: '', bold: false, underline: false}
-    name: tb_bet_amt
-    layout_properties: {grid_position: 'AQMXMI,KOMFLF'}
-    event_bindings: {change: tb_bet_amt_change}
+      visible: true, text: '', font_size: 24, font: '', spacing_above: medium, icon_align: left,
+      spacing_below: none, italic: false, background: '', bold: false, underline: false,
+      icon: ''}
+    name: lbl_bet_amt
+    layout_properties: {grid_position: 'AQMXMI,BUESMZ', row_background: ''}
   - type: Button
     properties: {role: primary-color, align: center, tooltip: '', border: '', enabled: true,
       foreground: '', visible: true, text: spin, font_size: null, font: '', spacing_above: small,
       icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
       underline: false, icon: ''}
     name: btn_spin
-    layout_properties: {grid_position: 'AQMXMI,WRHHTR'}
+    layout_properties: {grid_position: 'AQMXMI,WRHHTR', row_background: ''}
     event_bindings: {click: btn_spin_click}
 - type: GridPanel
-  properties: {}
+  properties: {spacing_above: small, spacing_below: small, background: '', foreground: '',
+    border: '', visible: true, role: null, tooltip: ''}
   name: gp_reels
-  layout_properties: {grid_position: 'WFNGVI,KIZNSW'}
+  layout_properties: {grid_position: 'WFNGVI,KIZNSW', row_background: 'theme:White'}
 is_package: true

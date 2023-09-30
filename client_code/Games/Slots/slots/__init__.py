@@ -1,10 +1,10 @@
-import anvil.facebook.auth
 import anvil.server
 import random
 from datetime import datetime
 import time
 from itertools import cycle
 from copy import deepcopy
+import anvil.media
 
 # from ... import game_super_class as gsc
 from ... game_super_class import Game
@@ -16,6 +16,7 @@ REEL_WINDOW_HEIGHT = 5
 ROTATIONS: list[tuple] = [(i * 100 + 1, i * 100 + 100) for i in range(1, REEL_CNT + 1)]
 MIN_SAME_LINE_MATCH = 3
 MAX_BET = 5
+PIECE_HEIGHT = PIECE_WIDTH = 65
 
 
 class Piece:
@@ -31,7 +32,7 @@ class Piece:
         Piece.piece_id += 1
 
     def __repr__(self):
-        return self.text
+        return f'{self.id} {self.text} {self.multiplier} {self.is_wild} {self.img}'
 
     @property
     def description(self):
@@ -39,9 +40,11 @@ class Piece:
 
 
 default_pieces = [
-    Piece('*A*'), Piece('*B*'), Piece('*C*'), Piece('*D*'),
-    Piece('*E*'), Piece('*F*'), Piece('*G*', 2), Piece('***', 1, True),
-    Piece('*H*'), Piece('*I*'),
+    Piece('*A*', img='_/theme/slots/cherry.png'), Piece('*B*', img='_/theme/slots/clover.png'),
+    Piece('*C*', img='_/theme/slots/grape.png'), Piece('*D*', img='_/theme/slots/lemon.png'),
+    Piece('*E*', img='_/theme/slots/orange.png'), Piece('*F*', img='_/theme/slots/watermelon.png'),
+    Piece('*G*', mult=2, img='_/theme/slots/coin.png'), Piece('***', mult=1, wild=True, img='_/theme/slots/diamond.png'),
+    Piece('*H*', img='_/theme/slots/bar.png'), Piece('*I*', img='_/theme/slots/grapes.png'),
 ]
 
 
@@ -74,7 +77,6 @@ class Reel:
 
     def __repr__(self) -> str:
         return f'{self.visible_rows}'
-
 
 class Reels:
     def __init__(self, reel_cnt: int = 5):
@@ -200,6 +202,7 @@ class Slots(Game):
         self.state = 'betting'
         self.slots_balance = self.get_slots_balance()
         self.min_same_line_match = MIN_SAME_LINE_MATCH
+        self.min_bet = 1
         self.max_bet = MAX_BET
         self.game_shapes: list[Shape] = default_shapes
         self.pay_lines: list[PayLine] = create_default_paylines()
@@ -226,8 +229,9 @@ class Slots(Game):
         self.game_data = self.game_data_dict
 
     def get_slots_balance(self):
-        if user.user['info'].get('slots_balance'):
-            return user.user['info']['slots_balance']
+        if user.user['info']:
+            if user.user['info'].get('slots_balance'):
+                return user.user['info']['slots_balance']
         return 100
 
     @property
@@ -284,12 +288,19 @@ def create_default_paylines() -> list[PayLine]:
 # --- customizations that users can make ---
 
 def create_piece(text: str, mult: int = 1, wild: bool = False, img: str = '') -> Piece:
+    img_str = anvil.
     piece = Piece(text, mult, wild, img)
-    return piece
+    add_piece_to_reels(piece)
 
 
 def add_piece_to_reels(piece):
-    raise NotImplementedError
+    for reel in slots.reels.reels:
+        reel.pieces.append(piece)
+    for p in slots.reels.reels[0].pieces:
+        print(p)
+
+
+
 
 
 def create_game_shape(name: str, y_offsets: list[int], multiplier: int = 3) -> Shape:

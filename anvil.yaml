@@ -377,12 +377,12 @@ db_schema:
     - name: game_end_ts
       admin_ui: {width: 50}
       type: datetime
-    - name: player_emails
-      admin_ui: {width: 200}
-      type: simpleObject
     - name: game_data
       admin_ui: {width: 1006}
       type: simpleObject
+    - name: player_email
+      admin_ui: {order: 3.5, width: 200}
+      type: string
   dg_events:
     title: dg_events
     client: full
